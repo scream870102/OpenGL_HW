@@ -19,11 +19,11 @@
     <Filter Include="原始程式檔\Shader">
       <UniqueIdentifier>{c0f375a0-d333-4a53-b814-87fb1e9c0a36}</UniqueIdentifier>
     </Filter>
-    <Filter Include="191030_hw">
-      <UniqueIdentifier>{0df0b143-2414-4e81-8c6f-a2fa3c4bf050}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{931f1a7c-4769-43d1-8042-293de4e34611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Midtern">
+      <UniqueIdentifier>{455ee2ec-16b1-49a1-9ec9-d2f010cf7daa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,14 +45,17 @@
     <ClCompile Include="Common\CQuadEX2B.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="191030_HW\Player.cpp">
-      <Filter>191030_hw</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\Input.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="191030_HW\191030_hw.cpp">
-      <Filter>191030_hw</Filter>
+    <ClCompile Include="Utils\Transform.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Main.cpp">
+      <Filter>Midtern</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Player.cpp">
+      <Filter>Midtern</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,11 +83,14 @@
     <ClInclude Include="Common\CQuadEX2B.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="191030_HW\Player.h">
-      <Filter>191030_hw</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\Input.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Transform.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Player.h">
+      <Filter>Midtern</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

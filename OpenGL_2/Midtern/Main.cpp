@@ -4,7 +4,7 @@
 // Rotate Rectangle
 
 #include "../Header/Angel.h"
-#include "../191030_HW/Player.h"
+#include "Player.h"
 #include "../Utils/Input.h"
 
 //For move
@@ -63,7 +63,7 @@ void init(void) {
 	//  產生 projection 矩陣，此處為產生正投影矩陣
 	matProjection = Ortho(-225.0f, 225.0f, -400.0f, 400.0f, -2.0f, 2.0f);
 	pPlayer->SetShader(matModelView, matProjection);
-	
+
 	glClearColor(0.0, 0.0, 0.0, 1.0); // black background
 }
 
@@ -87,35 +87,13 @@ void UpdateTransform(float delta) {
 
 
 void AutoScaling(float delta) {
-	degree += SCL_SPEED *delta;
+	degree += SCL_SPEED * delta;
 	if (degree >= 360.0f)degree = 0.0f;
-	float range= abs(SCL_RANGE * cosf(degree * M_PI / 180.0));
+	float range = abs(SCL_RANGE * cosf(degree * M_PI / 180.0));
 	scale.x = 1 + range;
 	scale.y = 1 + range;
 	UpdateTRS();
 }
-
-//void Update(float delta) {
-//	if (input.GetKey(KeyCode::w))position.y += POS_VEL * delta;
-//	if (input.GetKey(KeyCode::s)) { printf_s("AAA"); position.y -= POS_VEL * delta; }
-//	if (input.GetKey(KeyCode::a))position.x -= POS_VEL * delta;
-//	if (input.GetKey(KeyCode::d))position.x += POS_VEL * delta;
-//	if (input.GetKey(KeyCode::q))rotation.z += ROT_VEL * delta;
-//	if (input.GetKey(KeyCode::e))rotation.z -= ROT_VEL * delta;
-//	if (input.GetKey(KeyCode::j)) {
-//		scale.x += SCL_VEL * delta;
-//		scale.y += SCL_VEL * delta;
-//	}
-//	if (input.GetKey(KeyCode::k)) {
-//		scale.x -= SCL_VEL * delta;
-//		scale.y -= SCL_VEL * delta;
-//	}
-//	mat4 trsMat;
-//	trsMat = Translate(position);
-//	trsMat *= RotateZ(rotation.z);
-//	trsMat *= Scale(scale);
-//	pPlayer->SetTRSMatrix(trsMat);
-//}
 
 void GL_Display(void) {
 	glClear(GL_COLOR_BUFFER_BIT); // clear the window
