@@ -4,196 +4,44 @@
 // Rotate Rectangle
 
 #include "../Header/Angel.h"
-#include "../Utils/Input.h"
 #include "MainScene.h"
-//For move
-#define W_KEY 119
-#define A_KEY 97
-#define S_KEY 115
-#define D_KEY 100
-//For rotation
-#define Q_KEY 113
-#define E_KEY 101
-//For Scale
-#define J_KEY 106
-#define K_KEY 107
-//Function Key
+
 #define ESC_KEY 33
-#define SPACE_KEY 32
-#define R_KEY 72
 
-
-// 必須在 glewInit(); 執行完後,在執行物件實體的取得
-//Player* pPlayer;	// 宣告 Quad 指標物件，結束時記得釋放
-//vec3 position;
-//vec3 rotation;
-//vec3 scale;
-//vec3 nPos;
-//vec3 nRot;
-//vec3 nScl;
-//Input input = Input();
-//const float POS_VEL = 10000.0f;
-//const float ROT_VEL = 1500.0f;
-//const float SCL_VEL = 100.0f;
-
-//For automatically scaling
-//const float SCL_RANGE = 3.0f;
-//const float SCL_SPEED = 500.0f;
-//float degree = 0.0f;
-//bool bScaling = false;
-
-// For Model View and Projection Matrix
-//mat4 matModelView(1.0f);
-//mat4 matProjection;
-
-//bool bUpdateTRS = false;
-//Test
-MainScene* scene;
+MainScene* mainScene;
 //----------------------------------------------------------------------------
 // 函式的原型宣告
 void IdleProcess();
 
 void init(void) {
-	// 必須在 glewInit(); 執行完後,在執行物件實體的取得
-	scene = new MainScene();
-	//pPlayer = new Player();
-	//position = vec3();
-	//rotation = vec3();
-	//scale = vec3(1.0f);
-
-	////  產生 projection 矩陣，此處為產生正投影矩陣
-	//matProjection = Ortho(-225.0f, 225.0f, -400.0f, 400.0f, -2.0f, 2.0f);
-	//pPlayer->SetShader(matModelView, matProjection);
-
+	mainScene = new MainScene();
 	glClearColor(0.0, 0.0, 0.0, 1.0); // black background
 }
 
-//----------------------------------------------------------------------------
-
-//void UpdateTRS() {
-//	mat4 trsMat;
-//	trsMat = Translate(position);
-//	trsMat *= RotateZ(rotation.z);
-//	trsMat *= Scale(scale);
-//	pPlayer->SetTRSMatrix(trsMat);
-//}
-
-//void UpdateTransform(float delta) {
-//	position += nPos * delta;
-//	rotation += nRot * delta;
-//	scale += nScl * delta;
-//	bUpdateTRS = false;
-//	UpdateTRS();
-//}
-
-
-//void AutoScaling(float delta) {
-//	degree += SCL_SPEED * delta;
-//	if (degree >= 360.0f)degree = 0.0f;
-//	float range = abs(SCL_RANGE * cosf(degree * M_PI / 180.0));
-//	scale.x = 1 + range;
-//	scale.y = 1 + range;
-//	UpdateTRS();
-//}
-
 void GL_Display(void) {
 	glClear(GL_COLOR_BUFFER_BIT); // clear the window
-	//pPlayer->Draw();
-	scene->Draw();
+	mainScene->Draw();
 	glutSwapBuffers();	// 交換 Frame Buffer
 }
 
 void onFrameMove(float delta) {
-	//if (bScaling)AutoScaling(delta);
-	//if (bUpdateTRS)UpdateTransform(delta);
-	scene->Update(delta);
+	mainScene->Update(delta);
 	GL_Display();
 }
 
-//----------------------------------------------------------------------------
-void reset() {
-	//bUpdateTRS = false;
-	//position = vec3();
-	//rotation = vec3();
-	//scale = vec3(1.0f);
-}
-//----------------------------------------------------------------------------
 
 void Win_Keyboard(unsigned char key, int x, int y) {
-	scene->OnWinKeyboard(key, x, y);
-	//nPos = vec3();
-	//nRot = vec3();
-	//nScl = vec3();
-	//switch (key) {
-	//case W_KEY:
-	//	nPos.y += POS_VEL;
-	//	bUpdateTRS = true;
-	//	break;
-	//case S_KEY:
-	//	nPos.y -= POS_VEL;
-	//	bUpdateTRS = true;
-	//	break;
-	//case A_KEY:
-	//	nPos.x -= POS_VEL;
-	//	bUpdateTRS = true;
-	//	break;
-	//case D_KEY:
-	//	nPos.x += POS_VEL;
-	//	bUpdateTRS = true;
-	//	break;
-	//case Q_KEY:
-	//	nRot.z += ROT_VEL;
-	//	bUpdateTRS = true;
-	//	break;
-	//case E_KEY:
-	//	nRot.z -= ROT_VEL;
-	//	bUpdateTRS = true;
-	//	break;
-	//case J_KEY:
-	//	nScl.x += SCL_VEL;
-	//	nScl.y += SCL_VEL;
-	//	bUpdateTRS = true;
-	//	break;
-	//case K_KEY:
-	//	nScl.x -= SCL_VEL;
-	//	nScl.y -= SCL_VEL;
-	//	bUpdateTRS = true;
-	//	break;
-	//case R_KEY:
-	//	reset();
-	//	break;
-	//case ESC_KEY:
-	//	delete pPlayer;
-	//	exit(EXIT_SUCCESS);
-	//	break;
-	//case SPACE_KEY:
-	//	bScaling = !bScaling;
-	//	break;
-	//}
+	mainScene->OnWinKeyboard(key, x, y);
+	if (key == ESC_KEY)
+		exit(EXIT_SUCCESS);
 }
 //----------------------------------------------------------------------------
 void Win_Mouse(int button, int state, int x, int y) {
-	switch (button) {
-	case GLUT_LEFT_BUTTON:   // 目前按下的是滑鼠左鍵
-		break;
-	case GLUT_MIDDLE_BUTTON:  // 目前按下的是滑鼠中鍵 ，換成 Y 軸
-		break;
-	case GLUT_RIGHT_BUTTON:   // 目前按下的是滑鼠右鍵
-		break;
-	default:
-		break;
-	}
+	mainScene->OnWinMouse(button, state, x, y);
 }
 //----------------------------------------------------------------------------
 void Win_SpecialKeyboard(int key, int x, int y) {
-	switch (key) {
-	case GLUT_KEY_LEFT:		// 目前按下的是向左方向鍵
-		break;
-	case GLUT_KEY_RIGHT:	// 目前按下的是向右方向鍵
-		break;
-	default:
-		break;
-	}
+	mainScene->OnWinSpecialKeyboard(key, x, y);
 }
 //----------------------------------------------------------------------------
 void GL_Reshape(GLsizei w, GLsizei h) {

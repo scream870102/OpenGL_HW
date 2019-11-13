@@ -1,8 +1,4 @@
 ﻿  Main.cpp
   MainScene.cpp
-  Player.cpp
-  Transform.cpp
-D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Utils\Transform.cpp(103,20): warning C4018: '<': signed/unsigned 不相符
   正在產生程式碼...
-D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Utils\Transform.cpp(115,20): warning C4018: '<': signed/unsigned 不相符
   OpenGL_2.vcxproj -> D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\Debug\OpenGL_2.exe
