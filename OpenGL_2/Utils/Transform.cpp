@@ -19,7 +19,7 @@ Transform::Transform() {
 	_projection = 0;
 	_vao = 0;
 	_vbo = 0;
-	bUpdateMV = false;
+	//bUpdateMV = false;
 	bUpdateProj = false;
 }
 
@@ -50,6 +50,16 @@ void Transform::CreateBufferObject() {
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) * points.size(), sizeof(colors) * colors.size(), &colors[0]);
 }
 
+void Transform::UpdateTRS()
+{
+	mat4 trsMat;
+	trsMat = Translate(position);
+	trsMat *= RotateZ(rotation.z);
+	trsMat *= Scale(scale);
+	_matTRS = trsMat;
+	//this->SetTRSMatrix(trsMat);
+}
+
 void Transform::SetShader(mat4& mxView, mat4& mxProjection, GLuint uiShaderHandle) {
 	// Load shaders and use the resulting shader program
 	if (uiShaderHandle == MAX_UNSIGNED_INT) _program = InitShader("vsVtxColor.glsl", "fsVtxColor.glsl");
@@ -76,7 +86,7 @@ void Transform::SetShader(mat4& mxView, mat4& mxProjection, GLuint uiShaderHandl
 
 void Transform::SetViewMatrix(mat4& mat) {
 	_matView = mat;
-	bUpdateMV = true;
+	//bUpdateMV = true;
 }
 
 void Transform::SetProjectionMatrix(mat4& mat) {
@@ -84,10 +94,10 @@ void Transform::SetProjectionMatrix(mat4& mat) {
 	bUpdateProj = true;
 }
 
-void Transform::SetTRSMatrix(mat4& mat) {
-	_matTRS = mat;
-	bUpdateMV = true;
-}
+//void Transform::SetTRSMatrix(mat4& mat) {
+//	_matTRS = mat;
+//	//bUpdateMV = true;
+//}
 
 void Transform::SetColor(GLfloat vColor[4]) {
 	for (int i = 0; i < colors.size(); i++) {
@@ -115,10 +125,11 @@ void Transform::SetColor(color4 vColor)
 void Transform::Draw() {
 	glUseProgram(_vbo);
 	glBindVertexArray(_vao);
-	if (bUpdateMV) {
-		_matMVFinal = _matView * _matTRS;
-		bUpdateMV = false;
-	}
+	//if (bUpdateMV) {
+	UpdateTRS();
+	_matMVFinal = _matView * _matTRS;
+	//bUpdateMV = false;
+	//}
 	glUniformMatrix4fv(_modelView, 1, GL_TRUE, _matMVFinal);
 
 	if (bUpdateProj) {
@@ -131,10 +142,10 @@ void Transform::Draw() {
 void Transform::DrawW() {
 	glBindVertexArray(_vao);
 
-	if (bUpdateMV) {
-		_matMVFinal = _matView * _matTRS;
-		bUpdateMV = false;
-	}
+	//if (bUpdateMV) {
+	_matMVFinal = _matView * _matTRS;
+	//	bUpdateMV = false;
+	//}
 
 	glUniformMatrix4fv(_modelView, 1, GL_TRUE, _matMVFinal);
 	if (bUpdateProj) {
@@ -144,11 +155,11 @@ void Transform::DrawW() {
 	glDrawArrays(GL_TRIANGLES, 0, points.size());
 }
 
-void Transform::Init(point4 ps[],color4 cs[],int num)
+void Transform::Init(point4 ps[], color4 cs[], int num)
 {
-	int c = sizeof(*cs)*num / sizeof(cs[0]);
+	int c = sizeof(*cs) * num / sizeof(cs[0]);
 	colors = vColor4(cs, cs + c);
-	int p = sizeof(*ps)*num / sizeof(ps[0]);
+	int p = sizeof(*ps) * num / sizeof(ps[0]);
 	points = vPoint4(ps, ps + p);
 	CreateBufferObject();
 	bUpdateProj = false;

@@ -57,6 +57,9 @@
     <ClCompile Include="Midtern\Player.cpp">
       <Filter>Midtern</Filter>
     </ClCompile>
+    <ClCompile Include="Midtern\MainScene.cpp">
+      <Filter>Midtern</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -90,6 +93,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Midtern\Player.h">
+      <Filter>Midtern</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\MainScene.h">
       <Filter>Midtern</Filter>
     </ClInclude>
   </ItemGroup>
