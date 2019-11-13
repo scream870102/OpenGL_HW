@@ -6,7 +6,7 @@
 #include "../Header/Angel.h"
 #include "MainScene.h"
 
-#define ESC_KEY 33
+#define ESC_KEY 27
 
 MainScene* mainScene;
 //----------------------------------------------------------------------------
@@ -31,16 +31,24 @@ void onFrameMove(float delta) {
 
 
 void Win_Keyboard(unsigned char key, int x, int y) {
-	mainScene->OnWinKeyboard(key, x, y);
-	if (key == ESC_KEY)
+	if ((int)key == ESC_KEY) {
+		delete mainScene;
 		exit(EXIT_SUCCESS);
+	}
+	mainScene->OnWinKeyboard(key, x, y);
+
+		
 }
 //----------------------------------------------------------------------------
 void Win_Mouse(int button, int state, int x, int y) {
 	mainScene->OnWinMouse(button, state, x, y);
 }
 //----------------------------------------------------------------------------
+void Win_Passive_Mouse(int x, int y) {
+	mainScene->OnWinPassiveMouse(x, y);
+}
 void Win_SpecialKeyboard(int key, int x, int y) {
+
 	mainScene->OnWinSpecialKeyboard(key, x, y);
 }
 //----------------------------------------------------------------------------
@@ -70,6 +78,7 @@ int main(int argc, char** argv) {
 	init();
 
 	glutMouseFunc(Win_Mouse);
+	glutPassiveMotionFunc(Win_Passive_Mouse);
 	glutKeyboardFunc(Win_Keyboard);	// 矪瞶 ASCI 龄 AaESC 龄...单单
 	glutSpecialFunc(Win_SpecialKeyboard);	// 矪瞶 NON-ASCI 龄 F1Homeよ龄...单单
 	glutDisplayFunc(GL_Display);

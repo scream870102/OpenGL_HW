@@ -1,29 +1,30 @@
 #pragma once
 #define MAX_KEY_NUM 120
-enum class KeyCode
-{
-	w = 119,
-	a = 97,
-	s = 115,
-	d = 100,
-	q = 113,
-	e = 101,
-	j = 106,
-	k = 107,
-	r = 72,
-	esc = 33,
-	space = 32,
-};
+#define MOUSE_PRESSED 0
+#define MOUSE_RELEASE 1
+#define LEFT_MOUSE 0
+#define RIGHT_MOUSE 2
+#include <stdio.h>
+#include "../Header/Angel.h"
 class Input
 {
 public:
 	Input();
 	~Input();
-	bool GetKey(KeyCode key);
-	void UpdateKey(int key);
-	void Reset();
-	int keyPress[MAX_KEY_NUM]={0};
+	int mouseX;
+	int mouseY;
+	bool IsGetKey(int key);
+	bool IsGetMouse(int mouse);
+	void	KeyPressed(int key);
+	void MousePressed(int button, int state, int x, int y);
+	void MouseMove(int x, int y);
+	void Update();
 private:
+	bool bKeyPressed;
+	int keyPressed;
+	bool bLeftPressed;
+	bool bRightPressed;
+	
 
 };
 
