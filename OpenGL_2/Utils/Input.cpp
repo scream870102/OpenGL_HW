@@ -1,36 +1,58 @@
 #include "Input.h"
-#include <stdio.h>
 Input::Input()
 {
-	Reset();
+	keyPressed = 0;
+	bKeyPressed = false;
+	bLeftPressed = false;
+	bRightPressed = false;
+	mouseX = 0;
+	mouseY = 0;
 }
 
-Input::~Input()
-{
+Input::~Input(){
 }
 
-
-
-bool Input::GetKey(KeyCode key)
-{
-
-	bool result = keyPress[(int)key] == 0 ? false : true;
-	if (result)printf_s("%d\n", key);
-	Reset();
-	return result;
+bool Input::IsGetKey(int key) {
+	if (bKeyPressed && key == keyPressed)
+		return true;
+	return false;
 }
 
-void Input::UpdateKey(int key)
-{
-	Reset();
-	if (key < MAX_KEY_NUM) {
-		//printf_s("%c\n", key);
-		keyPress[key] = 1;
+bool Input::IsGetMouse(int mouse){
+	if (mouse == LEFT_MOUSE)
+		return bLeftPressed;
+	else if (mouse == RIGHT_MOUSE)
+		return bRightPressed;
+	return false;
+}
+
+void Input::KeyPressed(int key){
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//Special Key are the same value with normal key
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	keyPressed = key;
+	bKeyPressed = true;
+}
+
+void Input::MousePressed(int button, int state, int x, int y){
+	if (button == LEFT_MOUSE) {
+		if (state == MOUSE_PRESSED)bLeftPressed = true;
+		else if (state == MOUSE_RELEASE)bLeftPressed = false;
 	}
+	else if (button == RIGHT_MOUSE) {
+		if (state == MOUSE_PRESSED)bRightPressed = true;
+		else if (state == MOUSE_RELEASE)bRightPressed = false;
+	}
+	this->mouseX = x;
+	this->mouseY = y;
 }
 
-void Input::Reset()
-{
-	for (int i = 0; i < MAX_KEY_NUM; i++)
-		keyPress[i] = 0;
+void Input::MouseMove(int x, int y){
+	this->mouseX = x;
+	this->mouseY = y;
 }
+
+void Input::Update(){
+	bKeyPressed = false;
+}
+

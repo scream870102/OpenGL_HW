@@ -54,23 +54,23 @@ Player::Player() {
 	_colors[24] = color4(0.8339279563742212f, 0.9029766440824398f, 0.9770839169051371f, 1.0f);
 	_colors[25] = color4(0.956410196467498f, 0.9359492260520559f, 0.9526516267995727f, 1.0f);
 	_colors[26] = color4(0.9595336435425172f, 0.8790594347152512f, 0.9377534316165966f, 1.0f);
-	Transform.Init(_points, _colors,P_NUM);
+	Transform.Init(_points, _colors, P_NUM);
+	i = nullptr;
 }
 
-void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle)
-{
+Player::~Player(){
+}
+
+void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle){
 	Transform.SetShader(matModelView, matProjection, shaderHandle);
 }
 
 
-
-void Player::Draw()
-{
-	//printf_s("drawing player\n");
+void Player::Draw(){
 	Transform.Draw();
 }
 
-void Player::Update(float delta)
-{
-	//printf_s("Player Update %f \n", delta);
+void Player::Update(float delta){
+	//if (i->IsGetKey('w'))
+	//	this->Transform.scale.x += 10.0f;
 }

@@ -19,7 +19,6 @@ Transform::Transform() {
 	_projection = 0;
 	_vao = 0;
 	_vbo = 0;
-	//bUpdateMV = false;
 	bUpdateProj = false;
 }
 
@@ -50,14 +49,12 @@ void Transform::CreateBufferObject() {
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) * points.size(), sizeof(colors) * colors.size(), &colors[0]);
 }
 
-void Transform::UpdateTRS()
-{
+void Transform::UpdateTRS(){
 	mat4 trsMat;
 	trsMat = Translate(position);
 	trsMat *= RotateZ(rotation.z);
 	trsMat *= Scale(scale);
 	_matTRS = trsMat;
-	//this->SetTRSMatrix(trsMat);
 }
 
 void Transform::SetShader(mat4& mxView, mat4& mxProjection, GLuint uiShaderHandle) {
@@ -86,18 +83,12 @@ void Transform::SetShader(mat4& mxView, mat4& mxProjection, GLuint uiShaderHandl
 
 void Transform::SetViewMatrix(mat4& mat) {
 	_matView = mat;
-	//bUpdateMV = true;
 }
 
 void Transform::SetProjectionMatrix(mat4& mat) {
 	_matProjection = mat;
 	bUpdateProj = true;
 }
-
-//void Transform::SetTRSMatrix(mat4& mat) {
-//	_matTRS = mat;
-//	//bUpdateMV = true;
-//}
 
 void Transform::SetColor(GLfloat vColor[4]) {
 	for (int i = 0; i < colors.size(); i++) {
@@ -110,8 +101,7 @@ void Transform::SetColor(GLfloat vColor[4]) {
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) * points.size(), sizeof(colors) * colors.size(), &colors[0]);
 }
 
-void Transform::SetColor(color4 vColor)
-{
+void Transform::SetColor(color4 vColor){
 	for (int i = 0; i < colors.size(); i++) {
 		colors[i].x = vColor.x;
 		colors[i].y = vColor.y;
@@ -155,8 +145,7 @@ void Transform::DrawW() {
 	glDrawArrays(GL_TRIANGLES, 0, points.size());
 }
 
-void Transform::Init(point4 ps[], color4 cs[], int num)
-{
+void Transform::Init(point4 ps[], color4 cs[], int num){
 	int c = sizeof(*cs) * num / sizeof(cs[0]);
 	colors = vColor4(cs, cs + c);
 	int p = sizeof(*ps) * num / sizeof(ps[0]);
