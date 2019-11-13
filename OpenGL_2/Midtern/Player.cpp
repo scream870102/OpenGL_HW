@@ -54,116 +54,23 @@ Player::Player() {
 	_colors[24] = color4(0.8339279563742212f, 0.9029766440824398f, 0.9770839169051371f, 1.0f);
 	_colors[25] = color4(0.956410196467498f, 0.9359492260520559f, 0.9526516267995727f, 1.0f);
 	_colors[26] = color4(0.9595336435425172f, 0.8790594347152512f, 0.9377534316165966f, 1.0f);
-	// Create and initialize a buffer object 
-	CreateBufferObject();
-	bUpdateProj = false;
+	Transform.Init(_points, _colors,P_NUM);
 }
 
-
-void Player::CreateBufferObject() {
-	glGenVertexArrays(1, &_vao);
-	glBindVertexArray(_vao);
-
-	// Create and initialize a buffer object
-
-	glGenBuffers(1, &_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(_points) + sizeof(_colors), NULL, GL_STATIC_DRAW);
-
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(_points), _points);
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(_points), sizeof(_colors), _colors);
-}
-
-void Player::SetShader(mat4& mxView, mat4& mxProjection, GLuint uiShaderHandle) {
-	// Load shaders and use the resulting shader program
-	if (uiShaderHandle == MAX_UNSIGNED_INT) _program = InitShader("vsVtxColor.glsl", "fsVtxColor.glsl");
-	else _program = uiShaderHandle;
-
-	// set up vertex arrays
-	GLuint vPosition = glGetAttribLocation(_program, "vPosition");
-	glEnableVertexAttribArray(vPosition);
-	glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-
-	GLuint vColor = glGetAttribLocation(_program, "vColor");
-	glEnableVertexAttribArray(vColor);
-	glVertexAttribPointer(vColor, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(_points)));
-
-	_modelView = glGetUniformLocation(_program, "ModelView");
-	_matView = mxView;
-	glUniformMatrix4fv(_modelView, 1, GL_TRUE, _matView);
-
-	_projection = glGetUniformLocation(_program, "Projection");
-	_matProjection = mxProjection;
-	glUniformMatrix4fv(_projection, 1, GL_TRUE, _matProjection);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-void Player::SetViewMatrix(mat4& mat) {
-	_matView = mat;
-	bUpdateMV = true;
-}
-
-void Player::SetProjectionMatrix(mat4& mat) {
-	_matProjection = mat;
-	bUpdateProj = true;
-}
-
-void Player::SetTRSMatrix(mat4& mat) {
-	_matTRS = mat;
-	bUpdateMV = true;
-}
-
-void Player::SetColor(GLfloat vColor[4]) {
-	for (int i = 0; i < P_NUM; i++) {
-		_colors[i].x = vColor[0];
-		_colors[i].y = vColor[1];
-		_colors[i].z = vColor[2];
-		_colors[i].w = vColor[3];
-	}
-	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(_points), sizeof(_colors), _colors);
-}
-
-void Player::SetColor(color4 vColor)
+void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle)
 {
-	for (int i = 0; i < P_NUM; i++) {
-		_colors[i].x = vColor.x;
-		_colors[i].y = vColor.y;
-		_colors[i].z = vColor.z;
-		_colors[i].w = vColor.w;
-	}
-	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(_points), sizeof(_colors), _colors);
+	Transform.SetShader(matModelView, matProjection, shaderHandle);
 }
 
-void Player::Draw() {
-	glUseProgram(_vbo);
-	glBindVertexArray(_vao);
-	if (bUpdateMV) {
-		_matMVFinal = _matView * _matTRS;
-		bUpdateMV = false;
-	}
-	glUniformMatrix4fv(_modelView, 1, GL_TRUE, _matMVFinal);
 
-	if (bUpdateProj) {
-		glUniformMatrix4fv(_projection, 1, GL_TRUE, _matProjection);
-		bUpdateProj = false;
-	}
-	glDrawArrays(GL_TRIANGLES, 0, P_NUM);
+
+void Player::Draw()
+{
+	//printf_s("drawing player\n");
+	Transform.Draw();
 }
 
-void Player::DrawW() {
-	glBindVertexArray(_vao);
-
-	if (bUpdateMV) {
-		_matMVFinal = _matView * _matTRS;
-		bUpdateMV = false;
-	}
-
-	glUniformMatrix4fv(_modelView, 1, GL_TRUE, _matMVFinal);
-	if (bUpdateProj) {
-		glUniformMatrix4fv(_projection, 1, GL_TRUE, _matProjection);
-		bUpdateProj = false;
-	}
-	glDrawArrays(GL_TRIANGLES, 0, P_NUM);
+void Player::Update(float delta)
+{
+	//printf_s("Player Update %f \n", delta);
 }

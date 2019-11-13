@@ -4,8 +4,9 @@
 // Rotate Rectangle
 
 #include "../Header/Angel.h"
-#include "Player.h"
+#include "../191030_HW/Player.h"
 #include "../Utils/Input.h"
+
 //For move
 #define W_KEY 119
 #define A_KEY 97
@@ -47,6 +48,7 @@ mat4 matModelView(1.0f);
 mat4 matProjection;
 
 bool bUpdateTRS = false;
+
 //----------------------------------------------------------------------------
 // 函式的原型宣告
 void IdleProcess();
@@ -61,7 +63,7 @@ void init(void) {
 	//  產生 projection 矩陣，此處為產生正投影矩陣
 	matProjection = Ortho(-225.0f, 225.0f, -400.0f, 400.0f, -2.0f, 2.0f);
 	pPlayer->SetShader(matModelView, matProjection);
-
+	
 	glClearColor(0.0, 0.0, 0.0, 1.0); // black background
 }
 
@@ -87,7 +89,7 @@ void UpdateTransform(float delta) {
 void AutoScaling(float delta) {
 	degree += SCL_SPEED *delta;
 	if (degree >= 360.0f)degree = 0.0f;
-	float range= abs(SCL_RANGE * cosf(degree * M_PI / 180.0f));
+	float range= abs(SCL_RANGE * cosf(degree * M_PI / 180.0));
 	scale.x = 1 + range;
 	scale.y = 1 + range;
 	UpdateTRS();

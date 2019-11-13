@@ -739,9 +739,9 @@ mat4 Ortho( const GLfloat left, const GLfloat right,
 	    const GLfloat zNear, const GLfloat zFar )
 {
     mat4 c;
-    c[0][0] = (float)(2.0/(right - left));
-    c[1][1] = (float)(2.0/(top - bottom));
-    c[2][2] = (float)(2.0/(zNear - zFar));
+    c[0][0] = (float)(2.0f/(right - left));
+    c[1][1] = (float)(2.0f/(top - bottom));
+    c[2][2] = (float)(2.0f/(zNear - zFar));
     c[3][3] = 1.0;
     c[0][3] = -(right + left)/(right - left);
     c[1][3] = -(top + bottom)/(top - bottom);
@@ -762,12 +762,12 @@ mat4 Frustum( const GLfloat left, const GLfloat right,
 	      const GLfloat zNear, const GLfloat zFar )
 {
     mat4 c;
-    c[0][0] = (float)(2.0*zNear/(right - left));
+    c[0][0] = (float)(2.0f*zNear/(right - left));
     c[0][2] = (right + left)/(right - left);
-    c[1][1] = (float)(2.0*zNear/(top - bottom));
+    c[1][1] = (float)(2.0f*zNear/(top - bottom));
     c[1][2] = (top + bottom)/(top - bottom);
     c[2][2] = -(zFar + zNear)/(zFar - zNear);
-    c[2][3] = (float)(-2.0*zFar*zNear/(zFar - zNear));
+    c[2][3] = (float)(-2.0f*zFar*zNear/(zFar - zNear));
     c[3][2] = -1.0;
     return c;
 }
@@ -783,7 +783,7 @@ mat4 Perspective( const GLfloat fovy, const GLfloat aspect,
     c[0][0] = zNear/right;
     c[1][1] = zNear/top;
     c[2][2] = -(zFar + zNear)/(zFar - zNear);
-    c[2][3] = (float)(-2.0*zFar*zNear/(zFar - zNear));
+    c[2][3] = (float)(-2.0f*zFar*zNear/(zFar - zNear));
     c[3][2] = -1.0;
     return c;
 }
