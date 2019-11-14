@@ -13,7 +13,7 @@ Bullet::Bullet(mat4& matModelView, mat4& matProjection, GLuint shaderHandle ) {
 	_colors[3] = color4(0.886823422135872f, 0.9171992229515382f, 0.99305950847159f, 1.0f);
 	_colors[4] = color4(0.8321819282966201f, 0.9638891490868704f, 0.795982349360338f, 1.0f);
 	_colors[5] = color4(0.9175100699955497f, 0.8732428871076069f, 0.8110669448209172f, 1.0f);
-	Transform.Init(_points, _colors, BULLET_NUM,matModelView,matProjection,shaderHandle);
+	transform.Init(_points, _colors, BULLET_NUM,matModelView,matProjection,shaderHandle);
 }
 
 Bullet::~Bullet()
@@ -21,11 +21,11 @@ Bullet::~Bullet()
 }
 
 void Bullet::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle){
-	Transform.SetShader(matModelView, matProjection, shaderHandle);
+	transform.SetShader(matModelView, matProjection, shaderHandle);
 }
 
 void Bullet::Draw(){
-	Transform.Draw();
+	transform.Draw();
 }
 
 void Bullet::Update(float delta){

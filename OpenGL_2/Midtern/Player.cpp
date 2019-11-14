@@ -54,33 +54,28 @@ Player::Player(mat4& matModelView, mat4& matProjection, GLuint shaderHandle ) {
 	_colors[24] = color4(0.8339279563742212f, 0.9029766440824398f, 0.9770839169051371f, 1.0f);
 	_colors[25] = color4(0.956410196467498f, 0.9359492260520559f, 0.9526516267995727f, 1.0f);
 	_colors[26] = color4(0.9595336435425172f, 0.8790594347152512f, 0.9377534316165966f, 1.0f);
-	Transform.Init(_points, _colors, P_NUM,matModelView,matProjection, shaderHandle);
-	i = nullptr;
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//Test
-	Transform.position.x = 50.0f;
-	Transform.position.y = 10.0f;
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	bullet = new Bullet(matModelView, matProjection, shaderHandle);
-	bullet->Transform.parent = &(this->Transform);
+	transform.Init(_points, _colors, P_NUM,matModelView,matProjection, shaderHandle);
+	input = nullptr;
+	_pBullet = new Bullet(matModelView, matProjection, shaderHandle);
+	_pBullet->transform.pParent = &(this->transform);
 }
 
 Player::~Player(){
-	delete bullet;
+	delete _pBullet;
 }
 
 void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle){
-	Transform.SetShader(matModelView, matProjection, shaderHandle);
+	transform.SetShader(matModelView, matProjection, shaderHandle);
 }
 
 
 void Player::Draw(){
-	Transform.Draw();
-	bullet->Draw();
+	transform.Draw();
+	_pBullet->Draw();
 }
 
 void Player::Update(float delta){
-	bullet->Update(delta);
-	if (i->IsGetKey('w'))
-		this->Transform.position.x += 10.0f;
+	_pBullet->Update(delta);
+	if (input->IsGetKey('w'))
+		this->transform.position.x += 10.0f;
 }

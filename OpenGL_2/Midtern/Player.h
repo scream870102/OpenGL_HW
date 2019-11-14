@@ -8,11 +8,11 @@ private:
 	const int P_NUM = PLAYER_NUM;
 	point4 _points[PLAYER_NUM];
 	color4 _colors[PLAYER_NUM];
-	Bullet* bullet;
+	Bullet* _pBullet;
 public:
 	//only the pointer for outer input class
-	Input* i;
-	Transform Transform;
+	Input* input;
+	Transform transform;
 	Player(mat4& matModelView, mat4& matProjection, GLuint shaderHandle = MAX_UNSIGNED_INT);
 	~Player();
 	void SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle = MAX_UNSIGNED_INT);

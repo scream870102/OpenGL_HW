@@ -11,17 +11,16 @@ private:
 	GLuint _vao;
 	GLuint _vbo;
 	GLuint _modelView, _projection;
-	mat4 _matMVFinal, _matTRS;
-	bool bUpdateProj;
-	void CreateBufferObject();
-	//void UpdateTRS();
-public:
-	mat4 _matView, _matProjection;
 	GLuint _program;
+	mat4 _matView, _matProjection;
+	mat4 _matMVFinal, _matTRS;
+	bool _bUpdateProj;
+	void CreateBufferObject();
+public:
 	vec3 position;
 	vec3 rotation;
 	vec3 scale;
-	Transform* parent;
+	Transform* pParent;
 	Transform(const Transform& t);
 	Transform();
 	~Transform();
@@ -32,7 +31,6 @@ public:
 	GLuint GetShaderHandle() { return _program; }
 	void SetViewMatrix(mat4& mat);
 	void SetProjectionMatrix(mat4& mat);
-	//void SetTRSMatrix(mat4& mat);
 	void SetColor(GLfloat vColor[4]);
 	void SetColor(color4 vColor);
 	void Draw();

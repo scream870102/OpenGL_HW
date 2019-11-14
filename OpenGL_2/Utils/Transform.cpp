@@ -19,8 +19,8 @@ Transform::Transform() {
 	_projection = 0;
 	_vao = 0;
 	_vbo = 0;
-	bUpdateProj = false;
-	parent = nullptr;
+	_bUpdateProj = false;
+	pParent = nullptr;
 }
 
 Transform::~Transform() {
@@ -80,7 +80,7 @@ void Transform::SetViewMatrix(mat4& mat) {
 
 void Transform::SetProjectionMatrix(mat4& mat) {
 	_matProjection = mat;
-	bUpdateProj = true;
+	_bUpdateProj = true;
 }
 
 void Transform::SetColor(GLfloat vColor[4]) {
@@ -112,9 +112,9 @@ void Transform::Draw() {
 	_matMVFinal = _matView * _matTRS;
 	glUniformMatrix4fv(_modelView, 1, GL_TRUE, _matMVFinal);
 
-	if (bUpdateProj) {
+	if (_bUpdateProj) {
 		glUniformMatrix4fv(_projection, 1, GL_TRUE, _matProjection);
-		bUpdateProj = false;
+		_bUpdateProj = false;
 	}
 	glDrawArrays(GL_TRIANGLES, 0, points.size());
 }
@@ -125,9 +125,9 @@ void Transform::DrawW() {
 	_matMVFinal = _matView * _matTRS;
 
 	glUniformMatrix4fv(_modelView, 1, GL_TRUE, _matMVFinal);
-	if (bUpdateProj) {
+	if (_bUpdateProj) {
 		glUniformMatrix4fv(_projection, 1, GL_TRUE, _matProjection);
-		bUpdateProj = false;
+		_bUpdateProj = false;
 	}
 	glDrawArrays(GL_TRIANGLES, 0, points.size());
 }
@@ -138,15 +138,15 @@ void Transform::Init(point4 ps[], color4 cs[], int num, mat4 matView, mat4 matPr
 	int p = sizeof(*ps) * num / sizeof(ps[0]);
 	points = vPoint4(ps, ps + p);
 	CreateBufferObject();
-	bUpdateProj = false;
+	_bUpdateProj = false;
 	SetShader(matView, matProjection, shaderHandle);
 }
 
 mat4 Transform::GetTRSMat()
 {
 	mat4 trsMat;
-	if (parent != nullptr) 
-		trsMat = parent->GetTRSMat();
+	if (pParent != nullptr) 
+		trsMat = pParent->GetTRSMat();
 		
 	trsMat *= Translate(position);
 	trsMat *= RotateZ(rotation.z);

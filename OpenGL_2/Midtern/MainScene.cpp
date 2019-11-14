@@ -15,7 +15,7 @@ MainScene::MainScene() {
 	matModelView = mat4(1.0f);
 	//產生玩家 並綁定 Input
 	pPlayer = new Player(matModelView,matProjection);
-	pPlayer->i = &input;
+	pPlayer->input = &input;
 
 	//pPlayer->SetShader(matModelView, matProjection);
 }
