@@ -10,13 +10,14 @@ void MainScene::Draw() {
 }
 
 MainScene::MainScene() {
-	//產生玩家 並綁定 Input
-	pPlayer = new Player();
-	pPlayer->i = &input;
 	//  產生 projection 矩陣，此處為產生正投影矩陣
 	matProjection = Ortho(-225.0f, 225.0f, -400.0f, 400.0f, -2.0f, 2.0f);
 	matModelView = mat4(1.0f);
-	pPlayer->SetShader(matModelView, matProjection);
+	//產生玩家 並綁定 Input
+	pPlayer = new Player(matModelView,matProjection);
+	pPlayer->i = &input;
+
+	//pPlayer->SetShader(matModelView, matProjection);
 }
 
 MainScene::~MainScene() {

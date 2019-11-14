@@ -51,6 +51,9 @@
     <ClCompile Include="Midtern\MainScene.cpp">
       <Filter>Midtern</Filter>
     </ClCompile>
+    <ClCompile Include="Midtern\Bullet.cpp">
+      <Filter>Midtern</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -78,6 +81,9 @@
       <Filter>Midtern</Filter>
     </ClInclude>
     <ClInclude Include="Midtern\MainScene.h">
+      <Filter>Midtern</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Bullet.h">
       <Filter>Midtern</Filter>
     </ClInclude>
   </ItemGroup>

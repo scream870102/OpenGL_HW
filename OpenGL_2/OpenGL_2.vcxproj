@@ -81,6 +81,7 @@
     <ClCompile Include="Common\common.cpp" />
     <ClCompile Include="Common\Timer.cpp" />
     <ClCompile Include="InitShader.cpp" />
+    <ClCompile Include="Midtern\Bullet.cpp" />
     <ClCompile Include="Midtern\Main.cpp" />
     <ClCompile Include="Midtern\MainScene.cpp" />
     <ClCompile Include="Midtern\Player.cpp" />
@@ -93,6 +94,7 @@
     <ClInclude Include="Header\CheckError.h" />
     <ClInclude Include="Header\mat.h" />
     <ClInclude Include="Header\vec.h" />
+    <ClInclude Include="Midtern\Bullet.h" />
     <ClInclude Include="Midtern\MainScene.h" />
     <ClInclude Include="Midtern\Player.h" />
     <ClInclude Include="Utils\Input.h" />

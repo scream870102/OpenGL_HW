@@ -10,18 +10,18 @@ class Transform {
 private:
 	GLuint _vao;
 	GLuint _vbo;
-	GLuint _program;
 	GLuint _modelView, _projection;
-	mat4 _matView, _matProjection;
 	mat4 _matMVFinal, _matTRS;
-	//bool bUpdateMV;
 	bool bUpdateProj;
 	void CreateBufferObject();
-	void UpdateTRS();
+	//void UpdateTRS();
 public:
+	mat4 _matView, _matProjection;
+	GLuint _program;
 	vec3 position;
 	vec3 rotation;
 	vec3 scale;
+	Transform* parent;
 	Transform(const Transform& t);
 	Transform();
 	~Transform();
@@ -37,5 +37,6 @@ public:
 	void SetColor(color4 vColor);
 	void Draw();
 	void DrawW();
-	void Init(point4 ps[],color4 cs[],int num);
+	void Init(point4 ps[],color4 cs[],int num,mat4 matView,mat4 matProjection,GLuint shaderHandle=MAX_UNSIGNED_INT);
+	mat4 GetTRSMat();
 };
