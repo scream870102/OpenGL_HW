@@ -98,6 +98,7 @@
     <ClInclude Include="Midtern\MainScene.h" />
     <ClInclude Include="Midtern\Player.h" />
     <ClInclude Include="Utils\Input.h" />
+    <ClInclude Include="Utils\ObjectPool.h" />
     <ClInclude Include="Utils\Transform.h" />
   </ItemGroup>
   <ItemGroup>

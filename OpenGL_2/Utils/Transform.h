@@ -21,20 +21,19 @@ public:
 	vec3 rotation;
 	vec3 scale;
 	Transform* pParent;
+	vPoint4 points;
+	vColor4 colors;
 	Transform(const Transform& t);
 	Transform();
 	~Transform();
-	Transform operator =(const Transform& t);
-	vPoint4 points;
-	vColor4 colors;
-	void SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle = MAX_UNSIGNED_INT);
 	GLuint GetShaderHandle() { return _program; }
+	void SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle = MAX_UNSIGNED_INT);
 	void SetViewMatrix(mat4& mat);
 	void SetProjectionMatrix(mat4& mat);
 	void SetColor(GLfloat vColor[4]);
 	void SetColor(color4 vColor);
 	void Draw();
 	void DrawW();
-	void Init(point4 ps[],color4 cs[],int num,mat4 matView,mat4 matProjection,GLuint shaderHandle=MAX_UNSIGNED_INT);
+	void Init(point4 ps[], color4 cs[], int num, mat4 matView, mat4 matProjection, GLuint shaderHandle = MAX_UNSIGNED_INT);
 	mat4 GetTRSMat();
 };

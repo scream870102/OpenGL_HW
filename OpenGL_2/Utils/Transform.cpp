@@ -1,38 +1,46 @@
 #include "Transform.h"
 
 Transform::Transform(const Transform& t) {
+	_vao = t._vao;
+	_vbo = t._vbo;
+	_modelView = t._modelView;
+	_projection = t._projection;
+	_program = t._program;
+	_matView = t._matView;
+	_matProjection = t._matProjection;
+	_matMVFinal = t._matMVFinal;
+	_matTRS = t._matTRS;
+	_bUpdateProj = t._bUpdateProj;
 	position = t.position;
 	rotation = t.rotation;
 	scale = t.scale;
+	pParent = t.pParent;
 	points = vPoint4(t.points.begin(), t.points.end());
 	colors = vColor4(t.colors.begin(), t.colors.end());
 }
 
 Transform::Transform() {
+	_vao = 0;
+	_vbo = 0;
+	_modelView = 0;
+	_projection = 0;
+	_program = 0;
+	_matView = mat4();
+	_matProjection = mat4();
+	_matMVFinal = mat4();
+	_matTRS = mat4();
+	_bUpdateProj = false;
 	position = vec3(0.0f);
 	rotation = vec3(0.0f);
 	scale = vec3(1.0f);
+	pParent = NULL;
 	points.clear();
 	colors.clear();
-	_modelView = 0;
-	_program = 0;
-	_projection = 0;
-	_vao = 0;
-	_vbo = 0;
-	_bUpdateProj = false;
-	pParent = nullptr;
 }
 
 Transform::~Transform() {
-	points.clear();
-	colors.clear();
-}
-
-Transform Transform::operator=(const Transform& t) {
-	this->position = t.position;
-	this->rotation = t.rotation;
-	this->scale = t.scale;
-	return *this;
+	if (points.size() != 0)points.clear();
+	if (colors.size() != 0)colors.clear();
 }
 
 
@@ -84,7 +92,7 @@ void Transform::SetProjectionMatrix(mat4& mat) {
 }
 
 void Transform::SetColor(GLfloat vColor[4]) {
-	for (int i = 0; i < colors.size(); i++) {
+	for (int i = 0; i < (int)colors.size(); i++) {
 		colors[i].x = vColor[0];
 		colors[i].y = vColor[1];
 		colors[i].z = vColor[2];
@@ -94,8 +102,8 @@ void Transform::SetColor(GLfloat vColor[4]) {
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) * points.size(), sizeof(colors) * colors.size(), &colors[0]);
 }
 
-void Transform::SetColor(color4 vColor){
-	for (int i = 0; i < colors.size(); i++) {
+void Transform::SetColor(color4 vColor) {
+	for (int i = 0; i < (int)colors.size(); i++) {
 		colors[i].x = vColor.x;
 		colors[i].y = vColor.y;
 		colors[i].z = vColor.z;
@@ -132,7 +140,7 @@ void Transform::DrawW() {
 	glDrawArrays(GL_TRIANGLES, 0, points.size());
 }
 
-void Transform::Init(point4 ps[], color4 cs[], int num, mat4 matView, mat4 matProjection, GLuint shaderHandle ){
+void Transform::Init(point4 ps[], color4 cs[], int num, mat4 matView, mat4 matProjection, GLuint shaderHandle) {
 	int c = sizeof(*cs) * num / sizeof(cs[0]);
 	colors = vColor4(cs, cs + c);
 	int p = sizeof(*ps) * num / sizeof(ps[0]);
@@ -142,12 +150,11 @@ void Transform::Init(point4 ps[], color4 cs[], int num, mat4 matView, mat4 matPr
 	SetShader(matView, matProjection, shaderHandle);
 }
 
-mat4 Transform::GetTRSMat()
-{
+mat4 Transform::GetTRSMat() {
 	mat4 trsMat;
-	if (pParent != nullptr) 
+	if (pParent != NULL)
 		trsMat = pParent->GetTRSMat();
-		
+
 	trsMat *= Translate(position);
 	trsMat *= RotateZ(rotation.z);
 	trsMat *= Scale(scale);

@@ -1,6 +1,6 @@
 #include "Bullet.h"
 
-Bullet::Bullet(mat4& matModelView, mat4& matProjection, GLuint shaderHandle ) {
+Bullet::Bullet(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	_points[0] = point4(0.0f, -22.0f, 0.0f, 1.0f);
 	_points[1] = point4(-15.0f, 0.0f, 0.0f, 1.0f);
 	_points[2] = point4(15.0f, 0.0f, 0.0f, 1.0f);
@@ -13,21 +13,30 @@ Bullet::Bullet(mat4& matModelView, mat4& matProjection, GLuint shaderHandle ) {
 	_colors[3] = color4(0.886823422135872f, 0.9171992229515382f, 0.99305950847159f, 1.0f);
 	_colors[4] = color4(0.8321819282966201f, 0.9638891490868704f, 0.795982349360338f, 1.0f);
 	_colors[5] = color4(0.9175100699955497f, 0.8732428871076069f, 0.8110669448209172f, 1.0f);
-	transform.Init(_points, _colors, BULLET_NUM,matModelView,matProjection,shaderHandle);
+	poolParent = NULL;
+	transform = new Transform();
+	transform->Init(_points, _colors, BULLET_NUM, matModelView, matProjection, shaderHandle);
 }
 
-Bullet::~Bullet()
-{
+Bullet::~Bullet() {
+	if (transform != NULL)delete transform;
 }
 
-void Bullet::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle){
-	transform.SetShader(matModelView, matProjection, shaderHandle);
+Bullet::Bullet(const Bullet& b) {
+	memcpy(_points, b._points, sizeof(b._points));
+	memcpy(_colors, b._colors, sizeof(b._colors));
+	poolParent = b.poolParent;
+	transform = b.transform;
 }
 
-void Bullet::Draw(){
-	transform.Draw();
+void Bullet::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
+	transform->SetShader(matModelView, matProjection, shaderHandle);
 }
 
-void Bullet::Update(float delta){
+void Bullet::Draw() {
+	transform->Draw();
+}
 
+void Bullet::Update(float delta) {
+	transform->position.y += 100.0f * delta;
 }

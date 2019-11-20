@@ -24,8 +24,6 @@ private:
 	int keyPressed;
 	bool bLeftPressed;
 	bool bRightPressed;
-	
-
 };
 
 
