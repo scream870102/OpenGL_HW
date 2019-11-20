@@ -37,7 +37,7 @@ void Win_Keyboard(unsigned char key, int x, int y) {
 	}
 	mainScene->OnWinKeyboard(key, x, y);
 
-		
+
 }
 //----------------------------------------------------------------------------
 void Win_Mouse(int button, int state, int x, int y) {

@@ -86,6 +86,9 @@
     <ClInclude Include="Midtern\Bullet.h">
       <Filter>Midtern</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\ObjectPool.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fsVtxColor.glsl">

@@ -1,6 +1,5 @@
 #include "Input.h"
-Input::Input()
-{
+Input::Input() {
 	keyPressed = 0;
 	bKeyPressed = false;
 	bLeftPressed = false;
@@ -9,7 +8,7 @@ Input::Input()
 	mouseY = 0;
 }
 
-Input::~Input(){
+Input::~Input() {
 }
 
 bool Input::IsGetKey(int key) {
@@ -18,7 +17,7 @@ bool Input::IsGetKey(int key) {
 	return false;
 }
 
-bool Input::IsGetMouse(int mouse){
+bool Input::IsGetMouse(int mouse) {
 	if (mouse == LEFT_MOUSE)
 		return bLeftPressed;
 	else if (mouse == RIGHT_MOUSE)
@@ -26,7 +25,7 @@ bool Input::IsGetMouse(int mouse){
 	return false;
 }
 
-void Input::KeyPressed(int key){
+void Input::KeyPressed(int key) {
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//Special Key are the same value with normal key
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -34,7 +33,7 @@ void Input::KeyPressed(int key){
 	bKeyPressed = true;
 }
 
-void Input::MousePressed(int button, int state, int x, int y){
+void Input::MousePressed(int button, int state, int x, int y) {
 	if (button == LEFT_MOUSE) {
 		if (state == MOUSE_PRESSED)bLeftPressed = true;
 		else if (state == MOUSE_RELEASE)bLeftPressed = false;
@@ -47,12 +46,12 @@ void Input::MousePressed(int button, int state, int x, int y){
 	this->mouseY = y;
 }
 
-void Input::MouseMove(int x, int y){
+void Input::MouseMove(int x, int y) {
 	this->mouseX = x;
 	this->mouseY = y;
 }
 
-void Input::Update(){
+void Input::Update() {
 	bKeyPressed = false;
 }
 

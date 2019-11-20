@@ -1,5 +1,5 @@
 #include "Player.h"
-Player::Player(mat4& matModelView, mat4& matProjection, GLuint shaderHandle ) {
+Player::Player(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	_points[0] = point4(0.0f, -30.0f, 0.0f, 1.0f);
 	_points[1] = point4(-10.0f, -12.0f, 0.0f, 1.0f);
 	_points[2] = point4(10.0f, -12.0f, 0.0f, 1.0f);
@@ -54,28 +54,55 @@ Player::Player(mat4& matModelView, mat4& matProjection, GLuint shaderHandle ) {
 	_colors[24] = color4(0.8339279563742212f, 0.9029766440824398f, 0.9770839169051371f, 1.0f);
 	_colors[25] = color4(0.956410196467498f, 0.9359492260520559f, 0.9526516267995727f, 1.0f);
 	_colors[26] = color4(0.9595336435425172f, 0.8790594347152512f, 0.9377534316165966f, 1.0f);
-	transform.Init(_points, _colors, P_NUM,matModelView,matProjection, shaderHandle);
-	input = nullptr;
-	_pBullet = new Bullet(matModelView, matProjection, shaderHandle);
-	_pBullet->transform.pParent = &(this->transform);
+	_currentBullets.clear();
+	input = NULL;
+	transform = new Transform();
+	transform->Init(_points, _colors, P_NUM, matModelView, matProjection, shaderHandle);
+	//Section for Init bullet to bulletPool
+	for (int i = 0; i < BULLETS_NUM; i++)
+	{
+		Bullet* pBullet = new Bullet(matModelView, matProjection, shaderHandle);
+		pBullet->poolParent = &_bulletPool;
+		_bulletPool.Recycle(pBullet);
+	}
 }
 
-Player::~Player(){
-	delete _pBullet;
+Player::~Player() {
+	if (transform != NULL)delete transform;
 }
 
-void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle){
-	transform.SetShader(matModelView, matProjection, shaderHandle);
+Player::Player(const Player& p) {
+	memcpy(_points, p._points, sizeof(p._points));
+	memcpy(_colors, p._colors, sizeof(p._colors));
+	_bulletPool = p._bulletPool;
+	_currentBullets = p._currentBullets;
+	input = p.input;
+	transform = p.transform;
+}
+
+void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
+	transform->SetShader(matModelView, matProjection, shaderHandle);
 }
 
 
-void Player::Draw(){
-	transform.Draw();
-	_pBullet->Draw();
+void Player::Draw() {
+	transform->Draw();
+	for (int i = 0; i < (int)_currentBullets.size(); i++) {
+		_currentBullets[i]->Draw();
+	}
 }
 
-void Player::Update(float delta){
-	_pBullet->Update(delta);
-	if (input->IsGetKey('w'))
-		this->transform.position.x += 10.0f;
+void Player::Update(float delta) {
+	if (input->IsGetKey('w')) {
+		Bullet* tmp = _bulletPool.GetPoolObject();
+		if (tmp != NULL) {
+			tmp->transform->position = transform->position;
+			tmp->poolParent = &_bulletPool;
+			_currentBullets.push_back(tmp);
+		}
+	}
+	for (int i = 0; i < (int)_currentBullets.size(); i++) {
+		_currentBullets[i]->Update(delta);
+	}
+
 }
