@@ -64,13 +64,19 @@ Player::Player(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	{
 		Bullet* pBullet = new Bullet(matModelView, matProjection, shaderHandle);
 		pBullet->poolParent = &_bulletPool;
-		_bulletPool.Recycle(pBullet);
+		_bulletPool.Init(pBullet);
 	}
 }
 
 Player::~Player() {
 	if (transform != NULL)delete transform;
 	if (shootTimer != NULL)delete shootTimer;
+	if (!_currentBullets.empty()) {
+		for (int i = 0; i < _currentBullets.size(); i++)
+		{
+			if (_currentBullets[i] != NULL)delete _currentBullets[i];
+		}
+	}
 }
 
 Player::Player(const Player& p) {

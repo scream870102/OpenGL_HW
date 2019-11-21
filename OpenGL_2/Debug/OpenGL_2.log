@@ -1,7 +1,9 @@
 ﻿  Bullet.cpp
-  Character.cpp
+  Main.cpp
+  MainScene.cpp
   Player.cpp
-D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Player.cpp(100,37): warning C4244: '=': 將 'int' 轉換為 'GLfloat'，由於類型不同，可能導致資料遺失
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Player.cpp(75,21): warning C4018: '<': signed/unsigned 不相符
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Player.cpp(106,37): warning C4244: '=': 將 'int' 轉換為 'GLfloat'，由於類型不同，可能導致資料遺失
   正在產生程式碼...
-D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Player.cpp(101,37): warning C4244: '=': 將 'int' 轉換為 'GLfloat'，由於類型不同，可能導致資料遺失
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Player.cpp(107,37): warning C4244: '=': 將 'int' 轉換為 'GLfloat'，由於類型不同，可能導致資料遺失
   OpenGL_2.vcxproj -> D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\Debug\OpenGL_2.exe

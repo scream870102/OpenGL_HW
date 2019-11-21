@@ -9,6 +9,7 @@ public:
 	ObjectPool(const ObjectPool& o);
 	T* GetPoolObject();
 	void Recycle(T* object);
+	void Init(T* object);
 	bool IsEmpty();
 private:
 	std::queue<T*> q;
@@ -20,6 +21,14 @@ inline ObjectPool<T>::ObjectPool() {
 
 template<class T>
 inline ObjectPool<T>::~ObjectPool() {
+	while (!q.empty())
+	{
+		T* obj = q.front();
+		if (obj != NULL) {
+			q.pop();
+			delete obj;
+		}
+	}
 }
 
 template<class T>
@@ -38,6 +47,11 @@ T* ObjectPool<T>::GetPoolObject() {
 
 template<class T>
 void ObjectPool<T>::Recycle(T* object) {
+	q.push(object);
+}
+
+template<class T>
+inline void ObjectPool<T>::Init(T* object){
 	q.push(object);
 }
 
