@@ -1,5 +1,4 @@
-//#ifndef _OBJECT_POOL_H
-//#define _OBJECT_POOL_H
+#pragma once
 #include <queue>
 #include <vector>
 #include <algorithm>

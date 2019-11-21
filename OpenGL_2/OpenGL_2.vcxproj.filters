@@ -63,6 +63,9 @@
     <ClCompile Include="Utils\ObjectPool.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Midtern\BulletPool.cpp">
+      <Filter>Midtern</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -102,6 +105,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Midtern\Character.h">
+      <Filter>Midtern</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\BulletPool.h">
       <Filter>Midtern</Filter>
     </ClInclude>
   </ItemGroup>

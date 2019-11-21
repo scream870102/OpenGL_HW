@@ -53,9 +53,6 @@ void Bullet::Update(float delta) {
 	default:
 		break;
 	}
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//FIX
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//CALL RECYCLE METHOD
 	if (transform->position.y >= HEIGHT || transform->position.y <= 0.0f)
 		poolParent->Recycle(this);

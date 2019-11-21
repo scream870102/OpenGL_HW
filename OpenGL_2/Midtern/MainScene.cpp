@@ -2,11 +2,13 @@
 
 void MainScene::Update(float delta) {
 	pPlayer->Update(delta);
+	pBulletPool->Update(delta);
 	input.Update();
 }
 
 void MainScene::Draw() {
 	pPlayer->Draw();
+	pBulletPool->Draw();
 }
 
 MainScene::MainScene() {
@@ -16,10 +18,12 @@ MainScene::MainScene() {
 	//產生玩家 並綁定 Input
 	pPlayer = new Player(matModelView, matProjection);
 	pPlayer->input = &input;
+	pBulletPool = BulletPool::Create(MAX_BULLET_NUM, matModelView, matProjection);
 }
 
 MainScene::~MainScene() {
 	if (pPlayer != NULL)delete pPlayer;
+	pBulletPool->Destroy();
 }
 
 void MainScene::OnWinKeyboard(unsigned char key, int x, int y) {

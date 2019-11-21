@@ -54,36 +54,20 @@ Player::Player(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	_colors[24] = color4(0.8339279563742212f, 0.9029766440824398f, 0.9770839169051371f, 1.0f);
 	_colors[25] = color4(0.956410196467498f, 0.9359492260520559f, 0.9526516267995727f, 1.0f);
 	_colors[26] = color4(0.9595336435425172f, 0.8790594347152512f, 0.9377534316165966f, 1.0f);
-	//_currentBullets.clear();
 	input = NULL;
 	transform = new Transform();
 	transform->Init(_points, _colors, P_NUM, matModelView, matProjection, shaderHandle);
 	shootTimer = new CountDownTimer(SHOOT_CD);
-	//Section for Init bullet to bulletPool
-	for (int i = 0; i < BULLETS_NUM; i++)
-	{
-		Bullet* pBullet = new Bullet(matModelView, matProjection, shaderHandle);
-		pBullet->poolParent = &_bulletPool;
-		_bulletPool.Init(pBullet);
-	}
 }
 
 Player::~Player() {
 	if (transform != NULL)delete transform;
 	if (shootTimer != NULL)delete shootTimer;
-	//if (!_currentBullets.empty()) {
-	//	for (int i = 0; i < _currentBullets.size(); i++)
-	//	{
-	//		if (_currentBullets[i] != NULL)delete _currentBullets[i];
-	//	}
-	//}
 }
 
 Player::Player(const Player& p) {
 	memcpy(_points, p._points, sizeof(p._points));
 	memcpy(_colors, p._colors, sizeof(p._colors));
-	_bulletPool = p._bulletPool;
-	//_currentBullets = p._currentBullets;
 	input = p.input;
 	transform = p.transform;
 	shootTimer = p.shootTimer;
@@ -96,37 +80,14 @@ void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHan
 
 void Player::Draw() {
 	transform->Draw();
-	//Print(_bulletPool.GetUsingObjs()->size());
-	BVectorP usingBullets=_bulletPool.GetUsingObjs();
-	for (int i = 0; i < (int)usingBullets->size(); i++)
-	{
-		usingBullets[0][i]->Draw();
-	}
-	//for (int i = 0; i < (int)_currentBullets.size(); i++) {
-	//	_currentBullets[i]->Draw();
-	//}
 }
 
 void Player::Update(float delta) {
 	//Modify player position due to mouse position
 	this->transform->position.x = (GLfloat)input->mouseX;
 	this->transform->position.y = (GLfloat)input->mouseY;
-	if (shootTimer->IsFinished()&&input->IsGetMouse(LEFT_MOUSE)) {
+	if (shootTimer->IsFinished() && input->IsGetMouse(LEFT_MOUSE)) {
 		shootTimer->Reset();
-		Bullet* tmp = _bulletPool.GetPoolObject();
-		if (tmp != NULL) {
-			tmp->Fire(PLAYER, this->transform->position, NORMAL_BULLET_SPEED);
-			//tmp->poolParent = &_bulletPool;
-			//_currentBullets.push_back(tmp);
-		}
+		BulletPool::GetInstance()->Fire(PLAYER, this->transform->position, NORMAL_BULLET_SPEED);
 	}
-	BVectorP usingBullets = _bulletPool.GetUsingObjs();
-	for (int i = 0; i < (int)usingBullets->size(); i++)
-	{
-		usingBullets[0][i]->Update(delta);
-	}
-	//for (int i = 0; i < (int)_currentBullets.size(); i++) {
-	//	_currentBullets[i]->Update(delta);
-	//}
-
 }
