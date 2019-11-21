@@ -42,8 +42,6 @@ void Input::MousePressed(int button, int state, int x, int y) {
 		if (state == MOUSE_PRESSED)bRightPressed = true;
 		else if (state == MOUSE_RELEASE)bRightPressed = false;
 	}
-	this->mouseX = x;
-	this->mouseY = y;
 }
 
 void Input::MouseMove(int x, int y) {

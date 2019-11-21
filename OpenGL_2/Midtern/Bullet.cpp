@@ -16,6 +16,8 @@ Bullet::Bullet(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	poolParent = NULL;
 	transform = new Transform();
 	transform->Init(_points, _colors, BULLET_NUM, matModelView, matProjection, shaderHandle);
+	type = NONE;
+	speed = 0.0f;
 }
 
 Bullet::~Bullet() {
@@ -27,6 +29,8 @@ Bullet::Bullet(const Bullet& b) {
 	memcpy(_colors, b._colors, sizeof(b._colors));
 	poolParent = b.poolParent;
 	transform = b.transform;
+	type = b.type;
+	speed = b.speed;
 }
 
 void Bullet::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
@@ -38,5 +42,27 @@ void Bullet::Draw() {
 }
 
 void Bullet::Update(float delta) {
-	transform->position.y += 100.0f * delta;
+	switch (type)
+	{
+	case PLAYER:
+		this->transform->position.y = this->transform->position.y - speed * delta;
+		break;
+	case ENEMY:
+		transform->position.y = this->transform->position.y + speed * delta;
+		break;
+	default:
+		break;
+	}
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//FIX
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//CALL RECYCLE METHOD
+	if (transform->position.y >= HEIGHT || transform->position.y <= 0.0f)
+		poolParent->Recycle(this);
+}
+
+void Bullet::Fire(int type, vec3 position, float speed) {
+	this->type = type;
+	this->transform->position = position;
+	this->speed = speed;
 }

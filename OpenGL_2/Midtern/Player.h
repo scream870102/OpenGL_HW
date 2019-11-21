@@ -1,8 +1,11 @@
 #pragma once
 #include "../Utils/Input.h"
 #include "Bullet.h"
+#include "../Utils/CountdownTimer.h"
 #define PLAYER_NUM 27
 #define BULLETS_NUM 10
+#define NORMAL_BULLET_SPEED 100
+#define SHOOT_CD 1000
 class Player {
 private:
 	const int P_NUM = PLAYER_NUM;
@@ -10,6 +13,7 @@ private:
 	color4 _colors[PLAYER_NUM];
 	ObjectPool<Bullet> _bulletPool;
 	std::vector<Bullet*> _currentBullets;
+	CountDownTimer* shootTimer;
 public:
 	//only the pointer for outer input class
 	Input* input;

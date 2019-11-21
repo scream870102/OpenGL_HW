@@ -82,9 +82,11 @@
     <ClCompile Include="Common\Timer.cpp" />
     <ClCompile Include="InitShader.cpp" />
     <ClCompile Include="Midtern\Bullet.cpp" />
+    <ClCompile Include="Midtern\Character.cpp" />
     <ClCompile Include="Midtern\Main.cpp" />
     <ClCompile Include="Midtern\MainScene.cpp" />
     <ClCompile Include="Midtern\Player.cpp" />
+    <ClCompile Include="Utils\CountdownTimer.cpp" />
     <ClCompile Include="Utils\Input.cpp" />
     <ClCompile Include="Utils\Transform.cpp" />
   </ItemGroup>
@@ -95,8 +97,10 @@
     <ClInclude Include="Header\mat.h" />
     <ClInclude Include="Header\vec.h" />
     <ClInclude Include="Midtern\Bullet.h" />
+    <ClInclude Include="Midtern\Character.h" />
     <ClInclude Include="Midtern\MainScene.h" />
     <ClInclude Include="Midtern\Player.h" />
+    <ClInclude Include="Utils\CountdownTimer.h" />
     <ClInclude Include="Utils\Input.h" />
     <ClInclude Include="Utils\ObjectPool.h" />
     <ClInclude Include="Utils\Transform.h" />

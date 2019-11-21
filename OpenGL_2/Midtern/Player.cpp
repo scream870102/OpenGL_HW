@@ -58,6 +58,7 @@ Player::Player(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	input = NULL;
 	transform = new Transform();
 	transform->Init(_points, _colors, P_NUM, matModelView, matProjection, shaderHandle);
+	shootTimer = new CountDownTimer(SHOOT_CD);
 	//Section for Init bullet to bulletPool
 	for (int i = 0; i < BULLETS_NUM; i++)
 	{
@@ -69,6 +70,7 @@ Player::Player(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 
 Player::~Player() {
 	if (transform != NULL)delete transform;
+	if (shootTimer != NULL)delete shootTimer;
 }
 
 Player::Player(const Player& p) {
@@ -78,6 +80,7 @@ Player::Player(const Player& p) {
 	_currentBullets = p._currentBullets;
 	input = p.input;
 	transform = p.transform;
+	shootTimer = p.shootTimer;
 }
 
 void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
@@ -93,10 +96,14 @@ void Player::Draw() {
 }
 
 void Player::Update(float delta) {
-	if (input->IsGetKey('w')) {
+	//Modify player position due to mouse position
+	this->transform->position.x = input->mouseX;
+	this->transform->position.y = input->mouseY;
+	if (shootTimer->IsFinished()&&input->IsGetMouse(LEFT_MOUSE)) {
+		shootTimer->Reset();
 		Bullet* tmp = _bulletPool.GetPoolObject();
 		if (tmp != NULL) {
-			tmp->transform->position = transform->position;
+			tmp->Fire(PLAYER, this->transform->position, NORMAL_BULLET_SPEED);
 			tmp->poolParent = &_bulletPool;
 			_currentBullets.push_back(tmp);
 		}

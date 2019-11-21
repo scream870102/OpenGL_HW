@@ -54,6 +54,12 @@
     <ClCompile Include="Midtern\Bullet.cpp">
       <Filter>Midtern</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\CountdownTimer.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Character.cpp">
+      <Filter>Midtern</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -88,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="Utils\ObjectPool.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\CountdownTimer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Character.h">
+      <Filter>Midtern</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

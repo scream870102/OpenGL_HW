@@ -44,7 +44,7 @@ void Win_Mouse(int button, int state, int x, int y) {
 	mainScene->OnWinMouse(button, state, x, y);
 }
 //----------------------------------------------------------------------------
-void Win_Passive_Mouse(int x, int y) {
+void Win_Motion_Mouse(int x, int y) {
 	mainScene->OnWinPassiveMouse(x, y);
 }
 void Win_SpecialKeyboard(int key, int x, int y) {
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
-	glutInitWindowSize(450, 800);
+	glutInitWindowSize(WIDTH, HEIGHT);
 
 	// If you use freeglut the two lines of code can be added to your application 
 	glutInitContextVersion(3, 2);
@@ -78,7 +78,8 @@ int main(int argc, char** argv) {
 	init();
 
 	glutMouseFunc(Win_Mouse);
-	glutPassiveMotionFunc(Win_Passive_Mouse);
+	glutPassiveMotionFunc(Win_Motion_Mouse);
+	glutMotionFunc(Win_Motion_Mouse);
 	glutKeyboardFunc(Win_Keyboard);	// 矪瞶 ASCI 龄 AaESC 龄...单单
 	glutSpecialFunc(Win_SpecialKeyboard);	// 矪瞶 NON-ASCI 龄 F1Homeよ龄...单单
 	glutDisplayFunc(GL_Display);
