@@ -1,7 +1,6 @@
 #pragma once
 #include "Player.h"
-#include "../Utils/Input.h"
-
+#define MAX_BULLET_NUM 100
 class MainScene
 {
 public:
@@ -21,4 +20,5 @@ private:
 	mat4 matModelView;
 	mat4 matProjection;
 	Input input;
+	BulletPool* pBulletPool;
 };
