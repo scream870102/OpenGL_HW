@@ -81,15 +81,18 @@
     <ClCompile Include="Common\common.cpp" />
     <ClCompile Include="Common\Timer.cpp" />
     <ClCompile Include="InitShader.cpp" />
+    <ClCompile Include="Midtern\Background.cpp" />
     <ClCompile Include="Midtern\Bullet.cpp" />
     <ClCompile Include="Midtern\BulletPool.cpp" />
     <ClCompile Include="Midtern\Character.cpp" />
     <ClCompile Include="Midtern\Main.cpp" />
     <ClCompile Include="Midtern\MainScene.cpp" />
     <ClCompile Include="Midtern\Player.cpp" />
+    <ClCompile Include="Midtern\Star.cpp" />
     <ClCompile Include="Utils\CountdownTimer.cpp" />
     <ClCompile Include="Utils\Input.cpp" />
     <ClCompile Include="Utils\ObjectPool.cpp" />
+    <ClCompile Include="Utils\Random.cpp" />
     <ClCompile Include="Utils\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -98,14 +101,17 @@
     <ClInclude Include="Header\CheckError.h" />
     <ClInclude Include="Header\mat.h" />
     <ClInclude Include="Header\vec.h" />
+    <ClInclude Include="Midtern\Background.h" />
     <ClInclude Include="Midtern\Bullet.h" />
     <ClInclude Include="Midtern\BulletPool.h" />
     <ClInclude Include="Midtern\Character.h" />
     <ClInclude Include="Midtern\MainScene.h" />
     <ClInclude Include="Midtern\Player.h" />
+    <ClInclude Include="Midtern\Star.h" />
     <ClInclude Include="Utils\CountdownTimer.h" />
     <ClInclude Include="Utils\Input.h" />
     <ClInclude Include="Utils\ObjectPool.h" />
+    <ClInclude Include="Utils\Random.h" />
     <ClInclude Include="Utils\Transform.h" />
   </ItemGroup>
   <ItemGroup>

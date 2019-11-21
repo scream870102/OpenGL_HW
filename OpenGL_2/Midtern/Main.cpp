@@ -7,6 +7,8 @@
 #include "MainScene.h"
 
 #define ESC_KEY 27
+#define WIDTH 450
+#define HEIGHT 800
 
 MainScene* mainScene;
 //----------------------------------------------------------------------------

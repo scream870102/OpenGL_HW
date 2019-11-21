@@ -6,6 +6,8 @@ typedef std::vector<vec4> vPoint4;
 typedef std::vector<vec4> vColor4;
 typedef Angel::vec4 color4;
 typedef Angel::vec4 point4;
+#define WIDTH 450
+#define HEIGHT 800
 class Transform {
 private:
 	GLuint _vao;

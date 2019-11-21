@@ -1,6 +1,8 @@
 #pragma once
 #include "Player.h"
+#include "Background.h"
 #define MAX_BULLET_NUM 100
+#define MAX_BG_NUM 50
 class MainScene
 {
 public:
@@ -21,4 +23,5 @@ private:
 	mat4 matProjection;
 	Input input;
 	BulletPool* pBulletPool;
+	Background* pBg;
 };

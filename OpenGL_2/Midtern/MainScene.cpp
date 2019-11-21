@@ -4,9 +4,11 @@ void MainScene::Update(float delta) {
 	pPlayer->Update(delta);
 	pBulletPool->Update(delta);
 	input.Update();
+	pBg->Update(delta);
 }
 
 void MainScene::Draw() {
+	pBg->Draw();
 	pPlayer->Draw();
 	pBulletPool->Draw();
 }
@@ -19,11 +21,13 @@ MainScene::MainScene() {
 	pPlayer = new Player(matModelView, matProjection);
 	pPlayer->input = &input;
 	pBulletPool = BulletPool::Create(MAX_BULLET_NUM, matModelView, matProjection);
+	pBg = new Background(MAX_BG_NUM, matModelView, matProjection);
 }
 
 MainScene::~MainScene() {
 	if (pPlayer != NULL)delete pPlayer;
 	pBulletPool->Destroy();
+	if (pBg != NULL) delete pBg;
 }
 
 void MainScene::OnWinKeyboard(unsigned char key, int x, int y) {

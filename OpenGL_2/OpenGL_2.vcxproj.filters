@@ -66,6 +66,15 @@
     <ClCompile Include="Midtern\BulletPool.cpp">
       <Filter>Midtern</Filter>
     </ClCompile>
+    <ClCompile Include="Midtern\Star.cpp">
+      <Filter>Midtern</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Background.cpp">
+      <Filter>Midtern</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Random.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -109,6 +118,15 @@
     </ClInclude>
     <ClInclude Include="Midtern\BulletPool.h">
       <Filter>Midtern</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Star.h">
+      <Filter>Midtern</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Background.h">
+      <Filter>Midtern</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Random.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

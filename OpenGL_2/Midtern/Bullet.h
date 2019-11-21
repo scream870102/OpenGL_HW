@@ -5,8 +5,6 @@
 #define NONE 0
 #define PLAYER 1
 #define ENEMY 2
-#define WIDTH 450
-#define HEIGHT 800
 class Bullet
 {
 private:
