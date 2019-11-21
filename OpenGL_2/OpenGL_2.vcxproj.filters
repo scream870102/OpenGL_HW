@@ -60,6 +60,9 @@
     <ClCompile Include="Midtern\Character.cpp">
       <Filter>Midtern</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\ObjectPool.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
