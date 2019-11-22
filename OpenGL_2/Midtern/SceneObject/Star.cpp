@@ -51,9 +51,31 @@ Star::~Star(){
 Star::Star(const Star& s){
 	memcpy(_points, s._points, sizeof(s._points));
 	memcpy(_colors, s._colors, sizeof(s._colors));
-	poolParent = s.poolParent;
-	transform = s.transform;
 	speed = s.speed;
+	rotateSpeed = s.rotateSpeed;
+	bRotateClockWise = s.bRotateClockWise;
+	poolParent = s.poolParent;
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//TOFIX:CHECK IF THIS RIGHT WAY
+	transform = new Transform(*s.transform);
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+}
+
+const Star& Star::operator=(const Star& s){
+	if (&s != this) {
+		if (transform != NULL)delete transform;
+		memcpy(_points, s._points, sizeof(s._points));
+		memcpy(_colors, s._colors, sizeof(s._colors));
+		speed = s.speed;
+		rotateSpeed = s.rotateSpeed;
+		bRotateClockWise = s.bRotateClockWise;
+		poolParent = s.poolParent;
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//TOFIX:CHECK IF THIS RIGHT WAY
+		transform = new Transform(*s.transform);
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
+	return *this;
 }
 
 void Star::Draw(){

@@ -8,8 +8,7 @@ Input::Input() {
 	mouseY = 0;
 }
 
-Input::~Input() {
-}
+Input::~Input() {}
 
 bool Input::IsGetKey(int key) {
 	if (bKeyPressed && key == keyPressed)

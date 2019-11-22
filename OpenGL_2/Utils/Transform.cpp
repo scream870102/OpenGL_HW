@@ -1,24 +1,5 @@
 #include "Transform.h"
 
-Transform::Transform(const Transform& t) {
-	_vao = t._vao;
-	_vbo = t._vbo;
-	_modelView = t._modelView;
-	_projection = t._projection;
-	_program = t._program;
-	_matView = t._matView;
-	_matProjection = t._matProjection;
-	_matMVFinal = t._matMVFinal;
-	_matTRS = t._matTRS;
-	_bUpdateProj = t._bUpdateProj;
-	position = t.position;
-	rotation = t.rotation;
-	scale = t.scale;
-	pParent = t.pParent;
-	points = vPoint4(t.points.begin(), t.points.end());
-	colors = vColor4(t.colors.begin(), t.colors.end());
-}
-
 Transform::Transform() {
 	_vao = 0;
 	_vbo = 0;
@@ -41,6 +22,37 @@ Transform::Transform() {
 Transform::~Transform() {
 	if (points.size() != 0)points.clear();
 	if (colors.size() != 0)colors.clear();
+}
+
+Transform::Transform(const Transform& t) {
+	_matView = t._matView;
+	_matProjection = t._matProjection;
+	_bUpdateProj = t._bUpdateProj;
+	position = t.position;
+	rotation = t.rotation;
+	scale = t.scale;
+	pParent = t.pParent;
+	points = vPoint4(t.points.begin(), t.points.end());
+	colors = vColor4(t.colors.begin(), t.colors.end());
+	Init(&points[0], &colors[0], (int)points.size(), _matView, _matProjection);
+}
+
+const Transform& Transform::operator=(const Transform& t) {
+	if (&t != this) {
+		if (points.size() != 0)points.clear();
+		if (colors.size() != 0)colors.clear();
+		_matView = t._matView;
+		_matProjection = t._matProjection;
+		_bUpdateProj = t._bUpdateProj;
+		position = t.position;
+		rotation = t.rotation;
+		scale = t.scale;
+		pParent = t.pParent;
+		points = vPoint4(t.points.begin(), t.points.end());
+		colors = vColor4(t.colors.begin(), t.colors.end());
+		Init(&points[0], &colors[0], (int)points.size(), _matView, _matProjection);
+	}
+	return *this;
 }
 
 
@@ -162,7 +174,7 @@ mat4 Transform::GetTRSMat() {
 	return trsMat;
 }
 
-const vec3 Transform::GetGlobalPosition(){
+const vec3 Transform::GetGlobalPosition() {
 	mat4 mat = GetTRSMat();
 	return vec3(mat[0][3], mat[1][3], mat[2][3]);
 }

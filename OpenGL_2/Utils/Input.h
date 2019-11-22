@@ -8,22 +8,25 @@
 #include "../Header/Angel.h"
 class Input
 {
-public:
-	Input();
-	~Input();
-	int mouseX;
-	int mouseY;
-	bool IsGetKey(int key);
-	bool IsGetMouse(int mouse);
-	void	KeyPressed(int key);
-	void MousePressed(int button, int state, int x, int y);
-	void MouseMove(int x, int y);
-	void Update();
 private:
 	bool bKeyPressed;
 	int keyPressed;
 	bool bLeftPressed;
 	bool bRightPressed;
+public:
+	int mouseX;
+	int mouseY;
+private:
+public:
+	Input();
+	~Input();
+	bool IsGetKey(int key);
+	bool IsGetMouse(int mouse);
+	void KeyPressed(int key);
+	void MousePressed(int button, int state, int x, int y);
+	void MouseMove(int x, int y);
+	void Update();
+
 };
 
 

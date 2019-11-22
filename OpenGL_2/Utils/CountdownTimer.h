@@ -2,6 +2,11 @@
 #include "../Header/Angel.h"
 class CountDownTimer
 {
+private:
+	int time;
+	int CD;
+public:
+private:
 public:
 	CountDownTimer(int CD = 0.0f);
 	~CountDownTimer();
@@ -9,9 +14,5 @@ public:
 	bool IsFinished();
 	void Reset();
 	void Reset(int newCD);
-
-private:
-	int time;
-	int CD;
 };
 

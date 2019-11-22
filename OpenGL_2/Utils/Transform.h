@@ -8,6 +8,9 @@ typedef Angel::vec4 color4;
 typedef Angel::vec4 point4;
 #define WIDTH 450
 #define HEIGHT 800
+#define NONE 0
+#define PLAYER 1
+#define ENEMY 2
 class Transform {
 private:
 	GLuint _vao;
@@ -17,7 +20,7 @@ private:
 	mat4 _matView, _matProjection;
 	mat4 _matMVFinal, _matTRS;
 	bool _bUpdateProj;
-	void CreateBufferObject();
+
 public:
 	vec3 position;
 	vec3 rotation;
@@ -25,9 +28,13 @@ public:
 	Transform* pParent;
 	vPoint4 points;
 	vColor4 colors;
-	Transform(const Transform& t);
+private:
+	void CreateBufferObject();
+public:
 	Transform();
 	~Transform();
+	Transform(const Transform& t);
+	const Transform& operator=(const Transform& t);
 	GLuint GetShaderHandle() { return _program; }
 	void SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle = MAX_UNSIGNED_INT);
 	void SetViewMatrix(mat4& mat);

@@ -5,10 +5,12 @@
 template <class T>
 class ObjectPool
 {
+private:
 public:
 	ObjectPool();
 	~ObjectPool();
 	ObjectPool(const ObjectPool& o);
+	const ObjectPool& operator=(const ObjectPool& b);
 	T* GetPoolObject();
 	void Recycle(T* object);
 	void Init(T* object);
@@ -17,12 +19,12 @@ public:
 private:
 	std::queue<T*> q;
 	std::vector<T*> v;
+public:
 };
 //#include "ObjectPool.cpp"
 //#endif
 template<class T>
-ObjectPool<T>::ObjectPool() {
-}
+ObjectPool<T>::ObjectPool() {}
 
 template<class T>
 ObjectPool<T>::~ObjectPool() {
@@ -45,7 +47,32 @@ ObjectPool<T>::~ObjectPool() {
 
 template<class T>
 ObjectPool<T>::ObjectPool(const ObjectPool& o) {
-	q = o.q;
+	q = new std::queue<T*>(o.q);
+	v = new std::vector<T*>(o.v);
+}
+
+template<class T>
+const ObjectPool<T>& ObjectPool<T>::operator=(const ObjectPool& b) {
+	if (&b != this) {
+		while (!q.empty())
+		{
+			T* obj = q.front();
+			if (obj != NULL) {
+				q.pop();
+				delete obj;
+			}
+		}
+		for (int i = 0; i < (int)v.size(); i++)
+		{
+			if (v[i] != NULL) {
+				delete v[i];
+			}
+		}
+		v.clear();
+		q = new std::queue<T*>(o.q);
+		v = new std::vector<T*>(o.v);
+	}
+	return *this;
 }
 
 template<class T>

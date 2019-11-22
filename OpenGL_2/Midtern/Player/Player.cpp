@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(int health, mat4& matModelView, mat4& matProjection, GLuint shaderHandle):Character(health) {
+Player::Player(int damage, int health, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Character(PLAYER, damage, health) {
 	_points[0] = point4(0.0f, -30.0f, 0.0f, 1.0f);
 	_points[1] = point4(-10.0f, -12.0f, 0.0f, 1.0f);
 	_points[2] = point4(10.0f, -12.0f, 0.0f, 1.0f);
@@ -58,19 +58,36 @@ Player::Player(int health, mat4& matModelView, mat4& matProjection, GLuint shade
 	input = NULL;
 	transform = new Transform();
 	transform->Init(_points, _colors, P_NUM, matModelView, matProjection, shaderHandle);
-	shootTimer = new CountDownTimer(SHOOT_CD);
+	collider = new CircleCollider(PLAYER_RADIUS, this->transform->position);
+	shootTimer = new CountDownTimer(PLAYER_SHOOT_CD);
 }
 
 Player::~Player() {
-	if (transform != NULL)delete transform;
 	if (shootTimer != NULL)delete shootTimer;
 }
 
-Player::Player(const Player& p) {
+Player::Player(const Player& p) :Character(p) {
 	memcpy(_points, p._points, sizeof(p._points));
 	memcpy(_colors, p._colors, sizeof(p._colors));
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//TOFIX:CHECK IF THIS RIGHT WAY
+	shootTimer = new CountDownTimer(*p.shootTimer);
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	input = p.input;
-	shootTimer = p.shootTimer;
+}
+
+const Player& Player::operator=(const Player& p) {
+	if (&p != this) {
+		if (shootTimer != NULL)delete shootTimer;
+		memcpy(_points, p._points, sizeof(p._points));
+		memcpy(_colors, p._colors, sizeof(p._colors));
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//TOFIX:CHECK IF THIS RIGHT WAY
+		shootTimer = new CountDownTimer(*p.shootTimer);
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		input = p.input;
+	}
+	return *this;
 }
 
 void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
@@ -86,11 +103,11 @@ void Player::Update(float delta) {
 	this->transform->position.y = (GLfloat)input->mouseY;
 	if (shootTimer->IsFinished() && input->IsGetMouse(LEFT_MOUSE)) {
 		shootTimer->Reset();
-		BulletPool::GetInstance()->Fire(PLAYER, this->transform->position, NORMAL_BULLET_SPEED);
+		BulletPool::GetInstance()->Fire(PLAYER, this->transform->position, NORMAL_BULLET_SPEED, damage);
 	}
 }
 
-void Player::Dead(){
+void Player::Dead() {
 	Character::Dead();
 	Print("I am player!!");
 }

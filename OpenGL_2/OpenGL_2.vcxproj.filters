@@ -25,6 +25,24 @@
     <Filter Include="Midtern">
       <UniqueIdentifier>{455ee2ec-16b1-49a1-9ec9-d2f010cf7daa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Midtern\Enemy">
+      <UniqueIdentifier>{4febd2c1-caa8-4aec-83d0-58d1d90e5403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Midtern\Player">
+      <UniqueIdentifier>{a5ee32ab-0e9b-4263-b4e1-299c34eee0a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Midtern\SceneObject">
+      <UniqueIdentifier>{9535720b-c76d-4d7e-8148-f56ad4224bb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Midtern\Bullet">
+      <UniqueIdentifier>{7917b79d-3c44-4afd-835d-69e8598ccb18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\Movement">
+      <UniqueIdentifier>{0b50d383-4129-463a-b771-f3277fbcee15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\Collider">
+      <UniqueIdentifier>{9366d1fd-8119-41eb-af8a-825be8eceeaa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InitShader.cpp">
@@ -45,13 +63,7 @@
     <ClCompile Include="Midtern\Main.cpp">
       <Filter>Midtern</Filter>
     </ClCompile>
-    <ClCompile Include="Midtern\Player.cpp">
-      <Filter>Midtern</Filter>
-    </ClCompile>
     <ClCompile Include="Midtern\MainScene.cpp">
-      <Filter>Midtern</Filter>
-    </ClCompile>
-    <ClCompile Include="Midtern\Bullet.cpp">
       <Filter>Midtern</Filter>
     </ClCompile>
     <ClCompile Include="Utils\CountdownTimer.cpp">
@@ -63,17 +75,32 @@
     <ClCompile Include="Utils\ObjectPool.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Midtern\BulletPool.cpp">
-      <Filter>Midtern</Filter>
-    </ClCompile>
-    <ClCompile Include="Midtern\Star.cpp">
-      <Filter>Midtern</Filter>
-    </ClCompile>
-    <ClCompile Include="Midtern\Background.cpp">
-      <Filter>Midtern</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\Random.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Enemy\Shushu.cpp">
+      <Filter>Midtern\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Bullet\Bullet.cpp">
+      <Filter>Midtern\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Bullet\BulletPool.cpp">
+      <Filter>Midtern\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\SceneObject\Background.cpp">
+      <Filter>Midtern\SceneObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\SceneObject\Star.cpp">
+      <Filter>Midtern\SceneObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Player\Player.cpp">
+      <Filter>Midtern\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Movement\PingPongMove.cpp">
+      <Filter>Utils\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Collider\CircleCollider.cpp">
+      <Filter>Utils\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,13 +125,7 @@
     <ClInclude Include="Utils\Transform.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Midtern\Player.h">
-      <Filter>Midtern</Filter>
-    </ClInclude>
     <ClInclude Include="Midtern\MainScene.h">
-      <Filter>Midtern</Filter>
-    </ClInclude>
-    <ClInclude Include="Midtern\Bullet.h">
       <Filter>Midtern</Filter>
     </ClInclude>
     <ClInclude Include="Utils\ObjectPool.h">
@@ -116,17 +137,32 @@
     <ClInclude Include="Midtern\Character.h">
       <Filter>Midtern</Filter>
     </ClInclude>
-    <ClInclude Include="Midtern\BulletPool.h">
-      <Filter>Midtern</Filter>
-    </ClInclude>
-    <ClInclude Include="Midtern\Star.h">
-      <Filter>Midtern</Filter>
-    </ClInclude>
-    <ClInclude Include="Midtern\Background.h">
-      <Filter>Midtern</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\Random.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Enemy\Shushu.h">
+      <Filter>Midtern\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Bullet\Bullet.h">
+      <Filter>Midtern\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Bullet\BulletPool.h">
+      <Filter>Midtern\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\SceneObject\Background.h">
+      <Filter>Midtern\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\SceneObject\Star.h">
+      <Filter>Midtern\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Player\Player.h">
+      <Filter>Midtern\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Movement\PingPongMove.h">
+      <Filter>Utils\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Collider\CircleCollider.h">
+      <Filter>Utils\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

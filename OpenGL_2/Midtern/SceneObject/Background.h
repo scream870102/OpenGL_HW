@@ -1,6 +1,6 @@
 #pragma once
 #include "Star.h"
-#include "../Utils/Random.h"
+#include "../../Utils/Random.h"
 #define MAX_STAR_NUM 20
 #define MAX_STAR_SPEED 80
 #define MIN_STAR_SPEED 50
@@ -12,14 +12,15 @@
 #define MAX_STAR_ROTATE_SPEED 50.0f
 class Background
 {
+private:
+	ObjectPool<Star> _starPool;
+public:
+private:
+	void GenerateStar();
 public:
 	Background(int number = 100, mat4& matModelView = mat4(1.0f), mat4& matProjection = Ortho(0.0f, WIDTH, HEIGHT, 0.0f, 0.0f, 1.0f), GLuint shaderHandle = MAX_UNSIGNED_INT);
 	~Background();
 	void Draw();
 	void Update(float delta);
-
-private:
-	ObjectPool<Star> _starPool;
-	void GenerateStar();
 };
 
