@@ -17,7 +17,10 @@ void IdleProcess();
 
 void init(void) {
 	mainScene = new MainScene();
-	glClearColor(0.0, 0.0, 0.0, 1.0); // black background
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // black background
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+
 }
 
 void GL_Display(void) {

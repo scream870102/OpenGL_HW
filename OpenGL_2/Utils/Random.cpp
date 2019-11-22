@@ -19,3 +19,11 @@ int Random::GetRand(int max, int min){
 	return result;
 }
 
+bool Random::GetRandBool(){
+	std::random_device rd;
+	std::default_random_engine gen = std::default_random_engine(rd());
+	std::uniform_int_distribution<int> dis(0, 9);
+	int rand = dis(gen);
+	return rand%2==0;
+}
+

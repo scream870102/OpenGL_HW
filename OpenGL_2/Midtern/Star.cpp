@@ -1,5 +1,5 @@
 #include "Star.h"
-Star::Star(float speed,mat4& matModelView, mat4& matProjection , GLuint shaderHandle){
+Star::Star(float speed, float rotateSpeed, bool bRotateClockWise,mat4& matModelView, mat4& matProjection , GLuint shaderHandle){
 	_points[0] = point4(0.0f, -10.0f, 0.0f, 1.0f);
 	_points[1] = point4(-5.0f, 0.0f, 0.0f, 1.0f);
 	_points[2] = point4(5.0f, 0.0f, 0.0f, 1.0f);
@@ -40,6 +40,8 @@ Star::Star(float speed,mat4& matModelView, mat4& matProjection , GLuint shaderHa
 	transform = new Transform();
 	transform->Init(_points, _colors, STAR_NUM, matModelView, matProjection, shaderHandle);
 	this->speed = speed;
+	this->rotateSpeed = rotateSpeed;
+	this->bRotateClockWise = bRotateClockWise;
 }
 
 Star::~Star(){
@@ -60,6 +62,7 @@ void Star::Draw(){
 
 void Star::Update(float delta){
 	this->transform->position.y += speed * delta;
+	AutoRotation(delta);
 	if (transform->position.y >= HEIGHT || transform->position.y <= 0.0f)
 		poolParent->Recycle(this);
 }
@@ -76,5 +79,19 @@ void Star::Init(vec3 position, float speed, vec3 scale){
 }
 
 void Star::SetColor(vec4 color){
+	Print(color);
 	this->transform->SetColor(color);
 }
+
+void Star::SetRotation(float speed, bool IsRotateClockwise){
+	this->rotateSpeed = speed;
+	this->bRotateClockWise = IsRotateClockwise;
+}
+
+void Star::AutoRotation(float delta){
+	if (bRotateClockWise)
+		this->transform->rotation.z += rotateSpeed * delta;
+	else
+		this->transform->rotation.z -= rotateSpeed * delta;
+}
+
