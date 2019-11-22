@@ -3,14 +3,15 @@
 Character::Character(int health){
 	this->health = health;
 	this->bDead = health > 0;
+	this->transform = NULL;
 }
 
 Character::~Character(){}
 
 Character::Character(const Character& c){
-	transform = c.transform;
-	health = health;
-	bDead = bDead;
+	this->transform = c.transform;
+	this->health = c.health;
+	this->bDead = c.bDead;
 }
 
 void Character::TakeDamage(int damage) {

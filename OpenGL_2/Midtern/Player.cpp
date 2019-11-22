@@ -1,5 +1,6 @@
 #include "Player.h"
-Player::Player(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
+
+Player::Player(int health, mat4& matModelView, mat4& matProjection, GLuint shaderHandle):Character(health) {
 	_points[0] = point4(0.0f, -30.0f, 0.0f, 1.0f);
 	_points[1] = point4(-10.0f, -12.0f, 0.0f, 1.0f);
 	_points[2] = point4(10.0f, -12.0f, 0.0f, 1.0f);
@@ -69,7 +70,6 @@ Player::Player(const Player& p) {
 	memcpy(_points, p._points, sizeof(p._points));
 	memcpy(_colors, p._colors, sizeof(p._colors));
 	input = p.input;
-	transform = p.transform;
 	shootTimer = p.shootTimer;
 }
 
@@ -78,11 +78,9 @@ void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHan
 }
 
 
-void Player::Draw() {
-	transform->Draw();
-}
 
 void Player::Update(float delta) {
+	Character::Update(delta);
 	//Modify player position due to mouse position
 	this->transform->position.x = (GLfloat)input->mouseX;
 	this->transform->position.y = (GLfloat)input->mouseY;
@@ -90,4 +88,9 @@ void Player::Update(float delta) {
 		shootTimer->Reset();
 		BulletPool::GetInstance()->Fire(PLAYER, this->transform->position, NORMAL_BULLET_SPEED);
 	}
+}
+
+void Player::Dead(){
+	Character::Dead();
+	Print("I am player!!");
 }

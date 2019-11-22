@@ -3,6 +3,7 @@
 #include "Background.h"
 #define MAX_BULLET_NUM 100
 #define MAX_BG_NUM 50
+#define INIT_PLAYER_HEALTH 100
 class MainScene
 {
 public:

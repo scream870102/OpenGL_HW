@@ -2,8 +2,7 @@
 #include "../Utils/Transform.h"
 #include "../Utils/ObjectPool.h"
 #define STAR_NUM 18
-class Star
-{
+class Star{
 public:
 	ObjectPool<Star>* poolParent;
 	Transform* transform;
