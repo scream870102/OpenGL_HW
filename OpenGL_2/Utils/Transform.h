@@ -38,4 +38,6 @@ public:
 	void DrawW();
 	void Init(point4 ps[], color4 cs[], int num, mat4 matView, mat4 matProjection, GLuint shaderHandle = MAX_UNSIGNED_INT);
 	mat4 GetTRSMat();
+	const vec3 GetGlobalPosition();
+
 };

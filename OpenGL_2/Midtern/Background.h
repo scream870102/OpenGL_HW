@@ -20,5 +20,6 @@ public:
 
 private:
 	ObjectPool<Star> _starPool;
+	void GenerateStar();
 };
 

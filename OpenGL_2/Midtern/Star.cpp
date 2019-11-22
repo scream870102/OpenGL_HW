@@ -79,7 +79,6 @@ void Star::Init(vec3 position, float speed, vec3 scale){
 }
 
 void Star::SetColor(vec4 color){
-	Print(color);
 	this->transform->SetColor(color);
 }
 

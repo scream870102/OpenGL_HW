@@ -1,19 +1,21 @@
 #pragma once
-#include "Bullet.h"
+#include "../Utils/Transform.h"
 class Character
 {
 public:
-	Character();
+	Character(int health=100);
 	~Character();
-
+	Character(const Character& c);
+	void TakeDamage(int damage);
+	virtual void Update(float delta);
+	virtual void Draw();
+	const int GetHealth() const;
+	const bool IsDead() const;
+protected:
+	virtual void Dead();
+public:
+	Transform* transform;
 private:
-	ObjectPool<Bullet> _bulletPool;
+	int health;
+	bool bDead;
 };
-
-Character::Character()
-{
-}
-
-Character::~Character()
-{
-}

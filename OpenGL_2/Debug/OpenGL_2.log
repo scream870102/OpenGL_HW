@@ -1,10 +1,5 @@
-﻿  Background.cpp
-D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Background.cpp(26,58): warning C4244: '引數': 將 'int' 轉換為 'GLfloat'，由於類型不同，可能導致資料遺失
-D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Background.cpp(26,34): warning C4244: '引數': 將 'int' 轉換為 'GLfloat'，由於類型不同，可能導致資料遺失
-  Main.cpp
-  MainScene.cpp
-  Star.cpp
-  Random.cpp
+﻿  Character.cpp
+  Player.cpp
+  Transform.cpp
   正在產生程式碼...
-D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Background.cpp(26,90): warning C4244: '引數': 將 'int' 轉換為 'float'，由於類型不同，可能導致資料遺失
   OpenGL_2.vcxproj -> D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\Debug\OpenGL_2.exe

@@ -162,3 +162,8 @@ mat4 Transform::GetTRSMat() {
 	return trsMat;
 }
 
+const vec3 Transform::GetGlobalPosition(){
+	mat4 mat = GetTRSMat();
+	return vec3(mat[0][3], mat[1][3], mat[2][3]);
+}
+
