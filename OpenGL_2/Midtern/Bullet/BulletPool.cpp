@@ -37,6 +37,7 @@ void BulletPool::Update(float delta) {
 	}
 }
 
+
 void BulletPool::CheckCollisionWithCharacter(const std::vector<Character*> characters) {
 	std::vector<Bullet*>* usingBullets = _bulletPool.GetUsingObjs();
 	for (int i = 0; i < (int)characters.size(); i++)
@@ -51,6 +52,21 @@ void BulletPool::CheckCollisionWithCharacter(const std::vector<Character*> chara
 			}
 		}
 	}
+}
+
+bool BulletPool::CheckCollisionWithCharacter(Character* character) {
+	std::vector<Bullet*>* usingBullets = _bulletPool.GetUsingObjs();
+	for (int j = 0; j < (int)usingBullets->size(); j++) {
+		if (character->type != usingBullets[0][j]->GetType()) {
+			bool bCollide = character->IsCollide(usingBullets[0][j]->GetCollider());
+			if (bCollide) {
+				character->TakeDamage(usingBullets[0][j]->GetDamage());
+				usingBullets[0][j]->poolParent->Recycle(usingBullets[0][j]);
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 BulletPool* BulletPool::Create(int number, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Character.h"
+#include "Enemy.h"
 #include "../../Utils/CountdownTimer.h"
 #include "../Bullet/BulletPool.h"
 #include "../../Utils/Movement/PingPongMove.h"
@@ -9,7 +9,7 @@
 #define MOVE_SPEED 150.0f
 #define ROTATE_SPEED 200.0f
 #define SHUSHU_RADIUS 24.0f
-class Shushu :public Character {
+class Shushu :public Enemy {
 private:
 	point4 _points[NUM];
 	color4 _colors[NUM];

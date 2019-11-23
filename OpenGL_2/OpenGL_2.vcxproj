@@ -84,6 +84,8 @@
     <ClCompile Include="Midtern\Bullet\Bullet.cpp" />
     <ClCompile Include="Midtern\Bullet\BulletPool.cpp" />
     <ClCompile Include="Midtern\Character.cpp" />
+    <ClCompile Include="Midtern\CharacterController.cpp" />
+    <ClCompile Include="Midtern\Enemy\Enemy.cpp" />
     <ClCompile Include="Midtern\Enemy\Shushu.cpp" />
     <ClCompile Include="Midtern\Main.cpp" />
     <ClCompile Include="Midtern\MainScene.cpp" />
@@ -107,6 +109,8 @@
     <ClInclude Include="Midtern\Bullet\Bullet.h" />
     <ClInclude Include="Midtern\Bullet\BulletPool.h" />
     <ClInclude Include="Midtern\Character.h" />
+    <ClInclude Include="Midtern\CharacterController.h" />
+    <ClInclude Include="Midtern\Enemy\Enemy.h" />
     <ClInclude Include="Midtern\Enemy\Shushu.h" />
     <ClInclude Include="Midtern\MainScene.h" />
     <ClInclude Include="Midtern\Player\Player.h" />

@@ -1,14 +1,14 @@
 #include "CountdownTimer.h"
 
 
-CountDownTimer::CountDownTimer(int CD) {
+CountDownTimer::CountDownTimer(int CD, int offset) {
 	this->CD = CD;
-	this->time = glutGet(GLUT_ELAPSED_TIME) + CD;
+	this->time = glutGet(GLUT_ELAPSED_TIME) + CD - offset;
 }
 
 CountDownTimer::~CountDownTimer() {}
 
-void CountDownTimer::Init(int CD){
+void CountDownTimer::Init(int CD) {
 	this->CD = CD;
 	this->time = glutGet(GLUT_ELAPSED_TIME) + this->CD;
 }

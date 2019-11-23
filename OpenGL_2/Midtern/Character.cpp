@@ -4,7 +4,7 @@ Character::Character(int type, int damage, int health) {
 	this->type = type;
 	this->health = health;
 	this->damage = damage;
-	this->bDead = health > 0;
+	this->bDead = false;
 	this->transform = NULL;
 	this->collider = NULL;
 }
@@ -45,6 +45,7 @@ const Character& Character::operator=(const Character& c) {
 
 void Character::TakeDamage(int damage) {
 	health -= damage;
+	Print(bDead);
 	if (health <= 0)Dead();
 }
 

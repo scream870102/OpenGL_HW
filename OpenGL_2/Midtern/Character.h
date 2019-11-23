@@ -1,6 +1,7 @@
 #pragma once
 #include "../Utils/Transform.h"
 #include "../Utils/Collider/CircleCollider.h"
+#include "../Utils/Random.h"
 class Character
 {
 private:

@@ -1,6 +1,6 @@
 #include "Shushu.h"
 
-Shushu::Shushu(int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Character(ENEMY, damage, health) {
+Shushu::Shushu(int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(ENEMY, damage, health) {
 	_points[0] = point4(0.0f, -24.0f, 0.0f, 1.0f);
 	_points[1] = point4(0.0f, 0.0f, 0.0f, 1.0f);
 	_points[2] = point4(6.0f, -9.0f, 0.0f, 1.0f);
@@ -28,7 +28,7 @@ Shushu::Shushu(int damage, int health, vec3 initPos, mat4& matModelView, mat4& m
 	transform = new Transform();
 	transform->Init(_points, _colors, NUM, matModelView, matProjection, shaderHandle);
 	transform->position = initPos;
-	timer = new CountDownTimer(SHUSHU_SHOOT_CD);
+	timer = new CountDownTimer(SHUSHU_SHOOT_CD,Random::GetRand(SHUSHU_SHOOT_CD));
 	move = new PingPongMove(this->transform, MOVE_SPEED, (float)WIDTH, 0.0f);
 	collider = new CircleCollider(SHUSHU_RADIUS, this->transform->position);
 }
@@ -38,7 +38,7 @@ Shushu::~Shushu() {
 	if (move != NULL)delete move;
 }
 
-Shushu::Shushu(const Shushu& s) :Character(s) {
+Shushu::Shushu(const Shushu& s) :Enemy(s) {
 	memcpy(_points, s._points, sizeof(s._points));
 	memcpy(_colors, s._colors, sizeof(s._colors));
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -64,7 +64,7 @@ Shushu& Shushu::operator=(const Shushu& s) {
 }
 
 void Shushu::Update(float delta) {
-	Character::Update(delta);
+	Enemy::Update(delta);
 	this->transform->position = move->GetNextPos(delta);
 	AutoRotation(delta);
 	if (timer->IsFinished()) {
@@ -74,7 +74,7 @@ void Shushu::Update(float delta) {
 }
 
 void Shushu::Dead() {
-	Character::Dead();
+	Enemy::Dead();
 	Print("KISUNOSHURIKEN");
 }
 

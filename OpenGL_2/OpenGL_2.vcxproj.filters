@@ -102,6 +102,12 @@
     <ClCompile Include="Utils\Collider\CircleCollider.cpp">
       <Filter>Utils\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="Midtern\CharacterController.cpp">
+      <Filter>Midtern</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Enemy\Enemy.cpp">
+      <Filter>Midtern\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -163,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="Utils\Collider\CircleCollider.h">
       <Filter>Utils\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\CharacterController.h">
+      <Filter>Midtern</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Enemy\Enemy.h">
+      <Filter>Midtern\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
