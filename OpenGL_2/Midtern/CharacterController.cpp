@@ -17,6 +17,15 @@ CharacterController::CharacterController(int maxEnemyNum, Input* input, mat4& ma
 		enemies.Init(shuShu);
 		shuShu->poolParent = &enemies;
 		//END SECTION SHUHSU
+
+		//SECTION HAKURUMA
+		//Enemy* hakuruma = new Hakuruma(pPlayer, SHUSHU_DAMAGE, SHUSHU_HEALTH,
+		//	vec3(Random::GetRand((float)WIDTH), Random::GetRand(HEIGHT / 3.0f), 0.0f)
+		//	, matModelView, matProjection, shaderHandle
+		//);
+		//enemies.Init(hakuruma);
+		//hakuruma->poolParent = &enemies;
+		//END SECTION HAKURUMA
 	}
 
 

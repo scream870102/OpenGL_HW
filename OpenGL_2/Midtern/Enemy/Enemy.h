@@ -1,6 +1,7 @@
 #pragma once
 #include "../Player/Player.h"
 #include "../../Utils/ObjectPool.h"
+#include "../../Utils/Movement/Movement.h"
 #define DAMAGA_FADE_VEL 0.5f 
 #define DAMAGE_ANIM 1000
 class Enemy :public Character
@@ -9,6 +10,7 @@ private:
 protected:
 	Player* pPlayer;
 public:
+	CountDownTimer* shootTimer;
 	ObjectPool<Enemy>* poolParent;
 private:
 protected:

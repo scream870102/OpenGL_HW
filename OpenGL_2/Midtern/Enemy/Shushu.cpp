@@ -28,7 +28,7 @@ Shushu::Shushu(Player* player, int damage, int health, vec3 initPos, mat4& matMo
 	transform = new Transform();
 	transform->Init(_points, _colors, NUM, matModelView, matProjection, shaderHandle);
 	transform->position = initPos;
-	timer = new CountDownTimer(SHUSHU_SHOOT_CD, Random::GetRand(SHUSHU_SHOOT_CD));
+	shootTimer = new CountDownTimer(SHUSHU_SHOOT_CD, Random::GetRand(SHUSHU_SHOOT_CD));
 	move = new PingPongMove(this->transform, MOVE_SPEED, (float)WIDTH, 0.0f);
 	collider = new CircleCollider(SHUSHU_RADIUS, this->transform->position);
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -38,7 +38,7 @@ Shushu::Shushu(Player* player, int damage, int health, vec3 initPos, mat4& matMo
 }
 
 Shushu::~Shushu() {
-	if (timer != NULL)delete timer;
+	//if (timer != NULL)delete timer;
 	if (move != NULL)delete move;
 }
 
@@ -47,20 +47,20 @@ Shushu::Shushu(const Shushu& s) :Enemy(s) {
 	memcpy(_colors, s._colors, sizeof(s._colors));
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//TOFIX:CHECK IF THIS RIGHT WAY
-	timer = new CountDownTimer(*s.timer);
+	//timer = new CountDownTimer(*s.timer);
 	move = new PingPongMove(*s.move);
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
 Shushu& Shushu::operator=(const Shushu& s) {
 	if (&s != this) {
-		if (timer != NULL)delete timer;
+		//if (timer != NULL)delete timer;
 		if (move != NULL)delete move;
 		memcpy(_points, s._points, sizeof(s._points));
 		memcpy(_colors, s._colors, sizeof(s._colors));
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//TOFIX:CHECK IF THIS RIGHT WAY
-		timer = new CountDownTimer(*s.timer);
+		//timer = new CountDownTimer(*s.timer);
 		move = new PingPongMove(*s.move);
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
@@ -71,8 +71,8 @@ void Shushu::Update(float delta) {
 	Enemy::Update(delta);
 	this->transform->position = move->GetNextPos(delta);
 	AutoRotation(delta);
-	if (timer->IsFinished()) {
-		timer->Reset();
+	if (shootTimer->IsFinished()) {
+		shootTimer->Reset();
 		BulletPool::GetInstance()->FireTB(ENEMY, this->transform->position,vec3(0.0f,1.0f,0.0f), BULLET_SPEED, this->damage,this->pPlayer->transform,BULLET_TRACING_TIME);
 	}
 

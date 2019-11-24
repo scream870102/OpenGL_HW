@@ -25,3 +25,7 @@ void CountDownTimer::Reset(int newCD) {
 	this->CD = newCD;
 	this->time = glutGet(GLUT_ELAPSED_TIME) + this->CD;
 }
+
+int CountDownTimer::GetCD(){
+	return CD;
+}

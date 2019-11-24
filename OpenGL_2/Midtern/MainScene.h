@@ -4,7 +4,7 @@
 #include <vector>
 #define MAX_BULLET_NUM 100
 #define MAX_BG_NUM 50
-#define MAX_ENEMY_NUM 2
+#define MAX_ENEMY_NUM 1
 #define ENEMY_NUM_TO_KILL 5
 class MainScene
 {

@@ -117,6 +117,12 @@
     <ClCompile Include="Midtern\Bullet\TracingBullet.cpp">
       <Filter>Midtern\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Movement\Movement.cpp">
+      <Filter>Utils\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Movement\RandMove.cpp">
+      <Filter>Utils\Movement</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -193,6 +199,12 @@
     </ClInclude>
     <ClInclude Include="Midtern\Bullet\TracingBullet.h">
       <Filter>Midtern\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Movement\Movement.h">
+      <Filter>Utils\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Movement\RandMove.h">
+      <Filter>Utils\Movement</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@
 #include "../Utils/Random.h"
 #include "../Utils/Input.h"
 #include "Enemy/Shushu.h"
+#include "Enemy/Hakuruma.h"
 #define ENEMY_TYPE_NUM 1
 #define INIT_PLAYER_HEALTH 100
 #define INIT_PLAYER_DAMAGE 50

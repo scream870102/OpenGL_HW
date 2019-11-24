@@ -98,7 +98,9 @@
     <ClCompile Include="Utils\CountdownTimer.cpp" />
     <ClCompile Include="Utils\Input.cpp" />
     <ClCompile Include="Utils\Mathf.cpp" />
+    <ClCompile Include="Utils\Movement\Movement.cpp" />
     <ClCompile Include="Utils\Movement\PingPongMove.cpp" />
+    <ClCompile Include="Utils\Movement\RandMove.cpp" />
     <ClCompile Include="Utils\ObjectPool.cpp" />
     <ClCompile Include="Utils\Random.cpp" />
     <ClCompile Include="Utils\Transform.cpp" />
@@ -125,7 +127,9 @@
     <ClInclude Include="Utils\CountdownTimer.h" />
     <ClInclude Include="Utils\Input.h" />
     <ClInclude Include="Utils\Mathf.h" />
+    <ClInclude Include="Utils\Movement\Movement.h" />
     <ClInclude Include="Utils\Movement\PingPongMove.h" />
+    <ClInclude Include="Utils\Movement\RandMove.h" />
     <ClInclude Include="Utils\ObjectPool.h" />
     <ClInclude Include="Utils\Random.h" />
     <ClInclude Include="Utils\Transform.h" />
