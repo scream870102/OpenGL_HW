@@ -15,5 +15,6 @@ public:
 	void Reset();
 	void Reset(int newCD);
 	int GetCD();
+	int Remain();
 };
 

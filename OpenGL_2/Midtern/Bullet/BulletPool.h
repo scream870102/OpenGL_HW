@@ -15,7 +15,7 @@ public:
 	BulletPool(int number = 100, mat4& matModelView = mat4(1.0f), mat4& matProjection = Ortho(0.0f, WIDTH, HEIGHT, 0.0f, 0.0f, 1.0f), GLuint shaderHandle = MAX_UNSIGNED_INT);
 	~BulletPool();
 	Bullet* Fire(int type, vec3 position, vec3 direction, float speed, int damage);
-	Bullet* FireTB(int type, vec3 position, vec3 direction, float speed, int damage, Transform* target,int tracingTime);
+	Bullet* Fire(int type, vec3 position, vec3 direction, float speed, int damage, Transform* target,int tracingTime);
 	void Draw();
 	void Update(float delta);
 	bool CheckCollisionWithCharacter(Character* character);

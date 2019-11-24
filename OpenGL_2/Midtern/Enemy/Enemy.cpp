@@ -5,6 +5,8 @@ void Enemy::DamageAnim(float delta) {
 	if (!damageTimer->IsFinished()) {
 		float a = this->transform->GetAlpha();
 		this->transform->SetAlpha(a - DAMAGA_FADE_VEL * delta);
+		if (damageTimer->Remain() % SMOKE_HZ==0)
+			SmokePool::GetInstance()->Bomb(this->transform->position);
 	}
 	else {
 		this->transform->SetAlpha(1.0f);
@@ -44,6 +46,7 @@ const Enemy& Enemy::operator=(const Enemy& e) {
 
 void Enemy::Init(vec3 initPos, ObjectPool<Enemy>* poolParent) {
 	this->transform->position = initPos;
+	this->transform->rotation = vec3();
 	if (poolParent != NULL)this->poolParent = poolParent;
 	this->Reset();
 }

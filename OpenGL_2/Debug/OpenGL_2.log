@@ -1,4 +1,38 @@
-﻿  Shushu.cpp
-  Transform.cpp
+﻿  BulletPool.cpp
+  Character.cpp
+  CharacterController.cpp
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(4,1): warning C4005: 'NUM': 巨集重複定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Shushu.h(6): message : 請參閱 'NUM' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(5,1): warning C4005: 'MOVE_SPEED': 巨集重複定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Shushu.h(9): message : 請參閱 'MOVE_SPEED' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Syabon.h(5,1): warning C4005: 'NUM': 巨集重複定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(4): message : 請參閱 'NUM' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Syabon.h(6,1): warning C4005: 'MOVE_SPEED': 巨集重複定義
+  Enemy.cpp
+  Hakuruma.cpp
+  Shushu.cpp
+  Syabon.cpp
+  Main.cpp
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(5): message : 請參閱 'MOVE_SPEED' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(4,1): warning C4005: 'NUM': 巨集重複定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Shushu.h(6): message : 請參閱 'NUM' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(5,1): warning C4005: 'MOVE_SPEED': 巨集重複定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Shushu.h(9): message : 請參閱 'MOVE_SPEED' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Syabon.h(5,1): warning C4005: 'NUM': 巨集重複定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(4): message : 請參閱 'NUM' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Syabon.h(6,1): warning C4005: 'MOVE_SPEED': 巨集重複定義
+  MainScene.cpp
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(5): message : 請參閱 'MOVE_SPEED' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(4,1): warning C4005: 'NUM': 巨集重複定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Shushu.h(6): message : 請參閱 'NUM' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(5,1): warning C4005: 'MOVE_SPEED': 巨集重複定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Shushu.h(9): message : 請參閱 'MOVE_SPEED' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Syabon.h(5,1): warning C4005: 'NUM': 巨集重複定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(4): message : 請參閱 'NUM' 之前的定義
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Syabon.h(6,1): warning C4005: 'MOVE_SPEED': 巨集重複定義
+  Player.cpp
+  Smoke.cpp
+  SmokePool.cpp
   正在產生程式碼...
+D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\OpenGL_2\Midtern\Enemy\Hakuruma.h(5): message : 請參閱 'MOVE_SPEED' 之前的定義
   OpenGL_2.vcxproj -> D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\Debug\OpenGL_2.exe

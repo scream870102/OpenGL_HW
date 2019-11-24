@@ -9,6 +9,7 @@ TracingBullet::~TracingBullet() {}
 
 TracingBullet::TracingBullet(const TracingBullet& b) :Bullet(b) {
 	target = b.target;
+	tracingTimer = new CountDownTimer(b.tracingTimer->GetCD());
 }
 
 const TracingBullet& TracingBullet::operator=(const TracingBullet& b) {

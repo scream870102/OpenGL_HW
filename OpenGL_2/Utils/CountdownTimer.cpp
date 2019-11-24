@@ -26,6 +26,10 @@ void CountDownTimer::Reset(int newCD) {
 	this->time = glutGet(GLUT_ELAPSED_TIME) + this->CD;
 }
 
-int CountDownTimer::GetCD(){
+int CountDownTimer::GetCD() {
 	return CD;
+}
+
+int CountDownTimer::Remain(){
+	return this->time - glutGet(GLUT_ELAPSED_TIME);
 }

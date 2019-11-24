@@ -3,6 +3,7 @@
 #include "../Utils/Collider/CircleCollider.h"
 #include "../Utils/Random.h"
 #include "../Utils/CountdownTimer.h"
+#include "SceneObject/SmokePool.h"
 class Character
 {
 private:

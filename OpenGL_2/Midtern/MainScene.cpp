@@ -5,6 +5,7 @@ void MainScene::Update(float delta) {
 	pBulletPool->Update(delta);
 	pBg->Update(delta);
 	pCc->Update(delta);
+	pSmokePool->Update(delta);
 	if (pCc->HowManyEnemyDie() >= ENEMY_NUM_TO_KILL) {
 		pCc->StartBossFight();
 	}
@@ -12,6 +13,7 @@ void MainScene::Update(float delta) {
 
 void MainScene::Draw() {
 	pBg->Draw();
+	pSmokePool->Draw();
 	pCc->Draw();
 	pBulletPool->Draw();
 }
@@ -23,10 +25,12 @@ MainScene::MainScene() {
 	pBg = new Background(MAX_BG_NUM, matModelView, matProjection);
 	pCc = new CharacterController(MAX_ENEMY_NUM, &(this->input), matModelView, matProjection);
 	pBulletPool = BulletPool::Create(MAX_BULLET_NUM, matModelView, matProjection);
+	pSmokePool = SmokePool::Create(MAX_SMOKE_NUM, matModelView, matProjection);
 }
 
 MainScene::~MainScene() {
 	pBulletPool->Destroy();
+	pSmokePool->Destroy();
 	if (pBg != NULL) delete pBg;
 	if (pCc != NULL)delete pCc;
 }

@@ -1,4 +1,10 @@
 #include "Hakuruma.h"
+void Hakuruma::AutoRotation(float delta) {
+	if (bFacingRight)
+		this->transform->rotation.z += ROTATE_VEL * delta;
+	else
+		this->transform->rotation.z -= ROTATE_VEL * delta;
+}
 Hakuruma::Hakuruma(Player* player, int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(player, ENEMY, damage, health) {
 	_points[0] = point4(-3.0f, -22.0f, 0.0f, 1.0f);
 	_points[1] = point4(-3.0f, -12.0f, 0.0f, 1.0f);
@@ -82,6 +88,7 @@ Hakuruma::Hakuruma(Player* player, int damage, int health, vec3 initPos, mat4& m
 	move = new RandMove(this->transform, MOVE_SPEED, vec2(0.0f, (float)WIDTH), vec2(0.0f, HEIGHT * MOVE_Y_MGNFC));
 	collider = new CircleCollider(HAKURUMA_RADIUS, this->transform->position);
 	shootTimer = new CountDownTimer(SHOOT_CD);
+	bFacingRight = false;
 }
 
 Hakuruma::~Hakuruma() {
@@ -95,6 +102,7 @@ Hakuruma::Hakuruma(const Hakuruma& h) :Enemy(h) {
 	//TOFIX:CHECK IF THIS RIGHT WAY
 	move = new RandMove(*h.move);
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	bFacingRight = h.bFacingRight;
 }
 
 Hakuruma& Hakuruma::operator=(const Hakuruma h) {
@@ -106,6 +114,7 @@ Hakuruma& Hakuruma::operator=(const Hakuruma h) {
 		//TOFIX:CHECK IF THIS RIGHT WAY
 		move = new RandMove(*h.move);
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		bFacingRight = h.bFacingRight;
 	}
 	return *this;
 }
@@ -113,10 +122,11 @@ Hakuruma& Hakuruma::operator=(const Hakuruma h) {
 void Hakuruma::Update(float delta) {
 	Enemy::Update(delta);
 	vec3 nextPos = move->GetNextPos(delta);
+	bFacingRight = nextPos.x - transform->position.x > 0;
 	this->transform->position = nextPos;
+	AutoRotation(delta);
 	if (shootTimer->IsFinished()) {
 		shootTimer->Reset();
-		vec3 direction = Angel::normalize(pPlayer->transform->position - transform->position);
-		BulletPool::GetInstance()->Fire(ENEMY, transform->position, direction, BULLET_SPEED, damage);
+		BulletPool::GetInstance()->Fire(ENEMY, transform->position, vec3(0.0f, 1.0f, 0.0f), BULLET_SPEED, damage);
 	}
 }

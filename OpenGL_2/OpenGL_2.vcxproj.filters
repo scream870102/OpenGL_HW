@@ -123,6 +123,18 @@
     <ClCompile Include="Utils\Movement\RandMove.cpp">
       <Filter>Utils\Movement</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Movement\TraceMove.cpp">
+      <Filter>Utils\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Enemy\Syabon.cpp">
+      <Filter>Midtern\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\SceneObject\Smoke.cpp">
+      <Filter>Midtern\SceneObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\SceneObject\SmokePool.cpp">
+      <Filter>Midtern\SceneObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -205,6 +217,18 @@
     </ClInclude>
     <ClInclude Include="Utils\Movement\RandMove.h">
       <Filter>Utils\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Movement\TraceMove.h">
+      <Filter>Utils\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Enemy\Syabon.h">
+      <Filter>Midtern\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\SceneObject\Smoke.h">
+      <Filter>Midtern\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\SceneObject\SmokePool.h">
+      <Filter>Midtern\SceneObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

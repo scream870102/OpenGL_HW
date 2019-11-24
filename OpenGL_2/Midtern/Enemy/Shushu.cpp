@@ -73,7 +73,7 @@ void Shushu::Update(float delta) {
 	AutoRotation(delta);
 	if (shootTimer->IsFinished()) {
 		shootTimer->Reset();
-		BulletPool::GetInstance()->FireTB(ENEMY, this->transform->position,vec3(0.0f,1.0f,0.0f), BULLET_SPEED, this->damage,this->pPlayer->transform,BULLET_TRACING_TIME);
+		BulletPool::GetInstance()->Fire(ENEMY, this->transform->position,vec3(0.0f,1.0f,0.0f), BULLET_SPEED, this->damage,this->pPlayer->transform,BULLET_TRACING_TIME);
 	}
 
 }

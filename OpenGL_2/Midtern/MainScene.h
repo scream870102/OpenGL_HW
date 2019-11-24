@@ -1,11 +1,13 @@
 #pragma once
 #include "SceneObject/Background.h"
 #include "CharacterController.h"
+#include "SceneObject/SmokePool.h"
 #include <vector>
 #define MAX_BULLET_NUM 100
+#define MAX_SMOKE_NUM 200
 #define MAX_BG_NUM 50
-#define MAX_ENEMY_NUM 1
-#define ENEMY_NUM_TO_KILL 5
+#define MAX_ENEMY_NUM 3
+#define ENEMY_NUM_TO_KILL 10
 class MainScene
 {
 private:
@@ -14,6 +16,7 @@ private:
 	mat4 matProjection;
 	Input input;
 	BulletPool* pBulletPool;
+	SmokePool* pSmokePool;
 	Background* pBg;
 	CharacterController* pCc;
 public:

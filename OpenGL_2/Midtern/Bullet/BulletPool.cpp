@@ -32,7 +32,7 @@ Bullet* BulletPool::Fire(int type, vec3 position, vec3 direction, float speed, i
 	return NULL;
 }
 
-Bullet* BulletPool::FireTB(int type, vec3 position, vec3 direction, float speed, int damage, Transform* target,int tracingTime){
+Bullet* BulletPool::Fire(int type, vec3 position, vec3 direction, float speed, int damage, Transform* target,int tracingTime){
 	TracingBullet* tmp = _tBulletPool.GetPoolObject();
 	if (tmp != NULL) {
 		tmp->Fire(type, position, direction, speed, damage,target,tracingTime);

@@ -3,7 +3,6 @@
 #include "../../Utils/CountdownTimer.h"
 #include "../Bullet/BulletPool.h"
 #include "../../Utils/Movement/PingPongMove.h"
-class Shushu :public Enemy {
 #define NUM 12
 #define SHUSHU_SHOOT_CD 2000
 #define BULLET_SPEED 500
@@ -11,6 +10,7 @@ class Shushu :public Enemy {
 #define ROTATE_SPEED 200.0f
 #define SHUSHU_RADIUS 24.0f
 #define BULLET_TRACING_TIME 2000
+class Shushu :public Enemy {
 private:
 	point4 _points[NUM];
 	color4 _colors[NUM];

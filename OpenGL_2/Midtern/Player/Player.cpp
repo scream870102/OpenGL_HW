@@ -109,4 +109,5 @@ void Player::Update(float delta) {
 
 void Player::Dead() {
 	Character::Dead();
+	Print("HEYHEYHEY");
 }
