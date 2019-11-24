@@ -83,9 +83,11 @@
     <ClCompile Include="InitShader.cpp" />
     <ClCompile Include="Midtern\Bullet\Bullet.cpp" />
     <ClCompile Include="Midtern\Bullet\BulletPool.cpp" />
+    <ClCompile Include="Midtern\Bullet\TracingBullet.cpp" />
     <ClCompile Include="Midtern\Character.cpp" />
     <ClCompile Include="Midtern\CharacterController.cpp" />
     <ClCompile Include="Midtern\Enemy\Enemy.cpp" />
+    <ClCompile Include="Midtern\Enemy\Hakuruma.cpp" />
     <ClCompile Include="Midtern\Enemy\Shushu.cpp" />
     <ClCompile Include="Midtern\Main.cpp" />
     <ClCompile Include="Midtern\MainScene.cpp" />
@@ -95,6 +97,7 @@
     <ClCompile Include="Utils\Collider\CircleCollider.cpp" />
     <ClCompile Include="Utils\CountdownTimer.cpp" />
     <ClCompile Include="Utils\Input.cpp" />
+    <ClCompile Include="Utils\Mathf.cpp" />
     <ClCompile Include="Utils\Movement\PingPongMove.cpp" />
     <ClCompile Include="Utils\ObjectPool.cpp" />
     <ClCompile Include="Utils\Random.cpp" />
@@ -108,9 +111,11 @@
     <ClInclude Include="Header\vec.h" />
     <ClInclude Include="Midtern\Bullet\Bullet.h" />
     <ClInclude Include="Midtern\Bullet\BulletPool.h" />
+    <ClInclude Include="Midtern\Bullet\TracingBullet.h" />
     <ClInclude Include="Midtern\Character.h" />
     <ClInclude Include="Midtern\CharacterController.h" />
     <ClInclude Include="Midtern\Enemy\Enemy.h" />
+    <ClInclude Include="Midtern\Enemy\Hakuruma.h" />
     <ClInclude Include="Midtern\Enemy\Shushu.h" />
     <ClInclude Include="Midtern\MainScene.h" />
     <ClInclude Include="Midtern\Player\Player.h" />
@@ -119,6 +124,7 @@
     <ClInclude Include="Utils\Collider\CircleCollider.h" />
     <ClInclude Include="Utils\CountdownTimer.h" />
     <ClInclude Include="Utils\Input.h" />
+    <ClInclude Include="Utils\Mathf.h" />
     <ClInclude Include="Utils\Movement\PingPongMove.h" />
     <ClInclude Include="Utils\ObjectPool.h" />
     <ClInclude Include="Utils\Random.h" />

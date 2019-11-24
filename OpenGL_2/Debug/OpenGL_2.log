@@ -1,4 +1,6 @@
-﻿  Enemy.cpp
+﻿  CharacterController.cpp
+  Shushu.cpp
+  Main.cpp
   MainScene.cpp
   正在產生程式碼...
   OpenGL_2.vcxproj -> D:\Scream\Learning\Programming\OpenGL\OpenGL_HW\Debug\OpenGL_2.exe

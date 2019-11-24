@@ -1,11 +1,16 @@
 #include "CharacterController.h"
 
 CharacterController::CharacterController(int maxEnemyNum, Input* input, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
+	//Spawn Player
+	pPlayer = new Player(INIT_PLAYER_DAMAGE, INIT_PLAYER_HEALTH, matModelView, matProjection, shaderHandle);
+	pPlayer->input = input;
+	enemyDie = 0;
+	bBossFight = false;
 	this->maxEnemyNum = maxEnemyNum;
 	//Spawn enemy
 	for (int i = 0; i < maxEnemyNum / (float)ENEMY_TYPE_NUM * 1.2f; i++) {
 		//SECTION SHUSHU
-		Enemy* shuShu = new Shushu(SHUSHU_DAMAGE, SHUSHU_HEALTH,
+		Enemy* shuShu = new Shushu(pPlayer,SHUSHU_DAMAGE, SHUSHU_HEALTH,
 			vec3(Random::GetRand((float)WIDTH), Random::GetRand(HEIGHT / 3.0f), 0.0f)
 			, matModelView, matProjection, shaderHandle
 		);
@@ -14,11 +19,6 @@ CharacterController::CharacterController(int maxEnemyNum, Input* input, mat4& ma
 		//END SECTION SHUHSU
 	}
 
-	//Spawn Player
-	pPlayer = new Player(INIT_PLAYER_DAMAGE, INIT_PLAYER_HEALTH, matModelView, matProjection, shaderHandle);
-	pPlayer->input = input;
-	enemyDie = 0;
-	bBossFight = false;
 
 }
 

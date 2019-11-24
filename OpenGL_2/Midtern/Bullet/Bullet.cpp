@@ -22,6 +22,7 @@ Bullet::Bullet(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	collider = new CircleCollider(BULLET_RADIUS, this->transform->position);
 	colors[PLAYER] = vec4(0.72f, 0.86f, 0.72f, 1.0f);
 	colors[ENEMY] = vec4(1.0f, 0.69f, 0.49f, 1.0f);
+	direction = vec3(0.0f);
 }
 
 Bullet::~Bullet() {
@@ -38,9 +39,10 @@ Bullet::Bullet(const Bullet& b) {
 	speed = b.speed;
 	collider = new CircleCollider(*b.collider);
 	damage = b.damage;
+	direction = b.direction;
 }
 
-const Bullet& Bullet::operator=(const Bullet& b){
+const Bullet& Bullet::operator=(const Bullet& b) {
 	if (&b != this) {
 		delete transform;
 		delete collider;
@@ -51,7 +53,8 @@ const Bullet& Bullet::operator=(const Bullet& b){
 		collider = new CircleCollider(*b.collider);
 		type = b.type;
 		speed = b.speed;
-		damage = 0;
+		damage = b.damage;
+		direction = b.direction;
 	}
 	return *this;
 }
@@ -65,17 +68,8 @@ void Bullet::Draw() {
 }
 
 void Bullet::Update(float delta) {
-	switch (type)
-	{
-	case PLAYER:
-		this->transform->position.y = this->transform->position.y - speed * delta;
-		break;
-	case ENEMY:
-		transform->position.y = this->transform->position.y + speed * delta;
-		break;
-	default:
-		break;
-	}
+	//set position due to direction
+	this->transform->position += this->direction * speed * delta;
 	//Update Collider
 	this->collider->SetCenterPoint(this->transform->position);
 	this->collider->SetScale(this->transform->scale.x);
@@ -84,22 +78,23 @@ void Bullet::Update(float delta) {
 		poolParent->Recycle(this);
 }
 
-void Bullet::Fire(int type, vec3 position, float speed,int damage) {
+void Bullet::Fire(int type, vec3 position, vec3 direction, float speed, int damage) {
 	this->type = type;
 	this->transform->position = position;
 	this->speed = speed;
 	this->transform->SetColor(colors[type]);
 	this->damage = damage;
+	this->direction = direction;
 }
 
-CircleCollider* Bullet::GetCollider(){
+CircleCollider* Bullet::GetCollider() {
 	return this->collider;
 }
 
-const int Bullet::GetType(){
+const int Bullet::GetType() {
 	return this->type;
 }
 
-const int Bullet::GetDamage(){
+const int Bullet::GetDamage() {
 	return this->damage;
 }

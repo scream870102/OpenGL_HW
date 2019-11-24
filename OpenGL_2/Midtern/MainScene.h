@@ -1,13 +1,11 @@
 #pragma once
-//#include "Player/Player.h"
-//#include "Enemy/Shushu.h"
 #include "SceneObject/Background.h"
 #include "CharacterController.h"
 #include <vector>
 #define MAX_BULLET_NUM 100
 #define MAX_BG_NUM 50
-#define MAX_ENEMY_NUM 10
-#define ENEMY_NUM_TO_KILL 30
+#define MAX_ENEMY_NUM 2
+#define ENEMY_NUM_TO_KILL 5
 class MainScene
 {
 private:
@@ -18,15 +16,8 @@ private:
 	BulletPool* pBulletPool;
 	Background* pBg;
 	CharacterController* pCc;
-	//std::vector<Character*> activeCharacters;
 public:
-	//!!!!!!!!!!!!!!!!!!!!!!!
-	//SETCTION FOR ENEMY
-	//!!!!!!!!!!!!!!!!!!!!!!
-	//Shushu* pShushu;
-	//Player* pPlayer;
 private:
-	//void CheckBulletAndCharacter();
 public:
 	void Update(float delta);
 	void Draw();

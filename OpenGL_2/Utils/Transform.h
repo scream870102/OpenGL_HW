@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Header/Angel.h"
+#include "../Utils/Mathf.h"
 #include <vector>
 typedef std::vector<vec4> vPoint4;
 typedef std::vector<vec4> vColor4;
@@ -39,8 +40,11 @@ public:
 	void SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle = MAX_UNSIGNED_INT);
 	void SetViewMatrix(mat4& mat);
 	void SetProjectionMatrix(mat4& mat);
-	void SetColor(GLfloat vColor[4]);
-	void SetColor(color4 vColor);
+	void SetColor(const GLfloat vColor[4]);
+	void SetColor(const color4& vColor);
+	void SetAlpha(float alpha);
+	void SetColors(const std::vector<color4>& colors);
+	const float GetAlpha()const;
 	void Draw();
 	void DrawW();
 	void Init(point4 ps[], color4 cs[], int num, mat4 matView, mat4 matProjection, GLuint shaderHandle = MAX_UNSIGNED_INT);

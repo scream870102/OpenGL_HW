@@ -108,6 +108,15 @@
     <ClCompile Include="Midtern\Enemy\Enemy.cpp">
       <Filter>Midtern\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Mathf.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Enemy\Hakuruma.cpp">
+      <Filter>Midtern\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Bullet\TracingBullet.cpp">
+      <Filter>Midtern\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -175,6 +184,15 @@
     </ClInclude>
     <ClInclude Include="Midtern\Enemy\Enemy.h">
       <Filter>Midtern\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Mathf.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Enemy\Hakuruma.h">
+      <Filter>Midtern\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Bullet\TracingBullet.h">
+      <Filter>Midtern\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

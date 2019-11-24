@@ -103,11 +103,10 @@ void Player::Update(float delta) {
 	this->transform->position.y = (GLfloat)input->mouseY;
 	if (shootTimer->IsFinished() && input->IsGetMouse(LEFT_MOUSE)) {
 		shootTimer->Reset();
-		BulletPool::GetInstance()->Fire(PLAYER, this->transform->position, NORMAL_BULLET_SPEED, damage);
+		BulletPool::GetInstance()->Fire(PLAYER, this->transform->position, vec3(0.0f, -1.0f, 0.0f), NORMAL_BULLET_SPEED, damage);
 	}
 }
 
 void Player::Dead() {
 	Character::Dead();
-	Print("I am player!!");
 }

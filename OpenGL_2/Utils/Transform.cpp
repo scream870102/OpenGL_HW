@@ -103,7 +103,7 @@ void Transform::SetProjectionMatrix(mat4& mat) {
 	_bUpdateProj = true;
 }
 
-void Transform::SetColor(GLfloat vColor[4]) {
+void Transform::SetColor(const GLfloat vColor[4]) {
 	for (int i = 0; i < (int)colors.size(); i++) {
 		colors[i].x = vColor[0];
 		colors[i].y = vColor[1];
@@ -114,15 +114,36 @@ void Transform::SetColor(GLfloat vColor[4]) {
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) * points.size(), sizeof(colors) * colors.size(), &colors[0]);
 }
 
-void Transform::SetColor(color4 vColor) {
+void Transform::SetColor(const color4& vColor) {
 	for (int i = 0; i < (int)colors.size(); i++) {
-		colors[i].x = vColor.x;
-		colors[i].y = vColor.y;
-		colors[i].z = vColor.z;
-		colors[i].w = vColor.w;
+		colors[i] = vColor;
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) * points.size(), sizeof(colors) * colors.size(), &colors[0]);
+}
+
+void Transform::SetAlpha(float alpha) {
+	float newA = Mathf::Clamp(alpha, 1.0f);
+	for (int i = 0; i < (int)colors.size(); i++) {
+		colors[i].w = newA;
+	}
+	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) * points.size(), sizeof(colors) * colors.size(), &colors[0]);
+}
+
+void Transform::SetColors(const std::vector<color4>& refColor) {
+	if ((int)refColor.size() >= (int)this->colors.size()) {
+		for (int i = 0; i < (int)colors.size(); i++) {
+			colors[i] = refColor[i];
+		}
+		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+		glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) * points.size(), sizeof(colors) * colors.size(), &colors[0]);
+	}
+
+}
+
+const float Transform::GetAlpha() const {
+	return colors[0].w;
 }
 
 void Transform::Draw() {

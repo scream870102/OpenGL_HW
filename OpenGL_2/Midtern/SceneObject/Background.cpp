@@ -32,7 +32,7 @@ void Background::GenerateStar() {
 	if ((int)usingStars->size() < MAX_STAR_NUM) {
 		Star* tmp = _starPool.GetPoolObject();
 		if (tmp != NULL) {
-			tmp->Init(vec3(Random::GetRand((float)WIDTH), Random::GetRand((float)HEIGHT), 0.0f), Random::GetRand((float)MAX_STAR_SPEED, (float)MIN_STAR_SPEED), vec3(Random::GetRand(MAX_STAR_SCALE, MIN_STAR_SCALE)));
+			tmp->Init(vec3(Random::GetRand((float)WIDTH), Random::GetRand(HEIGHT/1.5f), 0.0f), Random::GetRand((float)MAX_STAR_SPEED, (float)MIN_STAR_SPEED), vec3(Random::GetRand(MAX_STAR_SCALE, MIN_STAR_SCALE)));
 			tmp->SetColor(vec4(1.0f, 1.0f, 1.0f, Random::GetRand(MAX_STAR_ALPHA, MIN_STAR_ALPHA)));
 			tmp->SetRotation(Random::GetRand(MAX_STAR_ROTATE_SPEED, MIN_STAR_ROTATE_SPEED), Random::GetRandBool());
 		}

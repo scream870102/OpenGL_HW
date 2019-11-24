@@ -7,23 +7,31 @@ Character::Character(int type, int damage, int health) {
 	this->bDead = false;
 	this->transform = NULL;
 	this->collider = NULL;
+	this->damageTimer = NULL;
+	this->bTakeDamage = false;
+	this->initHealth = health;
 }
 
 Character::~Character() {
 	if (transform != NULL)delete transform;
 	if (collider != NULL)delete collider;
+	if (damageTimer != NULL)delete damageTimer;
 }
 
 Character::Character(const Character& c) {
 	this->health = c.health;
+	this->initHealth = c.initHealth;
 	this->bDead = c.bDead;
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//TOFIX:CHECK IF THIS RIGHT WAY
 	this->collider = new CircleCollider(*c.collider);
 	this->transform = new Transform(*c.transform);
+	this->damageTimer = new CountDownTimer(*c.damageTimer);
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	this->damage = c.damage;
 	this->type = c.type;
+	this->originColor = std::vector<color4>(c.originColor.begin(), c.originColor.end());
+	this->bTakeDamage = c.bTakeDamage;
 }
 
 const Character& Character::operator=(const Character& c) {
@@ -31,22 +39,27 @@ const Character& Character::operator=(const Character& c) {
 		if (transform != NULL)delete transform;
 		if (collider != NULL)delete collider;
 		this->health = c.health;
+		this->initHealth = c.initHealth;
 		this->bDead = c.bDead;
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//TOFIX:CHECK IF THIS RIGHT WAY
 		this->collider = new CircleCollider(*c.collider);
 		this->transform = new Transform(*c.transform);
+		this->damageTimer = new CountDownTimer(*c.damageTimer);
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		this->damage = c.damage;
 		this->type = c.type;
+		this->originColor = std::vector<color4>(c.originColor.begin(), c.originColor.end());
+		this->bTakeDamage = c.bTakeDamage;
 	}
 	return *this;
 }
 
 void Character::TakeDamage(int damage) {
 	health -= damage;
-	Print(bDead);
-	if (health <= 0)Dead();
+	bTakeDamage = true;
+	if (health <= 0)
+		Dead();
 }
 
 void Character::Update(float delta) {
@@ -57,6 +70,8 @@ void Character::Update(float delta) {
 		//!!!!!!!!!!!!!!!!!!!
 		this->collider->SetScale(this->transform->scale.x);
 	}
+	if (bTakeDamage)
+		DamageAnim(delta);
 }
 
 void Character::Draw() {
@@ -65,6 +80,13 @@ void Character::Draw() {
 
 const int Character::GetHealth()const {
 	return this->health;
+}
+
+
+void Character::Reset() {
+	this->health = initHealth;
+	this->bDead = false;
+	this->transform->SetColors(originColor);
 }
 
 const bool Character::IsDead() const {
@@ -81,5 +103,6 @@ const CircleCollider* Character::GetCollider() {
 
 void Character::Dead() {
 	bDead = true;
-	Print("I am Dead");
 }
+
+void Character::DamageAnim(float delta) {}

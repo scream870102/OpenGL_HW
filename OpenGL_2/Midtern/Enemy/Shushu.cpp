@@ -1,6 +1,6 @@
 #include "Shushu.h"
 
-Shushu::Shushu(int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(ENEMY, damage, health) {
+Shushu::Shushu(Player* player, int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(player,ENEMY, damage, health) {
 	_points[0] = point4(0.0f, -24.0f, 0.0f, 1.0f);
 	_points[1] = point4(0.0f, 0.0f, 0.0f, 1.0f);
 	_points[2] = point4(6.0f, -9.0f, 0.0f, 1.0f);
@@ -28,9 +28,13 @@ Shushu::Shushu(int damage, int health, vec3 initPos, mat4& matModelView, mat4& m
 	transform = new Transform();
 	transform->Init(_points, _colors, NUM, matModelView, matProjection, shaderHandle);
 	transform->position = initPos;
-	timer = new CountDownTimer(SHUSHU_SHOOT_CD,Random::GetRand(SHUSHU_SHOOT_CD));
+	timer = new CountDownTimer(SHUSHU_SHOOT_CD, Random::GetRand(SHUSHU_SHOOT_CD));
 	move = new PingPongMove(this->transform, MOVE_SPEED, (float)WIDTH, 0.0f);
 	collider = new CircleCollider(SHUSHU_RADIUS, this->transform->position);
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//MUST SET ORIGINAL COLORS
+	originColor = std::vector<color4>(_colors, _colors + (int)(sizeof(_colors) / sizeof(_colors[0])));
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
 Shushu::~Shushu() {
@@ -69,13 +73,9 @@ void Shushu::Update(float delta) {
 	AutoRotation(delta);
 	if (timer->IsFinished()) {
 		timer->Reset();
-		BulletPool::GetInstance()->Fire(ENEMY, this->transform->position, BULLET_SPEED, this->damage);
+		BulletPool::GetInstance()->FireTB(ENEMY, this->transform->position,vec3(0.0f,1.0f,0.0f), BULLET_SPEED, this->damage,this->pPlayer->transform,BULLET_TRACING_TIME);
 	}
-}
 
-void Shushu::Dead() {
-	Enemy::Dead();
-	Print("KISUNOSHURIKEN");
 }
 
 void Shushu::AutoRotation(float delta) {
