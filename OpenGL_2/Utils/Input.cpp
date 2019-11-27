@@ -1,18 +1,9 @@
 #include "Input.h"
-Input::Input() {
-	keyPressed = 0;
-	bKeyPressed = false;
-	bLeftPressed = false;
-	bRightPressed = false;
-	mouseX = 0;
-	mouseY = 0;
-}
-
-Input::~Input() {}
 
 bool Input::IsGetKey(int key) {
-	if (bKeyPressed && key == keyPressed)
+	if (bKeyPressed && key == keyPressed) {
 		return true;
+	}
 	return false;
 }
 
@@ -52,3 +43,13 @@ void Input::Update() {
 	bKeyPressed = false;
 }
 
+Input::Input() {
+	keyPressed = 0;
+	bKeyPressed = false;
+	bLeftPressed = false;
+	bRightPressed = false;
+	mouseX = 0;
+	mouseY = 0;
+}
+
+Input::~Input() {}

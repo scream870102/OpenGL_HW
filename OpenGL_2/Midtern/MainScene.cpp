@@ -1,7 +1,6 @@
 #include "MainScene.h"
 
 void MainScene::Update(float delta) {
-	input.Update();
 	pBulletPool->Update(delta);
 	pBg->Update(delta);
 	pCc->Update(delta);
@@ -9,6 +8,9 @@ void MainScene::Update(float delta) {
 	if (pCc->HowManyEnemyDie() >= ENEMY_NUM_TO_KILL) {
 		pCc->StartBossFight();
 	}
+
+	//INPUT MUST BE LAST ONE
+	input.Update();
 }
 
 void MainScene::Draw() {
@@ -16,6 +18,22 @@ void MainScene::Draw() {
 	pSmokePool->Draw();
 	pCc->Draw();
 	pBulletPool->Draw();
+}
+
+void MainScene::OnWinKeyboard(unsigned char key, int x, int y) {
+	input.KeyPressed(key);
+}
+
+void MainScene::OnWinSpecialKeyboard(int key, int x, int y) {
+	input.KeyPressed(key);
+}
+
+void MainScene::OnWinMouse(int button, int state, int x, int y) {
+	input.MousePressed(button, state, x, y);
+}
+
+void MainScene::OnWinPassiveMouse(int x, int y) {
+	input.MouseMove(x, y);
 }
 
 MainScene::MainScene() {
@@ -34,23 +52,4 @@ MainScene::~MainScene() {
 	if (pBg != NULL) delete pBg;
 	if (pCc != NULL)delete pCc;
 }
-
-
-void MainScene::OnWinKeyboard(unsigned char key, int x, int y) {
-	input.KeyPressed(key);
-}
-
-void MainScene::OnWinSpecialKeyboard(int key, int x, int y) {
-	input.KeyPressed(key);
-}
-
-void MainScene::OnWinMouse(int button, int state, int x, int y) {
-	input.MousePressed(button, state, x, y);
-}
-
-void MainScene::OnWinPassiveMouse(int x, int y) {
-	input.MouseMove(x, y);
-}
-
-
 

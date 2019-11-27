@@ -1,7 +1,4 @@
 #include "Random.h"
-Random::Random() {}
-
-Random::~Random() {}
 
 float Random::GetRand(float max, float min) {
 	std::random_device rd;
@@ -14,6 +11,11 @@ float Random::GetRand(float max, float min) {
 int Random::GetRand(int max, int min) {
 	std::random_device rd;
 	std::default_random_engine gen = std::default_random_engine(rd());
+	if (max < min) {
+		int tmp = max;
+		max = min;
+		min = tmp;
+	}
 	std::uniform_int_distribution<int> dis(min, max);
 	int result = dis(gen);
 	return result;
@@ -27,3 +29,6 @@ bool Random::GetRandBool() {
 	return rand % 2 == 0;
 }
 
+Random::Random() {}
+
+Random::~Random() {}

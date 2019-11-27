@@ -1,6 +1,23 @@
 #include "Shushu.h"
 
-Shushu::Shushu(Player* player, int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(player,ENEMY, damage, health) {
+void Shushu::Update(float delta) {
+	Enemy::Update(delta);
+	this->transform->position = move->GetNextPos(delta);
+	AutoRotation(delta);
+	if (shootTimer->IsFinished()) {
+		shootTimer->Reset();
+		BulletPool::GetInstance()->Fire(ENEMY, this->transform->position, vec3(0.0f, 1.0f, 0.0f), BULLET_SPEED, this->damage, this->pPlayer->transform, BULLET_TRACING_TIME);
+	}
+}
+
+void Shushu::AutoRotation(float delta) {
+	if (this->move->IsFacingRight())
+		this->transform->rotation.z += ROTATE_SPEED * delta;
+	else
+		this->transform->rotation.z -= ROTATE_SPEED * delta;
+}
+
+Shushu::Shushu(Player* player, int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(player, ENEMY, damage, health) {
 	_points[0] = point4(0.0f, -24.0f, 0.0f, 1.0f);
 	_points[1] = point4(0.0f, 0.0f, 0.0f, 1.0f);
 	_points[2] = point4(6.0f, -9.0f, 0.0f, 1.0f);
@@ -26,10 +43,10 @@ Shushu::Shushu(Player* player, int damage, int health, vec3 initPos, mat4& matMo
 	_colors[10] = color4(0.57f, 0.82f, 0.8f, 1.0f);
 	_colors[11] = color4(0.57f, 0.82f, 0.8f, 1.0f);
 	transform = new Transform();
-	transform->Init(_points, _colors, NUM, matModelView, matProjection, shaderHandle);
+	transform->Init(_points, _colors, SHUSHU_NUM, matModelView, matProjection, shaderHandle);
 	transform->position = initPos;
 	shootTimer = new CountDownTimer(SHUSHU_SHOOT_CD, Random::GetRand(SHUSHU_SHOOT_CD));
-	move = new PingPongMove(this->transform, MOVE_SPEED, (float)WIDTH, 0.0f);
+	move = new PingPongMove(this->transform, SHUSHU_MOVE_SPEED, (float)WIDTH, 0.0f);
 	collider = new CircleCollider(SHUSHU_RADIUS, this->transform->position);
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//MUST SET ORIGINAL COLORS
@@ -65,22 +82,4 @@ Shushu& Shushu::operator=(const Shushu& s) {
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 	return *this;
-}
-
-void Shushu::Update(float delta) {
-	Enemy::Update(delta);
-	this->transform->position = move->GetNextPos(delta);
-	AutoRotation(delta);
-	if (shootTimer->IsFinished()) {
-		shootTimer->Reset();
-		BulletPool::GetInstance()->Fire(ENEMY, this->transform->position,vec3(0.0f,1.0f,0.0f), BULLET_SPEED, this->damage,this->pPlayer->transform,BULLET_TRACING_TIME);
-	}
-
-}
-
-void Shushu::AutoRotation(float delta) {
-	if (this->move->IsFacingRight())
-		this->transform->rotation.z += ROTATE_SPEED * delta;
-	else
-		this->transform->rotation.z -= ROTATE_SPEED * delta;
 }

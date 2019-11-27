@@ -1,61 +1,5 @@
 #include "Transform.h"
 
-Transform::Transform() {
-	_vao = 0;
-	_vbo = 0;
-	_modelView = 0;
-	_projection = 0;
-	_program = 0;
-	_matView = mat4();
-	_matProjection = mat4();
-	_matMVFinal = mat4();
-	_matTRS = mat4();
-	_bUpdateProj = false;
-	position = vec3(0.0f);
-	rotation = vec3(0.0f);
-	scale = vec3(1.0f);
-	pParent = NULL;
-	points.clear();
-	colors.clear();
-}
-
-Transform::~Transform() {
-	if (points.size() != 0)points.clear();
-	if (colors.size() != 0)colors.clear();
-}
-
-Transform::Transform(const Transform& t) {
-	_matView = t._matView;
-	_matProjection = t._matProjection;
-	_bUpdateProj = t._bUpdateProj;
-	position = t.position;
-	rotation = t.rotation;
-	scale = t.scale;
-	pParent = t.pParent;
-	points = vPoint4(t.points.begin(), t.points.end());
-	colors = vColor4(t.colors.begin(), t.colors.end());
-	Init(&points[0], &colors[0], (int)points.size(), _matView, _matProjection);
-}
-
-const Transform& Transform::operator=(const Transform& t) {
-	if (&t != this) {
-		if (points.size() != 0)points.clear();
-		if (colors.size() != 0)colors.clear();
-		_matView = t._matView;
-		_matProjection = t._matProjection;
-		_bUpdateProj = t._bUpdateProj;
-		position = t.position;
-		rotation = t.rotation;
-		scale = t.scale;
-		pParent = t.pParent;
-		points = vPoint4(t.points.begin(), t.points.end());
-		colors = vColor4(t.colors.begin(), t.colors.end());
-		Init(&points[0], &colors[0], (int)points.size(), _matView, _matProjection);
-	}
-	return *this;
-}
-
-
 void Transform::CreateBufferObject() {
 	glGenVertexArrays(1, &_vao);
 	glBindVertexArray(_vao);
@@ -198,5 +142,60 @@ mat4 Transform::GetTRSMat() {
 const vec3 Transform::GetGlobalPosition() {
 	mat4 mat = GetTRSMat();
 	return vec3(mat[0][3], mat[1][3], mat[2][3]);
+}
+
+Transform::Transform() {
+	_vao = 0;
+	_vbo = 0;
+	_modelView = 0;
+	_projection = 0;
+	_program = 0;
+	_matView = mat4();
+	_matProjection = mat4();
+	_matMVFinal = mat4();
+	_matTRS = mat4();
+	_bUpdateProj = false;
+	position = vec3(0.0f);
+	rotation = vec3(0.0f);
+	scale = vec3(1.0f);
+	pParent = NULL;
+	points.clear();
+	colors.clear();
+}
+
+Transform::~Transform() {
+	if (points.size() != 0)points.clear();
+	if (colors.size() != 0)colors.clear();
+}
+
+Transform::Transform(const Transform& t) {
+	_matView = t._matView;
+	_matProjection = t._matProjection;
+	_bUpdateProj = t._bUpdateProj;
+	position = t.position;
+	rotation = t.rotation;
+	scale = t.scale;
+	pParent = t.pParent;
+	points = vPoint4(t.points.begin(), t.points.end());
+	colors = vColor4(t.colors.begin(), t.colors.end());
+	Init(&points[0], &colors[0], (int)points.size(), _matView, _matProjection);
+}
+
+const Transform& Transform::operator=(const Transform& t) {
+	if (&t != this) {
+		if (points.size() != 0)points.clear();
+		if (colors.size() != 0)colors.clear();
+		_matView = t._matView;
+		_matProjection = t._matProjection;
+		_bUpdateProj = t._bUpdateProj;
+		position = t.position;
+		rotation = t.rotation;
+		scale = t.scale;
+		pParent = t.pParent;
+		points = vPoint4(t.points.begin(), t.points.end());
+		colors = vColor4(t.colors.begin(), t.colors.end());
+		Init(&points[0], &colors[0], (int)points.size(), _matView, _matProjection);
+	}
+	return *this;
 }
 

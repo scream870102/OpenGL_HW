@@ -1,4 +1,16 @@
 #include "Syabon.h"
+
+void Syabon::Update(float delta) {
+	Enemy::Update(delta);
+	this->transform->rotation.z = move->GetDegree() + 90.0f;
+	this->transform->position = move->GetNextPos(delta);
+	if (shootTimer->IsFinished()) {
+		shootTimer->Reset();
+		vec3 direction = Angel::normalize(pPlayer->transform->position - transform->position);
+		BulletPool::GetInstance()->Fire(ENEMY, transform->position, direction, BULLET_SPEED, damage);
+	}
+}
+
 Syabon::Syabon(Player* player, int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(player, ENEMY, damage, health) {
 	_points[0] = point4(0.0f, -21.0f, 0.0f, 1.0f);
 	_points[1] = point4(-12.0f, -7.0f, 0.0f, 1.0f);
@@ -13,13 +25,13 @@ Syabon::Syabon(Player* player, int damage, int health, vec3 initPos, mat4& matMo
 	_colors[4] = color4(0.6196078431372549f, 0.6352941176470588f, 0.8392156862745098f, 1.0f);
 	_colors[5] = color4(0.6196078431372549f, 0.6352941176470588f, 0.8392156862745098f, 1.0f);
 	transform = new Transform();
-	transform->Init(_points, _colors, NUM, matModelView, matProjection, shaderHandle);
+	transform->Init(_points, _colors, SYABON_NUM, matModelView, matProjection, shaderHandle);
 	transform->position = initPos;
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//MUST SET ORIGINAL COLORS
 	originColor = std::vector<color4>(_colors, _colors + (int)(sizeof(_colors) / sizeof(_colors[0])));
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	move = new TraceMove(transform, MOVE_SPEED,pPlayer->transform);
+	move = new TraceMove(transform, SYABON_MOVE_SPEED, pPlayer->transform);
 	collider = new CircleCollider(SYABON_RADIUS, this->transform->position);
 	shootTimer = new CountDownTimer(SHOOT_CD);
 }
@@ -48,15 +60,4 @@ Syabon& Syabon::operator=(const Syabon h) {
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 	return *this;
-}
-
-void Syabon::Update(float delta) {
-	Enemy::Update(delta);
-	this->transform->rotation.z = move->GetDegree()+90.0f;
-	this->transform->position = move->GetNextPos(delta);
-	if (shootTimer->IsFinished()) {
-		shootTimer->Reset();
-		vec3 direction = Angel::normalize(pPlayer->transform->position - transform->position);
-		BulletPool::GetInstance()->Fire(ENEMY, transform->position, direction, BULLET_SPEED, damage);
-	}
 }

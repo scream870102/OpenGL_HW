@@ -1,9 +1,15 @@
 #pragma once
+#ifndef _CHARACTER_H_
+#define _CHARACTER_H_
+
 #include "../Utils/Transform.h"
 #include "../Utils/Collider/CircleCollider.h"
 #include "../Utils/Random.h"
 #include "../Utils/CountdownTimer.h"
 #include "SceneObject/SmokePool.h"
+#define DAMAGA_FADE_VEL 0.75f 
+#define DAMAGE_ANIM 500
+#define SMOKE_HZ 25
 class Character
 {
 private:
@@ -37,5 +43,7 @@ public:
 	const bool IsDead() const;
 	const bool IsCollide(CircleCollider* other);
 	const CircleCollider* GetCollider();
+	void SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle = MAX_UNSIGNED_INT);
 
 };
+#endif // !_CHARACTER_H_

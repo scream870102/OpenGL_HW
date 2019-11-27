@@ -1,10 +1,24 @@
 #include "Hakuruma.h"
+
 void Hakuruma::AutoRotation(float delta) {
 	if (bFacingRight)
 		this->transform->rotation.z += ROTATE_VEL * delta;
 	else
 		this->transform->rotation.z -= ROTATE_VEL * delta;
 }
+
+void Hakuruma::Update(float delta) {
+	Enemy::Update(delta);
+	vec3 nextPos = move->GetNextPos(delta);
+	bFacingRight = nextPos.x - transform->position.x > 0;
+	this->transform->position = nextPos;
+	AutoRotation(delta);
+	if (shootTimer->IsFinished()) {
+		shootTimer->Reset();
+		BulletPool::GetInstance()->Fire(ENEMY, transform->position, vec3(0.0f, 1.0f, 0.0f), BULLET_SPEED, damage);
+	}
+}
+
 Hakuruma::Hakuruma(Player* player, int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(player, ENEMY, damage, health) {
 	_points[0] = point4(-3.0f, -22.0f, 0.0f, 1.0f);
 	_points[1] = point4(-3.0f, -12.0f, 0.0f, 1.0f);
@@ -79,13 +93,13 @@ Hakuruma::Hakuruma(Player* player, int damage, int health, vec3 initPos, mat4& m
 	_colors[34] = color4(0.7803921568627451f, 0.5215686274509804f, 0.7843137254901961f, 1.0f);
 	_colors[35] = color4(0.7803921568627451f, 0.5215686274509804f, 0.7843137254901961f, 1.0f);
 	transform = new Transform();
-	transform->Init(_points, _colors, NUM, matModelView, matProjection, shaderHandle);
+	transform->Init(_points, _colors, HAKURUMA_NUM, matModelView, matProjection, shaderHandle);
 	transform->position = initPos;
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//MUST SET ORIGINAL COLORS
 	originColor = std::vector<color4>(_colors, _colors + (int)(sizeof(_colors) / sizeof(_colors[0])));
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	move = new RandMove(this->transform, MOVE_SPEED, vec2(0.0f, (float)WIDTH), vec2(0.0f, HEIGHT * MOVE_Y_MGNFC));
+	move = new RandMove(this->transform, HAKURUMA_MOVE_SPEED, vec2(0.0f, (float)WIDTH), vec2(0.0f, HEIGHT * MOVE_Y_MGNFC));
 	collider = new CircleCollider(HAKURUMA_RADIUS, this->transform->position);
 	shootTimer = new CountDownTimer(SHOOT_CD);
 	bFacingRight = false;
@@ -117,16 +131,4 @@ Hakuruma& Hakuruma::operator=(const Hakuruma h) {
 		bFacingRight = h.bFacingRight;
 	}
 	return *this;
-}
-
-void Hakuruma::Update(float delta) {
-	Enemy::Update(delta);
-	vec3 nextPos = move->GetNextPos(delta);
-	bFacingRight = nextPos.x - transform->position.x > 0;
-	this->transform->position = nextPos;
-	AutoRotation(delta);
-	if (shootTimer->IsFinished()) {
-		shootTimer->Reset();
-		BulletPool::GetInstance()->Fire(ENEMY, transform->position, vec3(0.0f, 1.0f, 0.0f), BULLET_SPEED, damage);
-	}
 }

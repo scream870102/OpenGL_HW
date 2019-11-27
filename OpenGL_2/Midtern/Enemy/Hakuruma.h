@@ -1,8 +1,11 @@
 #pragma once
+#ifndef _HAKURUMA_H_
+#define _HAKURUMA_H_
+
 #include "Enemy.h"
 #include "../../Utils/Movement/RandMove.h"
-#define NUM 36
-#define MOVE_SPEED 200.0f
+#define HAKURUMA_NUM 36
+#define HAKURUMA_MOVE_SPEED 200.0f
 #define MOVE_Y_MGNFC 0.5f
 #define HAKURUMA_RADIUS 22.0f
 #define SHOOT_CD 2000
@@ -11,8 +14,8 @@
 class Hakuruma:public Enemy
 {
 private:
-	point4 _points[NUM];
-	color4 _colors[NUM];
+	point4 _points[HAKURUMA_NUM];
+	color4 _colors[HAKURUMA_NUM];
 	RandMove* move;
 	bool bFacingRight;
 public:
@@ -25,4 +28,4 @@ public:
 	Hakuruma& operator=(const Hakuruma h);
 	void Update(float delta)override;
 };
-
+#endif // !_HAKURUMA_H_

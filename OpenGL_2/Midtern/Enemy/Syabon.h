@@ -1,9 +1,11 @@
 #pragma once
+#ifndef _SYABON_H_
+#define _SYABON_H_
 #include "Enemy.h"
 #include "../../Utils/Movement/RandMove.h"
 #include "../../Utils/Movement/TraceMove.h"
-#define NUM 6
-#define MOVE_SPEED 20.0f
+#define SYABON_NUM 6
+#define SYABON_MOVE_SPEED 20.0f
 #define MOVE_Y_MGNFC 0.5f
 #define SYABON_RADIUS 22.0f
 #define SHOOT_CD 2000
@@ -11,8 +13,8 @@
 class Syabon :public Enemy
 {
 private:
-	point4 _points[NUM];
-	color4 _colors[NUM];
+	point4 _points[SYABON_NUM];
+	color4 _colors[SYABON_NUM];
 	TraceMove* move;
 public:
 private:
@@ -24,3 +26,4 @@ public:
 	void Update(float delta)override;
 };
 
+#endif // !_SYABON_H_

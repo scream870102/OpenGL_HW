@@ -1,4 +1,96 @@
 #include "Player.h"
+#include "../CharacterController.h"
+void Player::Update(float delta) {
+	Character::Update(delta);
+	//Modify player position due to mouse position
+	this->transform->position.x = (GLfloat)Mathf::Clamp((float)input->mouseX, (float)WIDTH);
+	this->transform->position.y = (GLfloat)Mathf::Clamp((float)input->mouseY, (float)HEIGHT, HEIGHT * (1.0f - PLAYER_Y_RANGE));
+	NormalShot(delta);
+	ShotGun(delta);
+	TraceShot(delta);
+	UpdateGuards(delta);
+}
+
+void Player::Draw() {
+	Character::Draw();
+	for (size_t i = 0; i < guards.size(); i++) {
+		guards[i]->Draw();
+	}
+}
+
+void Player::SetCharacterController(CharacterController* pCC) {
+	this->pCC = pCC;
+}
+
+std::vector<Guard*> Player::GetEnableGuards(){
+	std::vector<Guard*> res;
+	for (size_t i = 0; i < guards.size(); i++)	{
+		if (guards[i]->IsEnable)res.push_back(guards[i]);
+	}
+	return res;
+}
+
+void Player::Dead() {
+	Character::Dead();
+	//Print("HEYHEYHEY");
+}
+
+void Player::ShotGun(float delta) {
+	if (input->IsGetKey('f') && shotGunTimer->IsFinished()) {
+		float offset = (180.0f - SHOUT_GUN_OFFSET * (SHOUT_GUN_NUM - 1)) / 2.0f;
+		for (int i = 0; i < SHOUT_GUN_NUM; i++) {
+			float degree = i * SHOUT_GUN_OFFSET + offset;
+			vec3 direction = Angel::normalize(Mathf::ConvertToVec3FromDeg(degree, -180.0f));
+			BulletPool::GetInstance()->Fire(PLAYER, transform->GetGlobalPosition(), direction, SHOT_GUN_SPEED, damage);
+		}
+		shotGunTimer->Reset();
+	}
+}
+
+void Player::TraceShot(float delta) {
+	if (input->IsGetKey('g') && traceTimer->IsFinished()) {
+		std::vector<Enemy*>* enemies = pCC->GetActiveEnemies();
+		for (int i = 0; i < TRACE_NUM; i++) {
+			int index = Random::GetRand((int)enemies->size() - 1, 0);
+			BulletPool::GetInstance()->Fire(PLAYER, transform->GetGlobalPosition(), vec3(), TRACE_SPEED, damage, enemies[0][index]->transform, TRACE_TIME);
+
+		}
+		traceTimer->Reset();
+	}
+}
+
+void Player::UpdateGuards(float delta){
+	//Check if gurad is not enable and timer is finished
+	if (guardTimer->IsFinished()) {
+		for (size_t i = 0; i < guards.size(); i++)		{
+			if (!guards[i]->IsEnable) {
+				guards[i]->IsEnable = true;
+				guardTimer->Reset();
+				break;
+			}
+		}
+	}
+
+	//Calc the guard position and radius
+	guardRotOffset += delta * GUARD_ROTATE_VEL;
+	if (guardRotOffset > 360.0f)guardRotOffset = 0.0f;
+	float offset = 360.0f / GUARD_MAX_NUM;
+	for (size_t i = 0; i < guards.size(); i++) {
+		if (!guards[i]->IsEnable)break;
+		float degree = offset * i + guardRotOffset;
+		vec3 normalVec = Mathf::ConvertToVec3FromDeg(degree);
+		guards[i]->transform->position = normalVec * GUARD_DISTANCE;
+		guards[i]->transform->rotation.z = degree + 90.0f;
+		guards[i]->Update(delta);
+	}
+}
+
+void Player::NormalShot(float delta) {
+	if (shootTimer->IsFinished() && input->IsGetMouse(LEFT_MOUSE)) {
+		shootTimer->Reset();
+		BulletPool::GetInstance()->Fire(PLAYER, this->transform->position, vec3(0.0f, -1.0f, 0.0f), NORMAL_BULLET_SPEED, damage);
+	}
+}
 
 Player::Player(int damage, int health, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Character(PLAYER, damage, health) {
 	_points[0] = point4(0.0f, -30.0f, 0.0f, 1.0f);
@@ -60,10 +152,27 @@ Player::Player(int damage, int health, mat4& matModelView, mat4& matProjection, 
 	transform->Init(_points, _colors, P_NUM, matModelView, matProjection, shaderHandle);
 	collider = new CircleCollider(PLAYER_RADIUS, this->transform->position);
 	shootTimer = new CountDownTimer(PLAYER_SHOOT_CD);
+	shotGunTimer = new CountDownTimer(SHOT_GUN_CD);
+	bShotGun = false;
+	pCC = NULL;
+	traceTimer = new CountDownTimer(TRACE_CD);
+	bTrace = false;
+	//!!!!!!!!!!!!!!!!!
+	//SECTION GUARDS
+	for (int i = 0; i < GUARD_MAX_NUM; i++) {
+		guards.push_back(new Guard(matModelView, matProjection, shaderHandle));
+		guards[i]->transform->pParent = this->transform;
+	}
+	guardRotOffset = 0.0f;
+	guardTimer = new CountDownTimer(GUARD_CD);
 }
 
 Player::~Player() {
 	if (shootTimer != NULL)delete shootTimer;
+	if (shotGunTimer != NULL)delete shotGunTimer;
+	if (traceTimer != NULL)delete traceTimer;
+	//!!!!!!!!!!!!!!!!!!
+	//DELETE FOR GUARD
 }
 
 Player::Player(const Player& p) :Character(p) {
@@ -72,8 +181,16 @@ Player::Player(const Player& p) :Character(p) {
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//TOFIX:CHECK IF THIS RIGHT WAY
 	shootTimer = new CountDownTimer(*p.shootTimer);
+	shotGunTimer = new CountDownTimer(*p.shotGunTimer);
+	traceTimer = new CountDownTimer(*p.traceTimer);
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	input = p.input;
+	bShotGun = p.bShotGun;
+	pCC = p.pCC;
+	bTrace = p.bTrace;
+	//!!!!!!!!!!!!!!!!!!
+	//DELETE FOR GUARD
+
 }
 
 const Player& Player::operator=(const Player& p) {
@@ -84,30 +201,17 @@ const Player& Player::operator=(const Player& p) {
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//TOFIX:CHECK IF THIS RIGHT WAY
 		shootTimer = new CountDownTimer(*p.shootTimer);
+		shotGunTimer = new CountDownTimer(*p.shotGunTimer);
+		traceTimer = new CountDownTimer(*p.traceTimer);
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		input = p.input;
+		bShotGun = false;
+		pCC = p.pCC;
+		bTrace = p.bTrace;
+		//!!!!!!!!!!!!!!!!!!
+		//DELETE FOR GUARD
 	}
 	return *this;
 }
 
-void Player::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
-	transform->SetShader(matModelView, matProjection, shaderHandle);
-}
 
-
-
-void Player::Update(float delta) {
-	Character::Update(delta);
-	//Modify player position due to mouse position
-	this->transform->position.x = (GLfloat)input->mouseX;
-	this->transform->position.y = (GLfloat)input->mouseY;
-	if (shootTimer->IsFinished() && input->IsGetMouse(LEFT_MOUSE)) {
-		shootTimer->Reset();
-		BulletPool::GetInstance()->Fire(PLAYER, this->transform->position, vec3(0.0f, -1.0f, 0.0f), NORMAL_BULLET_SPEED, damage);
-	}
-}
-
-void Player::Dead() {
-	Character::Dead();
-	Print("HEYHEYHEY");
-}

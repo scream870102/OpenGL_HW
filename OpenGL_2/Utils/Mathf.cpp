@@ -1,9 +1,5 @@
 #include "Mathf.h"
 
-Mathf::Mathf() {}
-
-Mathf::~Mathf() {}
-
 float Mathf::Clamp(float origin, float max, float min) {
 	float result = origin;
 	if (origin > max)result = max;
@@ -11,6 +7,18 @@ float Mathf::Clamp(float origin, float max, float min) {
 	return result;
 }
 
-float Mathf::GetDeg(const vec3& direction){
+float Mathf::GetDeg(const vec3& direction) {
 	return atan2f(direction.y, direction.x) * Rad2Deg;
 }
+
+vec3 Mathf::ConvertToVec3FromDeg(const float degree, const float offset) {
+	vec3 result;
+	float radian = (degree + offset) * Deg2Rad;
+	result.x = cosf(radian);
+	result.y = sinf(radian);
+	return result;
+}
+
+Mathf::Mathf() {}
+
+Mathf::~Mathf() {}

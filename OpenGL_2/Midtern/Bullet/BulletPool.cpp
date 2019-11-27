@@ -1,41 +1,22 @@
 #include "BulletPool.h"
 BulletPool* BulletPool::_instance = NULL;
 
-BulletPool::BulletPool(int number, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
-	//Section for Init bullet to bulletPool
-	for (int i = 0; i < number; i++){
-		Bullet* pBullet = new Bullet(matModelView, matProjection, shaderHandle);
-		pBullet->poolParent = &_bulletPool;
-		_bulletPool.Init(pBullet);
-	}
-	for (int i = 0; i < number/2; i++)	{
-		TracingBullet* pTBullet = new TracingBullet(matModelView, matProjection, shaderHandle);
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//CHECK
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		pTBullet->poolParent = (ObjectPool<Bullet>*)&_tBulletPool;
-		_tBulletPool.Init(pTBullet);
-	}
-}
-
-BulletPool::~BulletPool() {}
-
 Bullet* BulletPool::Fire(int type, vec3 position, vec3 direction, float speed, int damage) {
 	Bullet* tmp = _bulletPool.GetPoolObject();
 	if (tmp != NULL) {
 		//cause 2d game make sure won't set z value
 		vec3 nDirection = vec3(direction);
 		nDirection.z = 0;
-		tmp->Fire(type, position,nDirection, speed, damage);
+		tmp->Fire(type, position, nDirection, speed, damage);
 		return tmp;
 	}
 	return NULL;
 }
 
-Bullet* BulletPool::Fire(int type, vec3 position, vec3 direction, float speed, int damage, Transform* target,int tracingTime){
+Bullet* BulletPool::Fire(int type, vec3 position, vec3 direction, float speed, int damage, Transform* target, int tracingTime) {
 	TracingBullet* tmp = _tBulletPool.GetPoolObject();
 	if (tmp != NULL) {
-		tmp->Fire(type, position, direction, speed, damage,target,tracingTime);
+		tmp->Fire(type, position, direction, speed, damage, target, tracingTime);
 		return tmp;
 	}
 	return NULL;
@@ -54,7 +35,7 @@ void BulletPool::Draw() {
 
 void BulletPool::Update(float delta) {
 	std::vector<Bullet*>* usingBullets = _bulletPool.GetUsingObjs();
-	for (int i = 0; i < (int)usingBullets->size(); i++)	{
+	for (int i = 0; i < (int)usingBullets->size(); i++) {
 		usingBullets[0][i]->Update(delta);
 	}
 	std::vector<TracingBullet*>* usingTBullets = _tBulletPool.GetUsingObjs();
@@ -90,6 +71,30 @@ bool BulletPool::CheckCollisionWithCharacter(Character* character) {
 	return false;
 }
 
+bool BulletPool::CheckCollision(CircleCollider* other, int checkType) {
+	std::vector<Bullet*>* usingBullets = _bulletPool.GetUsingObjs();
+	for (int j = 0; j < (int)usingBullets->size(); j++) {
+		if (usingBullets[0][j]->GetType()==checkType) {
+			bool bCollide = other->IsCollide(usingBullets[0][j]->GetCollider());
+			if (bCollide) {
+				usingBullets[0][j]->poolParent->Recycle(usingBullets[0][j]);
+				return true;
+			}
+		}
+	}
+	std::vector<TracingBullet*>* usingTBullets = _tBulletPool.GetUsingObjs();
+	for (int j = 0; j < (int)usingTBullets->size(); j++) {
+		if (usingTBullets[0][j]->GetType()==checkType) {
+			bool bCollide = other->IsCollide(usingTBullets[0][j]->GetCollider());
+			if (bCollide) {
+				usingTBullets[0][j]->poolParent->Recycle(usingTBullets[0][j]);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 BulletPool* BulletPool::Create(int number, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	if (_instance == NULL) {
 		_instance = new (std::nothrow)BulletPool(number, matModelView, matProjection, shaderHandle);
@@ -107,5 +112,24 @@ BulletPool* BulletPool::GetInstance() {
 void BulletPool::Destroy() {
 	if (_instance != NULL)delete _instance;
 }
+
+BulletPool::BulletPool(int number, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
+	//Section for Init bullet to bulletPool
+	for (int i = 0; i < number; i++) {
+		Bullet* pBullet = new Bullet(matModelView, matProjection, shaderHandle);
+		pBullet->poolParent = &_bulletPool;
+		_bulletPool.Init(pBullet);
+	}
+	for (int i = 0; i < number / 2; i++) {
+		TracingBullet* pTBullet = new TracingBullet(matModelView, matProjection, shaderHandle);
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//CHECK
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		pTBullet->poolParent = (ObjectPool<Bullet>*) & _tBulletPool;
+		_tBulletPool.Init(pTBullet);
+	}
+}
+
+BulletPool::~BulletPool() {}
 
 

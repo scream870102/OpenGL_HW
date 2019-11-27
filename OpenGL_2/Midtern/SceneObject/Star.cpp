@@ -1,5 +1,44 @@
 #include "Star.h"
-Star::Star(float speed, float rotateSpeed, bool bRotateClockWise,mat4& matModelView, mat4& matProjection , GLuint shaderHandle){
+
+void Star::Draw(){
+	transform->Draw();
+}
+
+void Star::Update(float delta){
+	this->transform->position.y += speed * delta;
+	AutoRotation(delta);
+	if (transform->position.y >= HEIGHT || transform->position.y <= 0.0f)
+		poolParent->Recycle(this);
+}
+
+void Star::Init(vec3 position){
+	this->transform->position = position;
+}
+
+
+void Star::Init(vec3 position, float speed, vec3 scale){
+	this->speed = speed;
+	this->transform->position = position;
+	this->transform->scale = scale;
+}
+
+void Star::SetColor(vec4 color){
+	this->transform->SetColor(color);
+}
+
+void Star::SetRotation(float speed, bool IsRotateClockwise){
+	this->rotateSpeed = speed;
+	this->bRotateClockWise = IsRotateClockwise;
+}
+
+void Star::AutoRotation(float delta){
+	if (bRotateClockWise)
+		this->transform->rotation.z += rotateSpeed * delta;
+	else
+		this->transform->rotation.z -= rotateSpeed * delta;
+}
+
+Star::Star(float speed, float rotateSpeed, bool bRotateClockWise, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	_points[0] = point4(0.0f, -10.0f, 0.0f, 1.0f);
 	_points[1] = point4(-5.0f, 0.0f, 0.0f, 1.0f);
 	_points[2] = point4(5.0f, 0.0f, 0.0f, 1.0f);
@@ -44,11 +83,11 @@ Star::Star(float speed, float rotateSpeed, bool bRotateClockWise,mat4& matModelV
 	this->bRotateClockWise = bRotateClockWise;
 }
 
-Star::~Star(){
+Star::~Star() {
 	if (transform != NULL)delete transform;
 }
 
-Star::Star(const Star& s){
+Star::Star(const Star& s) {
 	memcpy(_points, s._points, sizeof(s._points));
 	memcpy(_colors, s._colors, sizeof(s._colors));
 	speed = s.speed;
@@ -61,7 +100,7 @@ Star::Star(const Star& s){
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
-const Star& Star::operator=(const Star& s){
+const Star& Star::operator=(const Star& s) {
 	if (&s != this) {
 		if (transform != NULL)delete transform;
 		memcpy(_points, s._points, sizeof(s._points));
@@ -76,43 +115,5 @@ const Star& Star::operator=(const Star& s){
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 	return *this;
-}
-
-void Star::Draw(){
-	transform->Draw();
-}
-
-void Star::Update(float delta){
-	this->transform->position.y += speed * delta;
-	AutoRotation(delta);
-	if (transform->position.y >= HEIGHT || transform->position.y <= 0.0f)
-		poolParent->Recycle(this);
-}
-
-void Star::Init(vec3 position){
-	this->transform->position = position;
-}
-
-
-void Star::Init(vec3 position, float speed, vec3 scale){
-	this->speed = speed;
-	this->transform->position = position;
-	this->transform->scale = scale;
-}
-
-void Star::SetColor(vec4 color){
-	this->transform->SetColor(color);
-}
-
-void Star::SetRotation(float speed, bool IsRotateClockwise){
-	this->rotateSpeed = speed;
-	this->bRotateClockWise = IsRotateClockwise;
-}
-
-void Star::AutoRotation(float delta){
-	if (bRotateClockWise)
-		this->transform->rotation.z += rotateSpeed * delta;
-	else
-		this->transform->rotation.z -= rotateSpeed * delta;
 }
 

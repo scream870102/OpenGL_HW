@@ -1,8 +1,6 @@
 #pragma once
-#include "../Utils/ObjectPool.h"
-#include "Player/Player.h"
-#include "../Utils/Random.h"
-#include "../Utils/Input.h"
+#ifndef _CHARACTER_CONTROLLER_H_
+#define _CHARACTER_CONTROLLER_H_
 #include "Enemy/Shushu.h"
 #include "Enemy/Hakuruma.h"
 #include "Enemy/Syabon.h"
@@ -28,4 +26,6 @@ public:
 	void Draw();
 	const int HowManyEnemyDie();
 	void StartBossFight();
+	std::vector<Enemy*>* GetActiveEnemies();
 };
+#endif // !_CHARACTER_CONTROLLER_H_

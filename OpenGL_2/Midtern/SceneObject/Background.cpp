@@ -1,15 +1,5 @@
 #include "Background.h"
 
-Background::Background(int number, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
-	for (int i = 0; i < number; i++) {
-		Star* pStar = new Star(MIN_STAR_SPEED, MIN_STAR_ROTATE_SPEED, false, matModelView, matProjection, shaderHandle);
-		pStar->poolParent = &_starPool;
-		_starPool.Init(pStar);
-	}
-}
-
-Background::~Background() {}
-
 void Background::Draw() {
 	std::vector<Star*>* usingStars = _starPool.GetUsingObjs();
 	for (int i = 0; i < (int)usingStars->size(); i++) {
@@ -32,9 +22,19 @@ void Background::GenerateStar() {
 	if ((int)usingStars->size() < MAX_STAR_NUM) {
 		Star* tmp = _starPool.GetPoolObject();
 		if (tmp != NULL) {
-			tmp->Init(vec3(Random::GetRand((float)WIDTH), Random::GetRand(HEIGHT/1.5f), 0.0f), Random::GetRand((float)MAX_STAR_SPEED, (float)MIN_STAR_SPEED), vec3(Random::GetRand(MAX_STAR_SCALE, MIN_STAR_SCALE)));
+			tmp->Init(vec3(Random::GetRand((float)WIDTH), Random::GetRand(HEIGHT / 1.5f), 0.0f), Random::GetRand((float)MAX_STAR_SPEED, (float)MIN_STAR_SPEED), vec3(Random::GetRand(MAX_STAR_SCALE, MIN_STAR_SCALE)));
 			tmp->SetColor(vec4(1.0f, 1.0f, 1.0f, Random::GetRand(MAX_STAR_ALPHA, MIN_STAR_ALPHA)));
 			tmp->SetRotation(Random::GetRand(MAX_STAR_ROTATE_SPEED, MIN_STAR_ROTATE_SPEED), Random::GetRandBool());
 		}
 	}
 }
+
+Background::Background(int number, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
+	for (int i = 0; i < number; i++) {
+		Star* pStar = new Star(MIN_STAR_SPEED, MIN_STAR_ROTATE_SPEED, false, matModelView, matProjection, shaderHandle);
+		pStar->poolParent = &_starPool;
+		_starPool.Init(pStar);
+	}
+}
+
+Background::~Background() {}

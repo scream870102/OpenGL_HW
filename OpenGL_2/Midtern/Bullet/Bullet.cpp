@@ -1,5 +1,45 @@
 #include "Bullet.h"
 
+void Bullet::Draw() {
+	transform->Draw();
+}
+
+void Bullet::Update(float delta) {
+	//set position due to direction
+	this->transform->position += this->direction * speed * delta;
+	//Update Collider
+	this->collider->SetCenterPoint(this->transform->position);
+	this->collider->SetScale(this->transform->scale.x);
+	//CALL RECYCLE METHOD
+	if (transform->position.y >= HEIGHT || transform->position.y <= 0.0f)
+		poolParent->Recycle(this);
+}
+
+void Bullet::Fire(int type, vec3 position, vec3 direction, float speed, int damage) {
+	this->type = type;
+	this->transform->position = position;
+	this->speed = speed;
+	this->transform->SetColor(colors[type]);
+	this->damage = damage;
+	this->direction = direction;
+}
+
+CircleCollider* Bullet::GetCollider() {
+	return this->collider;
+}
+
+const int Bullet::GetType() {
+	return this->type;
+}
+
+const int Bullet::GetDamage() {
+	return this->damage;
+}
+
+void Bullet::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
+	transform->SetShader(matModelView, matProjection, shaderHandle);
+}
+
 Bullet::Bullet(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	_points[0] = point4(0.0f, -13.0f, 0.0f, 1.0f);
 	_points[1] = point4(-12.0f, 0.0f, 0.0f, 1.0f);
@@ -57,44 +97,4 @@ const Bullet& Bullet::operator=(const Bullet& b) {
 		direction = b.direction;
 	}
 	return *this;
-}
-
-void Bullet::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
-	transform->SetShader(matModelView, matProjection, shaderHandle);
-}
-
-void Bullet::Draw() {
-	transform->Draw();
-}
-
-void Bullet::Update(float delta) {
-	//set position due to direction
-	this->transform->position += this->direction * speed * delta;
-	//Update Collider
-	this->collider->SetCenterPoint(this->transform->position);
-	this->collider->SetScale(this->transform->scale.x);
-	//CALL RECYCLE METHOD
-	if (transform->position.y >= HEIGHT || transform->position.y <= 0.0f)
-		poolParent->Recycle(this);
-}
-
-void Bullet::Fire(int type, vec3 position, vec3 direction, float speed, int damage) {
-	this->type = type;
-	this->transform->position = position;
-	this->speed = speed;
-	this->transform->SetColor(colors[type]);
-	this->damage = damage;
-	this->direction = direction;
-}
-
-CircleCollider* Bullet::GetCollider() {
-	return this->collider;
-}
-
-const int Bullet::GetType() {
-	return this->type;
-}
-
-const int Bullet::GetDamage() {
-	return this->damage;
 }
