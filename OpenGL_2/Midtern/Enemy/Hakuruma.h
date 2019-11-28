@@ -4,7 +4,7 @@
 
 #include "Enemy.h"
 #include "../../Utils/Movement/RandMove.h"
-#define HAKURUMA_NUM 36
+#define HAKURUMA_NUM 60
 #define HAKURUMA_MOVE_SPEED 200.0f
 #define MOVE_Y_MGNFC 0.5f
 #define HAKURUMA_RADIUS 22.0f

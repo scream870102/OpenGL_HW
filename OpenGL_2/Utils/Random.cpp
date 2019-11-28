@@ -11,7 +11,8 @@ float Random::GetRand(float max, float min) {
 int Random::GetRand(int max, int min) {
 	std::random_device rd;
 	std::default_random_engine gen = std::default_random_engine(rd());
-	if (max < min) {
+	if (max == min)return max;
+	else if (max < min) {
 		int tmp = max;
 		max = min;
 		min = tmp;

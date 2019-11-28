@@ -121,6 +121,7 @@
     <ClInclude Include="Midtern\Bullet\TracingBullet.h" />
     <ClInclude Include="Midtern\Character.h" />
     <ClInclude Include="Midtern\CharacterController.h" />
+    <ClInclude Include="Midtern\Enemy\Boss.h" />
     <ClInclude Include="Midtern\Enemy\Enemy.h" />
     <ClInclude Include="Midtern\Enemy\Hakuruma.h" />
     <ClInclude Include="Midtern\Enemy\Shushu.h" />

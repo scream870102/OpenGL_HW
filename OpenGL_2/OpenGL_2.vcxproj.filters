@@ -236,6 +236,9 @@
     <ClInclude Include="Midtern\Player\Guard.h">
       <Filter>Midtern\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Midtern\Enemy\Boss.h">
+      <Filter>Midtern\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fsVtxColor.glsl">

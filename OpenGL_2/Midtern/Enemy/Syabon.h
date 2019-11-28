@@ -4,7 +4,7 @@
 #include "Enemy.h"
 #include "../../Utils/Movement/RandMove.h"
 #include "../../Utils/Movement/TraceMove.h"
-#define SYABON_NUM 6
+#define SYABON_NUM 81
 #define SYABON_MOVE_SPEED 20.0f
 #define MOVE_Y_MGNFC 0.5f
 #define SYABON_RADIUS 22.0f
