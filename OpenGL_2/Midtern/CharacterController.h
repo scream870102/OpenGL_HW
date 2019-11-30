@@ -4,11 +4,15 @@
 #include "Enemy/Shushu.h"
 #include "Enemy/Hakuruma.h"
 #include "Enemy/Syabon.h"
+#include "Enemy/Boss.h"
 #define ENEMY_TYPE_NUM 1
 #define INIT_PLAYER_HEALTH 100
 #define INIT_PLAYER_DAMAGE 50
 #define SHUSHU_HEALTH 500
 #define SHUSHU_DAMAGE 50
+
+#define BOSS_HEALTH 500
+#define BOSS_DAMAGE 50
 class CharacterController
 {
 private:
@@ -17,6 +21,7 @@ private:
 	bool bBossFight;
 public:
 	ObjectPool<Enemy> enemies;
+	Boss* boss;
 	Player* pPlayer;
 private:
 public:

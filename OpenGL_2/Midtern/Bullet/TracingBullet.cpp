@@ -17,8 +17,7 @@ void TracingBullet::Update(float delta) {
 	this->collider->SetCenterPoint(this->transform->position);
 	this->collider->SetScale(this->transform->scale.x);
 	//CALL RECYCLE METHOD
-	if (tracingTimer->IsFinished())poolParent->Recycle(this);
-	if (transform->position.y >= HEIGHT || transform->position.y <= 0.0f)
+	if (transform->position.y > (float)HEIGHT || transform->position.y < 0.0f || tracingTimer->IsFinished())
 		poolParent->Recycle(this);
 }
 

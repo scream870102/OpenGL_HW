@@ -20,6 +20,7 @@ void Hakuruma::Update(float delta) {
 }
 
 Hakuruma::Hakuruma(Player* player, int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(player, ENEMY, damage, health) {
+#pragma region -- POINTS&COLORS --
 	_points[0] = point4(0.0f, -36.0f, 0.0f, 1.0f);
 	_points[1] = point4(-11.0f, -21.0f, 0.0f, 1.0f);
 	_points[2] = point4(0.0f, -24.0f, 0.0f, 1.0f);
@@ -140,6 +141,8 @@ Hakuruma::Hakuruma(Player* player, int damage, int health, vec3 initPos, mat4& m
 	_colors[57] = color4(0.9490196078431372f, 0.11372549019607843f, 0.19215686274509805f, 1.0f);
 	_colors[58] = color4(0.9490196078431372f, 0.11372549019607843f, 0.19215686274509805f, 1.0f);
 	_colors[59] = color4(0.9490196078431372f, 0.11372549019607843f, 0.19215686274509805f, 1.0f);
+#pragma endregion
+
 	transform = new Transform();
 	transform->Init(_points, _colors, HAKURUMA_NUM, matModelView, matProjection, shaderHandle);
 	transform->position = initPos;

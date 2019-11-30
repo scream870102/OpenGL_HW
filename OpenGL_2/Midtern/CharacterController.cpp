@@ -25,18 +25,21 @@ void CharacterController::Update(float delta) {
 	}
 	//Check if bullet collision with player's guard
 	std::vector<Guard*> enableGuards = pPlayer->GetEnableGuards();
-	for (size_t i = 0; i < enableGuards.size(); i++)	{
-		bool bCollide=BulletPool::GetInstance()->CheckCollision(enableGuards[i]->GetCollider(),ENEMY);
+	for (size_t i = 0; i < enableGuards.size(); i++) {
+		bool bCollide = BulletPool::GetInstance()->CheckCollision(enableGuards[i]->GetCollider(), ENEMY);
 		if (bCollide) {
 			enableGuards[i]->IsEnable = false;
-			Print("Hit guard");
 		}
 	}
-	
+
 	//Check if bullet collision with player
 	BulletPool::GetInstance()->CheckCollisionWithCharacter(pPlayer);
 	//Update Player
 	pPlayer->Update(delta);
+	if (bBossFight) {
+		BulletPool::GetInstance()->CheckCollisionWithCharacter(boss);
+		boss->Update(delta);
+	}
 
 }
 
@@ -48,6 +51,8 @@ void CharacterController::Draw() {
 	}
 	//Draw Player
 	pPlayer->Draw();
+	if (bBossFight)
+		boss->Draw();
 
 }
 
@@ -60,7 +65,7 @@ void CharacterController::StartBossFight() {
 	bBossFight = true;
 }
 
-std::vector<Enemy*>* CharacterController::GetActiveEnemies(){
+std::vector<Enemy*>* CharacterController::GetActiveEnemies() {
 	return enemies.GetUsingObjs();
 }
 
@@ -72,6 +77,7 @@ CharacterController::CharacterController(int maxEnemyNum, Input* input, mat4& ma
 	enemyDie = 0;
 	bBossFight = false;
 	this->maxEnemyNum = maxEnemyNum;
+	boss = new Boss(pPlayer, BOSS_DAMAGE, BOSS_HEALTH, vec3(WIDTH / 2.0f, 100, 0.0f), matModelView, matProjection, shaderHandle);
 	//Spawn enemy
 	for (int i = 0; i < maxEnemyNum / (float)ENEMY_TYPE_NUM * 1.2f; i++) {
 		//SECTION SHUSHU
@@ -105,4 +111,5 @@ CharacterController::CharacterController(int maxEnemyNum, Input* input, mat4& ma
 
 CharacterController::~CharacterController() {
 	if (pPlayer != NULL)delete pPlayer;
+	if (boss != NULL)delete boss;
 }

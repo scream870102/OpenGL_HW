@@ -3,11 +3,11 @@
 #include "CharacterController.h"
 #include "SceneObject/SmokePool.h"
 #include <vector>
-#define MAX_BULLET_NUM 100
+#define MAX_BULLET_NUM 500
 #define MAX_SMOKE_NUM 200
 #define MAX_BG_NUM 50
 #define MAX_ENEMY_NUM 3
-#define ENEMY_NUM_TO_KILL 10
+#define ENEMY_NUM_TO_KILL 3
 class MainScene
 {
 private:
@@ -19,6 +19,7 @@ private:
 	SmokePool* pSmokePool;
 	Background* pBg;
 	CharacterController* pCc;
+	bool bBossFight;
 public:
 private:
 public:

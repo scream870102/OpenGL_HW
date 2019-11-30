@@ -2,11 +2,14 @@
 #include "../../Utils/Transform.h"
 #include "../../Utils/ObjectPool.h"
 #include "../../Utils/Collider/CircleCollider.h"
+#include "../../Utils/CountdownTimer.h"
 #define BULLET_NUM 6
 #define COLOR_NUM 3
 #define BULLET_RADIUS 12.5f
+#define REMAIN_TIME 3000
 class Bullet
 {
+private:
 protected:
 	point4 _points[BULLET_NUM];
 	color4 _colors[BULLET_NUM];

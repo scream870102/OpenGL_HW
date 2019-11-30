@@ -1,11 +1,12 @@
 #include "MainScene.h"
 
 void MainScene::Update(float delta) {
-	pBulletPool->Update(delta);
 	pBg->Update(delta);
 	pCc->Update(delta);
+	pBulletPool->Update(delta);
 	pSmokePool->Update(delta);
-	if (pCc->HowManyEnemyDie() >= ENEMY_NUM_TO_KILL) {
+	if (!bBossFight&&pCc->HowManyEnemyDie() >= ENEMY_NUM_TO_KILL) {
+		bBossFight = true;
 		pCc->StartBossFight();
 	}
 
@@ -44,6 +45,7 @@ MainScene::MainScene() {
 	pCc = new CharacterController(MAX_ENEMY_NUM, &(this->input), matModelView, matProjection);
 	pBulletPool = BulletPool::Create(MAX_BULLET_NUM, matModelView, matProjection);
 	pSmokePool = SmokePool::Create(MAX_SMOKE_NUM, matModelView, matProjection);
+	bBossFight = false;
 }
 
 MainScene::~MainScene() {

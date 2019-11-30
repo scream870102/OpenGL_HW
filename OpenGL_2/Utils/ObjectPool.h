@@ -45,8 +45,8 @@ void ObjectPool<T>::Recycle(T* object) {
 		//Get the index by using distance
 		int index = std::distance(v.begin(), it);
 		v.erase(v.begin() + index);
+		q.push(object);
 	}
-	q.push(object);
 }
 
 template<class T>

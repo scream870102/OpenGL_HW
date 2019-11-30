@@ -43,6 +43,9 @@
     <Filter Include="Utils\Collider">
       <UniqueIdentifier>{9366d1fd-8119-41eb-af8a-825be8eceeaa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Midtern\Enemy\StateMachine">
+      <UniqueIdentifier>{a68b8c1b-8a9d-4ffd-b18c-c52402290a0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InitShader.cpp">
@@ -137,6 +140,18 @@
     </ClCompile>
     <ClCompile Include="Midtern\Player\Guard.cpp">
       <Filter>Midtern\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Enemy\Boss.cpp">
+      <Filter>Midtern\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Enemy\StateMachine\State.cpp">
+      <Filter>Midtern\Enemy\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Enemy\StateMachine\TraceState.cpp">
+      <Filter>Midtern\Enemy\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Enemy\StateMachine\ShotGunState.cpp">
+      <Filter>Midtern\Enemy\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +253,15 @@
     </ClInclude>
     <ClInclude Include="Midtern\Enemy\Boss.h">
       <Filter>Midtern\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Enemy\StateMachine\State.h">
+      <Filter>Midtern\Enemy\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Enemy\StateMachine\TraceState.h">
+      <Filter>Midtern\Enemy\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Enemy\StateMachine\ShotGunState.h">
+      <Filter>Midtern\Enemy\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

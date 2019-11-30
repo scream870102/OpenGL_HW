@@ -8,8 +8,8 @@ class Enemy :public Character
 {
 private:
 protected:
-	Player* pPlayer;
 public:
+	Player* pPlayer;
 	CountDownTimer* shootTimer;
 	ObjectPool<Enemy>* poolParent;
 private:

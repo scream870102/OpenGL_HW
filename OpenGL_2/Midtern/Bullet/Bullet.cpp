@@ -11,7 +11,7 @@ void Bullet::Update(float delta) {
 	this->collider->SetCenterPoint(this->transform->position);
 	this->collider->SetScale(this->transform->scale.x);
 	//CALL RECYCLE METHOD
-	if (transform->position.y >= HEIGHT || transform->position.y <= 0.0f)
+	if ((transform->position.y > (float)HEIGHT) || (transform->position.y < 0.0f))
 		poolParent->Recycle(this);
 }
 
@@ -41,6 +41,7 @@ void Bullet::SetShader(mat4& matModelView, mat4& matProjection, GLuint shaderHan
 }
 
 Bullet::Bullet(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
+#pragma region -- POINTS&COLORS --
 	_points[0] = point4(0.0f, -13.0f, 0.0f, 1.0f);
 	_points[1] = point4(-12.0f, 0.0f, 0.0f, 1.0f);
 	_points[2] = point4(12.0f, 0.0f, 0.0f, 1.0f);
@@ -53,6 +54,7 @@ Bullet::Bullet(mat4& matModelView, mat4& matProjection, GLuint shaderHandle) {
 	_colors[3] = color4(1.0f, 1.0f, 1.0f, 1.0f);
 	_colors[4] = color4(1.0f, 1.0f, 1.0f, 1.0f);
 	_colors[5] = color4(1.0f, 1.0f, 1.0f, 1.0f);
+#pragma endregion
 	poolParent = NULL;
 	transform = new Transform();
 	transform->Init(_points, _colors, BULLET_NUM, matModelView, matProjection, shaderHandle);

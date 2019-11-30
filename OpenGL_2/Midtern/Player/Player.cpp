@@ -32,7 +32,6 @@ std::vector<Guard*> Player::GetEnableGuards() {
 
 void Player::Dead() {
 	Character::Dead();
-	//Print("HEYHEYHEY");
 }
 
 void Player::ShotGun(float delta) {
@@ -196,7 +195,6 @@ Player::Player(int damage, int health, mat4& matModelView, mat4& matProjection, 
 	_colors[48] = color4(1.0f, 1.0f, 1.0f, 1.0f);
 	_colors[49] = color4(1.0f, 1.0f, 1.0f, 1.0f);
 	_colors[50] = color4(1.0f, 1.0f, 1.0f, 1.0f);
-
 	input = NULL;
 	transform = new Transform();
 	transform->Init(_points, _colors, P_NUM, matModelView, matProjection, shaderHandle);
@@ -223,6 +221,7 @@ Player::~Player() {
 	if (traceTimer != NULL)delete traceTimer;
 	//!!!!!!!!!!!!!!!!!!
 	//DELETE FOR GUARD
+	if (guardTimer != NULL)delete guardTimer;
 }
 
 Player::Player(const Player& p) :Character(p) {
@@ -233,13 +232,13 @@ Player::Player(const Player& p) :Character(p) {
 	shootTimer = new CountDownTimer(*p.shootTimer);
 	shotGunTimer = new CountDownTimer(*p.shotGunTimer);
 	traceTimer = new CountDownTimer(*p.traceTimer);
+	guardTimer = new CountDownTimer(*p.guardTimer);
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	input = p.input;
 	bShotGun = p.bShotGun;
 	pCC = p.pCC;
 	bTrace = p.bTrace;
-	//!!!!!!!!!!!!!!!!!!
-	//DELETE FOR GUARD
+	guardRotOffset = p.guardRotOffset;
 
 }
 
@@ -253,13 +252,12 @@ const Player& Player::operator=(const Player& p) {
 		shootTimer = new CountDownTimer(*p.shootTimer);
 		shotGunTimer = new CountDownTimer(*p.shotGunTimer);
 		traceTimer = new CountDownTimer(*p.traceTimer);
+		guardTimer = new CountDownTimer(*p.guardTimer);
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		input = p.input;
 		bShotGun = false;
 		pCC = p.pCC;
 		bTrace = p.bTrace;
-		//!!!!!!!!!!!!!!!!!!
-		//DELETE FOR GUARD
 	}
 	return *this;
 }

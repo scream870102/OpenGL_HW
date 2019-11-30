@@ -15,10 +15,6 @@ void Shushu::AutoRotation(float delta) {
 	vec3 tmp = this->transform->scale;
 	tmp += SCALE_VEL * delta;
 	this->transform->scale = tmp;
-	//if (this->move->IsFacingRight())
-	//	this->transform->rotation.z += ROTATE_SPEED * delta;
-	//else
-	//	this->transform->rotation.z -= ROTATE_SPEED * delta;
 }
 
 Shushu::Shushu(Player* player, int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(player, ENEMY, damage, health) {
@@ -143,7 +139,6 @@ Shushu::Shushu(Player* player, int damage, int health, vec3 initPos, mat4& matMo
 }
 
 Shushu::~Shushu() {
-	//if (timer != NULL)delete timer;
 	if (move != NULL)delete move;
 }
 
@@ -152,20 +147,17 @@ Shushu::Shushu(const Shushu& s) :Enemy(s) {
 	memcpy(_colors, s._colors, sizeof(s._colors));
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//TOFIX:CHECK IF THIS RIGHT WAY
-	//timer = new CountDownTimer(*s.timer);
 	move = new PingPongMove(*s.move);
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
 Shushu& Shushu::operator=(const Shushu& s) {
 	if (&s != this) {
-		//if (timer != NULL)delete timer;
 		if (move != NULL)delete move;
 		memcpy(_points, s._points, sizeof(s._points));
 		memcpy(_colors, s._colors, sizeof(s._colors));
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//TOFIX:CHECK IF THIS RIGHT WAY
-		//timer = new CountDownTimer(*s.timer);
 		move = new PingPongMove(*s.move);
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}

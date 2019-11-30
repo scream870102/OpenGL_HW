@@ -14,6 +14,7 @@ public:
 	bool IsFinished();
 	void Reset();
 	void Reset(int newCD);
+	void SetCD(int newCD);
 	int GetCD();
 	int Remain();
 };

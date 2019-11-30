@@ -9,7 +9,6 @@
 #include "../../Utils/Mathf.h"
 #include "Guard.h"
 #define PLAYER_NUM 51
-//#define PLAYER_NUM 39
 #define BULLETS_NUM 10
 #define NORMAL_BULLET_SPEED 500
 #define PLAYER_SHOOT_CD 100

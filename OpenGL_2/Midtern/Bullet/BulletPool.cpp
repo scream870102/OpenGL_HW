@@ -120,7 +120,7 @@ BulletPool::BulletPool(int number, mat4& matModelView, mat4& matProjection, GLui
 		pBullet->poolParent = &_bulletPool;
 		_bulletPool.Init(pBullet);
 	}
-	for (int i = 0; i < number / 2; i++) {
+	for (int i = 0; i < number / 5; i++) {
 		TracingBullet* pTBullet = new TracingBullet(matModelView, matProjection, shaderHandle);
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//CHECK
