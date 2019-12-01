@@ -2,8 +2,10 @@
 #include "Star.h"
 #include "../../Utils/Random.h"
 #define MAX_STAR_NUM 20
-#define MAX_STAR_SPEED 80
-#define MIN_STAR_SPEED 50
+#define MAX_STAR_BOSS_SPEED 500.0f
+#define MIN_STAR_BOSS_SPEED 250.0f
+#define MAX_STAR_SPEED 80.0f
+#define MIN_STAR_SPEED 50.0f
 #define MIN_STAR_ALPHA 0.25f
 #define MAX_STAR_ALPHA 0.75f
 #define MAX_STAR_SCALE 0.75f
@@ -14,6 +16,7 @@ class Background
 {
 private:
 	ObjectPool<Star> _starPool;
+	bool bBossFight;
 public:
 private:
 	void GenerateStar();
@@ -22,5 +25,6 @@ public:
 	~Background();
 	void Draw();
 	void Update(float delta);
+	void StartBossFight();
 };
 

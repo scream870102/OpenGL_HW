@@ -153,6 +153,12 @@
     <ClCompile Include="Midtern\Enemy\StateMachine\ShotGunState.cpp">
       <Filter>Midtern\Enemy\StateMachine</Filter>
     </ClCompile>
+    <ClCompile Include="Midtern\Enemy\StateMachine\SinState.cpp">
+      <Filter>Midtern\Enemy\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Midtern\Enemy\StateMachine\ParallelState.cpp">
+      <Filter>Midtern\Enemy\StateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Angel.h">
@@ -261,6 +267,12 @@
       <Filter>Midtern\Enemy\StateMachine</Filter>
     </ClInclude>
     <ClInclude Include="Midtern\Enemy\StateMachine\ShotGunState.h">
+      <Filter>Midtern\Enemy\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Enemy\StateMachine\SinState.h">
+      <Filter>Midtern\Enemy\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Midtern\Enemy\StateMachine\ParallelState.h">
       <Filter>Midtern\Enemy\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>

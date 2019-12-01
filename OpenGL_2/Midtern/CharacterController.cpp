@@ -90,7 +90,7 @@ CharacterController::CharacterController(int maxEnemyNum, Input* input, mat4& ma
 		//END SECTION SHUHSU
 
 		//SECTION HAKURUMA
-		Enemy* hakuruma = new Hakuruma(pPlayer, SHUSHU_DAMAGE, SHUSHU_HEALTH,
+		Enemy* hakuruma = new Hakuruma(pPlayer, HAKURUMA_DAMAGE, HAKURUMA_HEALTH,
 			vec3(Random::GetRand((float)WIDTH), Random::GetRand(HEIGHT / 3.0f), 0.0f)
 			, matModelView, matProjection, shaderHandle
 		);
@@ -99,7 +99,7 @@ CharacterController::CharacterController(int maxEnemyNum, Input* input, mat4& ma
 		//END SECTION HAKURUMA
 
 		//SECTION SYABON
-		Enemy* syabon = new Syabon(pPlayer, SHUSHU_DAMAGE, SHUSHU_HEALTH,
+		Enemy* syabon = new Syabon(pPlayer, SYABON_DAMAGE, SYABON_HEALTH,
 			vec3(50.0f, 50.0f, 0.0f)
 			, matModelView, matProjection, shaderHandle
 		);

@@ -1,7 +1,4 @@
 ﻿  CharacterController.cpp
-  Boss.cpp
-  ShotGunState.cpp
-  TraceState.cpp
   Main.cpp
   MainScene.cpp
   Player.cpp

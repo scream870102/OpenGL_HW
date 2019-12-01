@@ -10,6 +10,7 @@
 #include "Guard.h"
 #define PLAYER_NUM 51
 #define BULLETS_NUM 10
+#define PLYER_INIT_SCALE 0.60f
 #define NORMAL_BULLET_SPEED 500
 #define PLAYER_SHOOT_CD 100
 #define PLAYER_RADIUS 50.0f
@@ -23,7 +24,7 @@
 #define TRACE_CD 500
 #define TRACE_TIME 2000
 #define GUARD_MAX_NUM 5
-#define GUARD_DISTANCE 100.0f
+#define GUARD_DISTANCE 65.0f
 #define GUARD_ROTATE_VEL 100.0f
 #define GUARD_CD 2000
 typedef std::vector<Bullet*>* BVectorP;
@@ -41,7 +42,6 @@ private:
 	bool bShotGun;
 	bool bTrace;
 	CharacterController* pCC;
-	//TEST
 	std::vector<Guard*> guards;
 	float guardRotOffset;
 	CountDownTimer* guardTimer;

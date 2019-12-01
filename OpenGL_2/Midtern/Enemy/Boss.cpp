@@ -1,7 +1,31 @@
 #include "Boss.h"
 
 
+void Boss::Dead() {
+	Character::Dead();
+	this->transform->SetAlpha(0.2f);
+}
+
+void Boss::DamageAnim(float delta) {
+	if (!damageTimer->IsFinished()) {
+		float a = this->transform->GetAlpha();
+		this->transform->SetAlpha(a - DAMAGA_FADE_VEL * delta);
+		if (damageTimer->Remain() % SMOKE_HZ == 0) {
+			vec3 bombPos=this->transform->position;
+			bombPos.x += Random::GetRand(BOSS_RADIUS, -BOSS_RADIUS);
+			bombPos.y += Random::GetRand(BOSS_RADIUS, -BOSS_RADIUS);
+			SmokePool::GetInstance()->Bomb(bombPos);
+		}
+	}
+	else {
+		this->transform->SetAlpha(1.0f);
+		bTakeDamage = false;
+	}
+
+}
+
 void Boss::Update(float delta) {
+	if (IsDead())return;
 	Enemy::Update(delta);
 	if (currentState != NULL) {
 		//Check state in vector is ready and choose one of them start the action
@@ -19,7 +43,6 @@ void Boss::Update(float delta) {
 }
 
 Boss::Boss(Player* player, int damage, int health, vec3 initPos, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Enemy(player, ENEMY, damage, health) {
-
 #pragma region -- POINT&COLOR --
 	_points[0] = point4(-3.0f, -29.0f, 0.0f, 1.0f);
 	_points[1] = point4(-26.0f, -18.0f, 0.0f, 1.0f);
@@ -103,8 +126,11 @@ Boss::Boss(Player* player, int damage, int health, vec3 initPos, mat4& matModelV
 	transform = new Transform();
 	transform->Init(_points, _colors, BOSS_NUM, matModelView, matProjection, shaderHandle);
 	transform->position = initPos;
+	transform->scale = vec3(BOSS_INIT_SCALE);
 	states.push_back(new TraceState(this, (int)Boss::ACTION_TIME::TRACE, (int)Boss::CD::TRACE, transform));
 	states.push_back(new ShotGunState(this, (int)Boss::ACTION_TIME::SHOTGUN, (int)Boss::CD::SHOTGUN, transform));
+	states.push_back(new SinState(this, (int)Boss::ACTION_TIME::SIN, (int)Boss::CD::SIN, transform));
+	states.push_back(new ParellelState(this, (int)Boss::ACTION_TIME::PARALLEL, (int)Boss::CD::PARALLEL, transform));
 	currentState = states[Random::GetRand((int)states.size() - 1)];
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//MUST SET ORIGINAL COLORS
@@ -114,8 +140,8 @@ Boss::Boss(Player* player, int damage, int health, vec3 initPos, mat4& matModelV
 }
 
 Boss::~Boss() {
-	for (int i = 0; i < (int)states.size(); i++)	{
-		if (states[i] != NULL) 
+	for (int i = 0; i < (int)states.size(); i++) {
+		if (states[i] != NULL)
 			delete states[i];
 	}
 	states.clear();

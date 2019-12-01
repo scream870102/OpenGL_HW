@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../CharacterController.h"
 void Player::Update(float delta) {
+	if (IsDead())return;
 	Character::Update(delta);
 	//Modify player position due to mouse position
 	this->transform->position.x = (GLfloat)Mathf::Clamp((float)input->mouseX, (float)WIDTH);
@@ -32,6 +33,7 @@ std::vector<Guard*> Player::GetEnableGuards() {
 
 void Player::Dead() {
 	Character::Dead();
+	this->transform->SetAlpha(0.0f);
 }
 
 void Player::ShotGun(float delta) {
@@ -93,6 +95,7 @@ void Player::NormalShot(float delta) {
 }
 
 Player::Player(int damage, int health, mat4& matModelView, mat4& matProjection, GLuint shaderHandle) :Character(PLAYER, damage, health) {
+#pragma region -- POINTS&COLORS --
 	_points[0] = point4(0.0f, -41.0f, 0.0f, 1.0f);
 	_points[1] = point4(-40.0f, -28.0f, 0.0f, 1.0f);
 	_points[2] = point4(0.0f, 0.0f, 0.0f, 1.0f);
@@ -195,9 +198,11 @@ Player::Player(int damage, int health, mat4& matModelView, mat4& matProjection, 
 	_colors[48] = color4(1.0f, 1.0f, 1.0f, 1.0f);
 	_colors[49] = color4(1.0f, 1.0f, 1.0f, 1.0f);
 	_colors[50] = color4(1.0f, 1.0f, 1.0f, 1.0f);
+#pragma endregion
 	input = NULL;
 	transform = new Transform();
 	transform->Init(_points, _colors, P_NUM, matModelView, matProjection, shaderHandle);
+	transform->scale = vec3(PLYER_INIT_SCALE);
 	collider = new CircleCollider(PLAYER_RADIUS, this->transform->position);
 	shootTimer = new CountDownTimer(PLAYER_SHOOT_CD);
 	shotGunTimer = new CountDownTimer(SHOT_GUN_CD);

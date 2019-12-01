@@ -6,8 +6,8 @@
 #define MAX_BULLET_NUM 500
 #define MAX_SMOKE_NUM 200
 #define MAX_BG_NUM 50
-#define MAX_ENEMY_NUM 3
-#define ENEMY_NUM_TO_KILL 3
+#define MAX_ENEMY_NUM 5
+#define ENEMY_NUM_TO_KILL 15
 class MainScene
 {
 private:

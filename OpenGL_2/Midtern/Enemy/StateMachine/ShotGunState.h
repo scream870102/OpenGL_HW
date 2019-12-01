@@ -5,6 +5,7 @@
 #define B_SHOUT_GUN_NUM 5
 #define B_SHOUT_GUN_OFFSET 20.0f
 #define B_SHOT_GUN_SPEED 250.0f
+#define B_SHOT_GUN_ROT_VEL -250.0f
 class Boss;
 class ShotGunState : public State
 {

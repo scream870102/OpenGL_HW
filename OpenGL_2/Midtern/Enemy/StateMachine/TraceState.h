@@ -4,6 +4,7 @@
 #define HZ 150
 #define B_TRACE_SPEED 500
 #define B_TRACE_TIME 1500
+#define B_TS_ROT_VEL -1500.0f
 class Boss;
 class TraceState : public State
 {

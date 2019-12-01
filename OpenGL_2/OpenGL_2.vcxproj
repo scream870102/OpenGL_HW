@@ -90,7 +90,9 @@
     <ClCompile Include="Midtern\Enemy\Enemy.cpp" />
     <ClCompile Include="Midtern\Enemy\Hakuruma.cpp" />
     <ClCompile Include="Midtern\Enemy\Shushu.cpp" />
+    <ClCompile Include="Midtern\Enemy\StateMachine\ParallelState.cpp" />
     <ClCompile Include="Midtern\Enemy\StateMachine\ShotGunState.cpp" />
+    <ClCompile Include="Midtern\Enemy\StateMachine\SinState.cpp" />
     <ClCompile Include="Midtern\Enemy\StateMachine\State.cpp" />
     <ClCompile Include="Midtern\Enemy\StateMachine\TraceState.cpp" />
     <ClCompile Include="Midtern\Enemy\Syabon.cpp" />
@@ -129,7 +131,9 @@
     <ClInclude Include="Midtern\Enemy\Enemy.h" />
     <ClInclude Include="Midtern\Enemy\Hakuruma.h" />
     <ClInclude Include="Midtern\Enemy\Shushu.h" />
+    <ClInclude Include="Midtern\Enemy\StateMachine\ParallelState.h" />
     <ClInclude Include="Midtern\Enemy\StateMachine\ShotGunState.h" />
+    <ClInclude Include="Midtern\Enemy\StateMachine\SinState.h" />
     <ClInclude Include="Midtern\Enemy\StateMachine\State.h" />
     <ClInclude Include="Midtern\Enemy\StateMachine\TraceState.h" />
     <ClInclude Include="Midtern\Enemy\Syabon.h" />

@@ -5,6 +5,9 @@ void ShotGunState::InitAction() {
 }
 
 void ShotGunState::Action(float delta) {
+	float z = pBoss->transform->rotation.z + B_SHOT_GUN_ROT_VEL * delta;
+	z = Mathf::Clamp(z, 360.0f);
+	pBoss->transform->rotation.z = z;
 	if (shotTimer->IsFinished()) {
 		shotTimer->Reset();
 		//shot bullets

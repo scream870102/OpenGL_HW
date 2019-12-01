@@ -1,6 +1,7 @@
 #pragma once
 #include "../../../Utils/CountdownTimer.h"
 #include "../../../Utils/Transform.h"
+#include "../../../Utils/Random.h"
 class State
 {
 	enum class STATE

@@ -8,6 +8,7 @@ void MainScene::Update(float delta) {
 	if (!bBossFight&&pCc->HowManyEnemyDie() >= ENEMY_NUM_TO_KILL) {
 		bBossFight = true;
 		pCc->StartBossFight();
+		pBg->StartBossFight();
 	}
 
 	//INPUT MUST BE LAST ONE

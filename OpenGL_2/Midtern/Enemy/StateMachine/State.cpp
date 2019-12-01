@@ -17,7 +17,7 @@ bool State::Update(float delta) {
 	//SET STATE TO CD AND RESET CD
 	if (eState == STATE::ACTION && timer->IsFinished()) {
 		eState = STATE::CD;
-		timer->Reset(cd);
+		timer->Reset(Random::GetRand(cd,cd/2));
 		return true;
 	}
 	//Still in action state keep call action method
@@ -28,13 +28,9 @@ bool State::Update(float delta) {
 	else
 		return true;
 }
-void State::Action(float delta){
+void State::Action(float delta){}
 
-}
-
-void State::InitAction(){
-
-}
+void State::InitAction(){}
 
 void State::StartAction(){
 	eState = STATE::ACTION;
@@ -43,7 +39,7 @@ void State::StartAction(){
 }
 
 State::State(int actionTime, int cd, Transform* transform) {
-	timer = new CountDownTimer(cd);
+	timer = new CountDownTimer(cd,Random::GetRand(cd));
 	this->actionTime = actionTime;
 	this->cd = cd;
 	this->transform = transform;
